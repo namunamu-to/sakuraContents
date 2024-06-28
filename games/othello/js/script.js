@@ -1,8 +1,11 @@
-//タイルの定義
-draws.background = () => { //背景描画
+//定義
+
+
+
+//背景描画
+draws.background = () => {
     fillRect("#aaa", 0, 0, canvasElm.width, canvasElm.width);
 }
-
 
 draws.board = () => { //ボード描画
     let sideTileNum = 8; //値が8なら8x8のマスが生まれる
@@ -21,3 +24,10 @@ draws.board = () => { //ボード描画
         drawLine("#fff", baseX+offset, baseY, baseX+offset, baseY+boardSize); //縦ラインを描画     
     }
 }
+
+
+readImg("img/self0.png", "self0");
+draws.self = ()=>{
+    drawImg("self0", 100, 100, 100, 100);
+    console.log(imgs);
+} 
