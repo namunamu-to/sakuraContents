@@ -1,69 +1,66 @@
-function getWidth(elm) {
-    return elm.clientWidth;
+const body = document.body;
+
+//canvas要素追加
+(function () {
+    const addHtml = `<canvas id="canvasElm"></canvas>`;
+    body.innerHTML += addHtml;
+}());
+
+//canvasの定義
+const ctx = canvasElm.getContext("2d");
+let draws = {};
+
+
+function fillRect(color, x1, y1, x2, y2) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x1, y1, x2, y2);
 }
 
-function getHeight(elm) {
-    return elm.clientHeight;
+function drawLine(color, x, y, x1, y1) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x1, y1);
+    ctx.stroke();
 }
 
-function setWidth(elm, width) {
-    elm.style.width = width + "px";
-}
+setInterval(() => { //描画更新
+    canvasElm.width = window.innerWidth;
+    canvasElm.height = window.innerHeight;
+    for(let key of Object.keys(draws)){
+        draws[key]();
+        console.log(draws[key]);
+    }
 
-function setHeight(elm, height) {
-    elm.style.height = height + "px";
-}
+}, 33); //30fps
 
-function setSize(elm, width, height) {
-    setWidth(elm, width);
-    setHeight(elm, height);
-}
 
-function getX(elm) {
-    const pos = elm.getBoundingClientRect();
-    return pos.x;
-}
+//dialogの設定
+(function () {
+    const style = `
+        padding: 1rem;
+        font-size: 3rem;
+        width: fit-content;
+        height: fit-content;
+        background-color: #fff;
+        margin: auto;
+        display: none;
+        text-align: center;
+        top: 0;
+        left: 0;
+    `;
 
-function setX(elm, x) {
-    elm.style.left = parseInt(x) + "px";
-}
+    const addHtml = `<div class="position-fixed border border-dark dialogElm" id="showDialogElm" style="${style}"></div>`;
+    body.innerHTML += addHtml;
+}());
 
-function setY(elm, y) {
-    elm.style.top = parseInt(y) + "px";
-}
 
-function getY(elm) {
-    const pos = elm.getBoundingClientRect();
-    return pos.y;
-}
+function dialog(innerHTML = "") {
+    if (innerHTML == "") {
+        showDialogElm.style.display = "none";
+        return;
+    }
 
-function setPosition(elm, toX, toY){
-    setX(elm, toX);
-    setY(elm, toY);
-}
-
-function getCenterX(elm) {
-    let x = getX(elm);
-    x += x / 2;
-    return x;
-}
-
-function getCenteryY(elm) {
-    let y = getY(elm);
-    y += y / 2;
-    return y;
-}
-
-function makeElm(toElm, tagName, id = "", className = "") {
-    const elm = document.createElement(tagName);
-    elm.setAttribute("class", className);
-    elm.setAttribute("id", id);
-    toElm.appendChild(elm);
-
-    return elm;
-}
-
-function myDialog(msg){
-    dialogElm.style.display = "block";
-    dialogElm.innerHTML = msg;
+    showDialogElm.style.display = "block";
+    showDialogElm.innerHTML = innerHTML;
 }
