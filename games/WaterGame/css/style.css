@@ -1,0 +1,72 @@
+#gameDisplay {
+    width: 50%;
+    height: 600px;
+    border: solid #000 2px;
+    margin-left: auto;
+    margin-right: auto;
+    background:url('../img/bg_natural_ocean.jpg');
+    background-size: cover; /* 背景画像を要素内に収める */
+    background-position: center; /* 背景画像の表示位置を中央に設定 */
+    position: relative;
+    overflow: hidden;
+
+}
+
+.lingTossPole {
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 10px;
+    width: 60px;
+    background-color: red;
+    position: absolute;
+    top: 200px;
+}
+
+
+#leftLingTossPole {
+    left :30%;
+}
+
+#rightLingTossPole {
+    left:70%;
+}
+
+.ring {
+    position: absolute;
+}
+
+#Ope{
+    text-indent: 5%;
+    line-height: 0.8;
+}
+
+#ad{
+    text-align: center;
+    padding-bottom: 3rem;
+}
+
+#Credit{
+    text-align: center;
+}
+
+#point{
+    background-color: #fff;
+    width: 5rem;
+    height: 2rem;
+    position: absolute;
+    text-align: center;
+    right: 0px;
+    top: 0px;
+}
+
+#gameMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: white;
+
+    white-space: nowrap; /* テキストの折り返しを無効にする */
+    text-align: center; /* テキストを中央に配置する */
+}

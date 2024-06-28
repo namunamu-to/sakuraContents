@@ -1,0 +1,24 @@
+#gameDisplayElm{
+    border: 1px solid #000;
+    width: min(95vw, 95vh);
+    height: min(95vw, 95vh);
+    margin: 1rem auto;
+    position: relative;
+}
+
+#nextInputElmWrap{
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    text-align: center;
+}
+
+#nextInputElm{
+    font-size: 15rem;
+}
+
+#menu{
+    text-align: center;
+
+    padding: 2rem 1rem 0rem 1rem;
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[AI画像生成ノウハウ1]たった3行のpythonコードでAI画像を生成する方法</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- highlight.js関連 -->
+    <link rel="stylesheet" href="css/hilight.css">
+    <script src="js/highlight.min.js"></script>
+</head>
+
+<body>
+    <script src="../js/header.js"></script>
+
+    <div class="ad">
+        <script
+            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+        <script type="text/javascript"
+            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div>
+
+    <main>
+        <h1>[AI画像生成ノウハウ1]たった3行のpythonコードでAI画像を生成する方法</h1>
+        <h2>デモ</h2>
+        <p>以下が実際のコードです</p>
+
+        <pre><code class="language-python">
+            from diffusers import StableDiffusionPipeline
+            pipe = StableDiffusionPipeline.from_single_file("./AnythingXL_v50.safetensors", num_inference_steps=20)
+            pipe(prompt="girl", width=512, height=512).images[0].save(f"./janerated.png")
+          </code></pre>
+
+        <p>上記のコードを実行して実際に生成された画像は以下の通りです</p>
+        <p><img src="./img/jenerated1.png"></p>
+        <p><img src="./img/jenerated2.png"></p>
+        <p><img src="./img/jenerated3.png"></p>
+        <p><img src="./img/jenerated4.png"></p>
+
+
+
+        <h2>解説</h2>
+        <p>次は各行の解説をします</p>
+
+        <h3>1行目</h3>
+        <pre><code class="language-python">
+            from diffusers import StableDiffusionPipeline
+          </code></pre>
+        <p>1行目の意味は、「<a href="explainWord/diffusers.html">diffusers</a>という<a
+                href="./explainWord/pythonLibrary.html">ライブラリ</a>の中にある、StableDiffusionPipelineというファイルを読み込む」です</p>
+        <p>diffusersライブラリをインストールしないと1行目が実行できないのでご注意ください。</p>
+
+        <h3>2行目</h3>
+        <pre><code class="language-python">
+            pipe = StableDiffusionPipeline.from_single_file("./AnythingXL_v50.safetensors", num_inference_steps=20)
+          </code></pre>
+        <p>2行目ではfrom_single_file関数を使って<a href="./explainWord/jenerateImgModel.html">画像生成モデル</a>を読み込んでいます。</p>
+        <p>第一引数で<a href="">画像生成モデル</a>のファイルパスを指定して読み込み、戻り値をpipe変数に代入しています。</p>
+        <p>この時、pipe変数には実際に画像生成を行うための関数が入っています。</p>
+        <p>第二引数と第三引数では、生成する画像の横幅と高さを指定しています。</p>
+        <p>生成する画像が大きいほど、生成に時間がかかるのでお気を付けください。</p>
+        <p>ですので画像生成には程良い大きさをしていしてあげる必要があります。</p>
+        <p>おすすめは、横幅512、高さ512。</p>
+        <p>もしくは横幅512、高さ768がおすすめです。</p>
+        <p>今回使用した画像生成モデルは、以下のリンクからダウンロードできます。</p>
+        <p><a href="https://civitai.com/models/9409?modelVersionId=30163"
+                target="_blank">https://civitai.com/models/9409?modelVersionId=30163</a>。</p>
+
+        <h3>3行目</h3>
+        <pre><code class="language-python">
+            pipe(prompt="girl", width=512, height=512).images[0].save(f"./janerated.png")
+          </code></pre>
+        <p>3行目ではpipe変数に入っている関数を実行します。</p>
+        <p>第一引数に、どんな画像を生成してほしいかをAIに指示するための<a href="./explainWord/prompt.html">プロンプト</a>を指定しています。</p>
+        <p>今回は女の子の画像を生成してほしかったので、第一引数に"girl"という文字列を渡しています。</p>
+        <p>もっと細かく命令したいなら、第一引数を弄ってあげれば大丈夫です。</p>
+        <p>例えば立っている猫耳女の子の画像が欲しいなら、"girl,cat,stand"などという風に単語をカンマ区切りで並べた文字列を渡すとそれっぽい画像が出来ます。</p>
+        <p>後は自分が望む良い画像が出るまで<a href="./explainWord/generateGacha.html">生成ガチャ</a>を回すだけです。</p>
+
+        <h2>まとめ</h2>
+        <p>いかがだったでしょうか？。</p>
+        <p>次回は生成される画像の質を上げる方法について話をしていきたいと思います。</p>
+        <p>プロンプトやネガティブプロンプトを弄る話以外も沢山します。</p>
+        <p>実はプロンプトを弄る以外にもできることが沢山あるので、紹介していけたらと思います。</p>
+        <p>ではまた！</p>
+
+        <h2>次の記事</h2>
+        <a href="generateImgHowTo2.html">[AI画像生成ノウハウ2]AI画像生成で生成される画像の質を上げる方法10選!!</a>
+    </main>
+
+
+
+    <div class="ad">
+        <script
+            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+        <script type="text/javascript"
+            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div>
+
+    <script src="../js/footer.js"></script>
+
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

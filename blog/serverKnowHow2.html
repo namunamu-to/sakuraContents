@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[サーバーノウハウ2]レッツエンクリプトで無料でhttps化する手順(nginx)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <script src="../js/header.js"></script>
+
+    <div class="ad">
+        <script
+            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+        <script type="text/javascript"
+            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div>
+
+    <main>
+        <h1>[サーバーノウハウ2]レッツエンクリプトでhttps化する手順(nginx)</h1>
+        <h2>実行環境</h2>
+        <p>今回私が使用する実行環境は以下の通りです</p>
+        <p>os : ubuntu 20.04</p>
+        <p>サーバーソフト : nginx</p>
+
+        <h2>snapdをインストール</h2>
+        <p>snapedをインストールするコマンドは以下の通りです。</p>
+        <p class="code">sudo apt install snapd</p>
+
+        <h2>snapdでcertbotをインストール</h2>
+        <p>snapdでcertbotをインストールするコマンドは以下の通りです。</p>
+        <p class="code">sudo snap install --classic certbot</p>
+        
+        <p>正しくインストールされていれば、以下のコマンドでバージョンが表示されるはずです。</p>
+        <p class="code">certbot --version</p>
+
+
+        <h2>certbotでhttps化</h2>
+        <p>まずは以下のコマンドを実行しましょう</p>
+        <p class="code">sudo certbot --nginx</p>
+        <p>このコマンドは、nginxの設定に基づいてhttps化の設定を行うコマンドです。</p>
+
+        <p>上記のコードを実行すると、下記のようにメッセージが出ます。</p>
+        <p class="code">
+            Saving debug log to /var/log/letsencrypt/letsencrypt.log<br>
+            Enter email address (used for urgent renewal and security notices)<br>
+            (Enter 'c' to cancel):
+        </p>
+        <p>意味は「/var/log/letsencrypt/letsencrypt.logにログを出力しました。管理者のメールアドレスを入力してください」です。</p>
+        <p>ですので、自身のメールアドレスを入力しましょう。</p>
+        <p>メールアドレスを入力したら下記のような表示がされると思います。</p>
+
+        <p class="code">
+            Please read the Terms of Service at<br>
+            https://letsencrypt.org/documents/LE-SA-v1.4-April-3-2024.pdf. You must agree in<br>
+            order to register with the ACME server. Do you agree?<br>
+            (Y)es/(N)o:
+        </p>
+
+        <p>意味は「利用規約に同意してください」です。</p>
+        <p>ですので同意するなら「Y」を入力しましょう。</p>
+        <p>同意したら下記のような表示がされると思います。</p>
+        <p class="code">
+            Would you be willing, once your first certificate is successfully issued, to<br>
+            share your email address with the Electronic Frontier Foundation, a founding<br>
+            partner of the Let's Encrypt project and the non-profit organization that<br>
+            develops Certbot? We'd like to send you email about our work encrypting the web,<br>
+            EFF news, campaigns, and ways to support digital freedom.
+        </p>
+        <p>これはレッツエンクリプトパートナーにメールアドレスを公開していいか聞かれています。</p>
+        <p>拒否しても問題ないので、お好きな方をお選びください。</p>
+        <p>入力したら以下の表示がされると思います。</p>
+
+        <p class="code">
+            Account registered.<br>
+            <br>
+            Which names would you like to activate HTTPS for?<br>
+            We recommend selecting either all domains, or all domains in a VirtualHost/server block.<br>
+            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<br>
+            1: hoge@fuga.piyo<br>
+            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<br>
+            Select the appropriate numbers separated by commas and/or spaces, or leave input<br>
+            blank to select all options shown (Enter 'c' to cancel):
+        </p>
+        <p>これはnginxに設定されているドメインのうち、https化したいドメインを数字で指定してくださいと言われています。</p>
+        <p>今回の例では「1」を入力すればいいということです。</p>
+        <p>入力したら以下の表示がされると思います。</p>
+
+        <p class="code">
+            Requesting a certificate for hoge@fuga.piyo<br>
+            <br>
+            Successfully received certificate.<br>
+            Certificate is saved at: /etc/letsencrypt/live/hoge@fuga.piyo/fullchain.pem<br>
+            Key is saved at: /etc/letsencrypt/live/hoge@fuga.piyo/privkey.pem<br>
+            This certificate expires on 2024-08-07.<br>
+            These files will be updated when the certificate renews.<br>
+            Certbot has set up a scheduled task to automatically renew this certificate in the background.<br>
+            <br>
+            Deploying certificate<br>
+            Successfully deployed certificate for hoge@fuga.piyo to /etc/nginx/sites-enabled/default<br>
+            Congratulations! You have successfully enabled HTTPS on https://hoge@fuga.piyo<br>
+            <br>
+            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<br>
+            If you like Certbot, please consider supporting our work by:<br>
+            * Donating to ISRG / Let's Encrypt: https://letsencrypt.org/donate<br>
+            * Donating to EFF: https://eff.org/donate-le<br>
+            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        </p>
+        <p>要約すると、「認証しました。/etc/letsencrypt/live/hoge@fuga.piyo/fullchain.pemに証明書を保存しました。秘密鍵は/etc/letsencrypt/live/hoge@fuga.piyo/privkey.pemに保存しました。これらのファイルは証明書を更新する時に、バックグラウンドで自動的に更新されるよう、スケジュールタスクを設定しました。https://hoge@fuga.piyoで認証したサイトにアクセスできます。」です。</p>
+
+        <p>ちなみに、httpで接続してもhttpsにリダイレクトされるようになってました。</p>
+        <p>便利ですね。</p>
+        <p>本来は自分の手で、リダイレクトされるようにnginxの設定ファイルを書き換えなくてはいけませんからね。</p>
+
+
+
+        <h2>まとめ</h2>
+        <p>いかがだったでしょうか？。</p>
+        <p>nginxを使う場合は簡単にhttps化出来てびっくりしました。</p>
+        <p>本来は公開鍵や秘密鍵の話が絡んでくるのですが、今はかなり手順が簡略化されているんですね。</p>
+        <p>皆さんがhttps化する際の参考になれば嬉しいです。</p>
+        <p>ではまた！</p>
+
+        <h2>次の記事</h2>
+        <a href="">準備中</a>
+    </main>
+
+
+
+    <div class="ad">
+        <script
+            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+        <script type="text/javascript"
+            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div>
+
+    <script src="../js/footer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+main {
+  display: flex;
+}
+
+#gameBoard {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  background-color: rgb(252, 239, 190);
+
+  border-left: solid 1px #000;
+  border-bottom: solid 1px #000;
+
+  /* マス目描画 */
+  background-image: linear-gradient(0deg, transparent calc(100% - 1px), #000 calc(100% - 1px)),
+    linear-gradient(90deg, transparent calc(100% - 1px), #000 calc(100% - 1px));
+  background-size: calc(100% / 9) calc(100% / 9);
+
+  background-repeat: repeat;
+  background-position: center center;
+}
+
+.horizontalLine {
+  border: 1px solid #000;
+  position: absolute;
+}
+
+.virticalLine {
+  border: 1px solid #000;
+  position: absolute;
+}
+
+.piece {
+  position: absolute;
+  font-weight: bold;
+  max-width: 100%;
+  background-size: cover;
+}
+
+.piece:hover {
+  border: #000 solid 2px;
+}
+
+.piece img {
+  width: 40px;
+  height: 40px;
+}
+
+.coolTime {
+  width: 2rem;
+  height: 1.5rem;
+  background-color: #fff;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.canMoveTile {
+  background-color: #c0e5ea;
+  opacity: 0.7;
+}
+
+#yesNoMsg {
+  padding: 1rem;
+}
+
+#yesNoBtns {
+  display: flex;
+}
+
+.statusElm {
+  background-color: #fff;
+  border: #000 solid 1px;
+  width: fit-content;
+  min-width: 2rem;
+}
+
+.backWhite {
+  background-color: #fff;
+}
+
+.border1px {
+  border: #000 solid 1px;
+}
+
+.border2px {
+  border: #000 solid 2px;
+}
+
+.inlineBlock {
+  display: inline-block;
+}
+
+.dialogElm {
+  padding: 1rem;
+  font-size: 3rem;
+  width: fit-content;
+  height: fit-content;
+  background-color: #fff;
+  inset: 0;
+  margin: auto;
+}
+
+#gameControlWrap>*,
+#matchWrap>* {
+  margin: 3px;
+}
+
+#victoryOrDefeatElm h1 {
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#victoryOrDefeatElm img {
+  height: min(80vw, 80vh);
+  width: min(80vw, 80vh);
+  margin-left: auto;
+  margin-right: auto;
+}

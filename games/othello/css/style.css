@@ -1,0 +1,17 @@
+body{
+    text-align: center;
+}
+
+#ctrlMenu {
+    margin: 1rem 0;
+}
+
+#ctrlMenu > * {
+    margin: 5px;
+}
+
+#canvasElm{
+    /* width: 90vh;
+    height: 90vh; */
+    border: solid 1px #000;
+}

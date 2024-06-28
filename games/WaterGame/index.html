@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>シューティングウォーター</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- 楽天に故意に広告表示させたと判断されたくないから、とりあえずコメントアウト -->
+    <!-- <div id="ad">
+        <script type="text/javascript">rakuten_design="slide";rakuten_affiliateId="2a999ef6.111edc6b.2a999ef7.f7a84582";rakuten_items="ctsmatch";rakuten_genreId="0";rakuten_size="728x200";rakuten_target="_blank";rakuten_theme="gray";rakuten_border="off";rakuten_auto_mode="on";rakuten_genre_title="off";rakuten_recommend="on";rakuten_ts="1712734893813";</script><script type="text/javascript" src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div> -->
+    
+    <div id="gameDisplay" oncontextmenu="return false;">
+        <span id="leftLingTossPole" class="lingTossPole"></span>
+        <span id="rightLingTossPole" class="lingTossPole"></span>
+        <span id="point">0</span>
+    </div>
+     <audio id="btn_audio" src="./SE/ButtonSE.mp3"></audio>
+     <audio id="RoteON" src="./SE/rotaON.mp3"> </audio>
+     <audio id="RoteOFF"src="./SE/rotaOFF.mp3"> </audio>
+     <audio id="PointUp"src="./SE/UpPoint.mp3"> </audio>
+     <audio id="Gamec"src="./SE/GameC.mp3"> </audio>
+     
+    <script src="./js/Rotation.js"></script>
+    <script src="./js/Ring.js"></script>
+    <script src="./js/script.js"></script>
+
+
+    <div id="Ope">
+        <!-- なんとなく文章を入れてみた -->
+        <!-- 文章の先頭がゲームレイアウトと同じサイズになったらいいなと思うけどまだ手を付けていない -->
+        <h2>操作説明</h2>
+        <p>左右のシフトキーまたは左右のマウスクリックで水流が発生するよ</p>
+            <p>マウスカーソルまたは左右のコントロールキーで傾けられるよ</p>
+            <p>マウスホイールまたはスペースキーで傾き機能のオンオフができるよ</p>
+            <p>上手に操作してすべてのリングをポールの中に入れよう！</p>
+    </div>
+
+    <div id="Credit">
+
+        <p>効果音提供  オトロジック(https://otologic.jp)</p>
+
+    </div>
+
+</body>
+</html>

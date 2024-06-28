@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[AI画像生成ノウハウ2]AI画像生成で生成される画像の質を上げる方法9選!!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- highlight.js関連 -->
+    <link rel="stylesheet" href="css/hilight.css">
+    <script src="js/highlight.min.js"></script>
+</head>
+
+<body>
+    <script src="../js/header.js"></script>
+
+    <div class="ad">
+        <script
+            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+        <script type="text/javascript"
+            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div>
+
+    <main>
+        <h1>[AI画像生成ノウハウ2]AI画像生成で生成される画像の質を上げる方法9選!!</h1>
+
+        <h2>デモ</h2>
+        <h3>特に何も考えずに画像生成した場合</h3>
+        <div class="jeneratedExample">
+            <p>使用ツール = pythonのdiffusersライブラリ</p>
+            <p>使用モデル = Anything XL</p>
+            <p>サンプリングステップ数 = デフォルト</p>
+            <p>CFGスケール = デフォルト</p>
+            <p>スケジューラ = デフォルト</p>
+            <p>横 * 高さ = 515 * 512</p>
+            <p>プロンプト = (masterpiece:1.3,best quality:1.3,ultra-detailed:1.3),girl</p>
+            <p>ネガティブプロンプト = デフォルト</p>
+
+            <p>
+                <img src="img/jenerated1.png">
+                <img src="img/jenerated2.png">
+                <img src="img/jenerated3.png">
+                <img src="img/jenerated4.png">
+            </p>
+        </div>
+
+        <h3>今回紹介することを意識した場合</h3>
+
+        <div class="jeneratedExample">
+            <p>使用ツール = pythonのdiffusersライブラリ</p>
+            <p>使用モデル = Anything XL</p>
+            <p>サンプリングステップ数 = 20</p>
+            <p>CFGスケール = 6</p>
+            <p>スケジューラ = Euler</p>
+            <p>横 * 高さ = 515 * 512</p>
+            <p>プロンプト = (masterpiece:1.3,best quality:1.3,ultra-detailed:1.3),girl</p>
+            <p>ネガティブプロンプト = bad anatomy,low quality,normal quality,ugly,lowers,worst quality,ugly,jpeg artifacts,error
+            </p>
+
+            <p>
+                <img src="img/jenerated5.png">
+                <img src="img/jenerated6.png">
+                <img src="img/jenerated7.png">
+                <img src="img/jenerated8.png">
+            </p>
+        </div>
+
+
+        <p>特に何も考えずに画像生成した場合との違いが分かりましたでしょうか？</p>
+        <p>かなり変わりますよね!?</p>
+        <p>ちなみに画像生成モデルは全く同じものを使っています。</p>
+        <p>今回は、どうやってここまで良い画像を狙って生成したかを紹介していきます。</p>
+
+
+        <h2>良い画像・望む画像を生成する時にできること</h2>
+        <p>画像生成で良い画像が生まれる確率を上げるためにできることは以下の通りです。</p>
+
+        <ul>
+            <li>プロンプトを弄る</li>
+            <li>ネガティブプロンプトを弄る</li>
+            <li>サンプリングステップ数を弄る</li>
+            <li>CFGスケール(ガイダンススケール)を弄る</li>
+            <li>モデルを変える</li>
+            <li>スケジューラを変える</li>
+            <li>rolaを使用する</li>
+            <li>縦横比を変える</li>
+            <li>rivisionをfp32にする</li>
+            <li>何度も生成する</li>
+        </ul>
+
+        <p>次はそれぞれの項目について解説していきます。</p>
+
+
+        <h2>プロンプトを弄る</h2>
+        <p>まずは<a href="./explainWord/prompt.html">プロンプト</a>を見直しましょう。</p>
+        <p>画像生成にはよく使われる鉄板のプロンプトがいくつもあります。</p>
+        <p>そういったプロンプトを取り入れてみましょう。</p>
+
+        <h3>美しい・綺麗な画像を生成したい時に使う鉄板プロンプト</h3>
+        <p>美しい・綺麗な画像を生成したい時に使う鉄板プロンプトは以下の通りです。</p>
+
+        <ul>
+            <li>masterpiece</li>
+            <li>best quality</li>
+            <li>ultra detailed</li>
+            <li>4k</li>
+        </ul>
+
+        <p>上記の中から1～3個ほど取り入れてみましょう。</p>
+        <p>例えば、「立っている猫耳女の子」の画像を生成する際、"girl,cat,stand"ではなく、"masterpiece,best quality,girl,cat,stand"という風にしてみましょう。</p>
+        <p>このプロンプトだけでもかなり変わると思います。</p>
+        <p>ちなみに、「ultra detailed」はどちらかというと、リアルな画像にしたい時に向いているプロンプトです。</p>
+        <p>プロンプトの順番に関してですが、左側のプロンプトほど優先されるという仕様があります。</p>
+        <p>鉄板の順番は</p>
+        <div class="prompt">
+            品質向上系プロンプト,写っているもの,どんな風に映っているか
+        </div>
+        <p>といった感じです。</p>
+        <p>鉄板プロンプトの数ですが、多く入れると競合して逆に変な画像が生まれます。</p>
+        <p>また、好みや使用するモデルとの相性もあるので、色々弄って調整してみてください。</p>
+        <p>以下は鉄板プロンプトを取り入れた時と、そうじゃないときの画像です。</p>
+
+        <div class="jeneratedExample">
+            <p>プロンプト = (masterpiece:1.3,best quality:1.3,ultra-detailed:1.3),girl</p>
+            <p>ネガティブプロンプト = デフォルト</p>
+            <img src="./img/jenerated9.png">
+        </div>
+
+        <div class="jeneratedExample">
+            <p>プロンプト = girl</p>
+            <p>ネガティブプロンプト = デフォルト</p>
+            <img src="img/jenerated3.png">
+        </div>
+
+        <p>全くちがいますよね！？</p>
+        <p>そうなんです!</p>
+        <p>ですから皆さんも鉄板プロンプトを取り入れてみましょう。</p>
+        <p>ちなみに、上記4つのプロンプト以外にも鉄板プロンプトは沢山あります。</p>
+        <p>興味がある方は調べてみると面白いです。</p>
+
+        <p>また、括弧やコロンなどの表記はまた後日紹介します。</p>
+        <p>一応意味を説明すると、括弧で強調表現し、カンマで区切られたそれぞれの項目の優先度を1.3倍にするという意味です。</p>
+        <p>要するに「画質に関わるプロンプトをしっかり意識してね」とAIに指示を出しているということです。</p>
+        <p>ざっくりこんな指定ができるんだなと思っていただければ幸いです。</p>
+        <p>今回は違いを分かりやすくするために、このようなプロンプトを使いました。</p>
+
+
+        <h2>ネガティブプロンプトを弄る</h2>
+        <p>ネガティブプロンプトも鉄板プロンプトがあります</p>
+        <p>それは以下の通りです。</p>
+
+        <ul>
+            <li>low quality</li>
+            <li>worst quality</li>
+            <li>ugly</li>
+        </ul>
+
+        <p>他にも色々ありますが、とりあえず3つピックアップしてみました。</p>
+        <p>ネガティブプロンプトはプロンプトとは違い、ある程度色んな種類を入れた方が効力を発揮します。</p>
+        <p>どういう組み合わせで何個入れるかどうかは生成したい画像との相性によります。</p>
+        <p>実は私も相性についてはまだ把握できておらず、試行錯誤中です。</p>
+        <p>ですので今は、プロンプトとネガティブプロンプト少し変えて生成し、うまくいかなかったらまた少し変えて生成する、という作業を繰り返してやっています。</p>
+
+        <p>というのが今までの常識でした。</p>
+        <p>しかし現在は、そもそも出来が良いモデルだとネガティブプロンプト無しで良質な画像が生成できたり、イージーネガティブでネガティブプロンプトを省略できたりします。</p>
+        <p>このイージーネガティブを使うと、誰かが作った洗練されたネガティブプロンプトを使って画像を生成するので、ネガティブプロンプトを設定しなくても良い画像が作れたりします。</p>
+
+
+        <p>じゃあなんでネガティブプロンプトについて紹介したのかというと、easyNegativeが使えなかったり、なんだかんだ独自でネガティブプロンプトを書きたくなったりするからです。</p>
+        <p>ですので、これから画像生成を始める方はあまりネガティブプロンプトに触れる機会は無いかもしれませんが、こういった背景を知っておくと何かと便利なので一応紹介しました。</p>
+
+        <p>以下はネガティブプロンプトの有無の違いです。</p>
+        <div class="jeneratedExample">
+            <p>プロンプト = girl</p>
+            <p>ネガティブプロンプト = bad anatomy,low quality,normal quality,ugly,lowers,worst quality,ugly,jpeg artifacts,error
+            </p>
+            <p><img src="./img/jenerated12.png"></p>
+        </div>
+
+
+
+        <div class="jeneratedExample">
+            <p>プロンプト = girl</p>
+            <p>ネガティブプロンプト = デフォルト</p>
+            <p><img src="./img/jenerated3.png"></p>
+        </div>
+
+
+
+
+        <h2>サンプリングステップ数を弄る</h2>
+        <p>サンプリングステップ数とは、画像生成の過程で画像のノイズを除去する回数のことです。</p>
+        <p>画像生成って実は絵を描いているわけではないんです。</p>
+        <p>以下のようなノイズだらけの画像から、ノイズを引き算して絵を作っているんです。</p>
+        <p>サンドアートに近いですね。</p>
+        <img src="./img/random_rgb.png">
+        <p>なぜこのようなやり方をしているかは正直私も分かりません。</p>
+        <p>AIの仕組みについて学ぼうと思っているので、理由が分かり次第、記事を書いていこうかと思います。</p>
+
+
+
+        <p>以下はサンプリングステップ数毎の比較です</p>
+        <div class="jeneratedExample">
+            <p>サンプリングステップ数 = 1</p>
+            <p>プロンプト = girl</p>
+            <p>ネガティブプロンプト = デフォルト</p>
+            <img src="img/jenerated13.png">
+        </div>
+
+        <div class="jeneratedExample">
+            <p>サンプリングステップ数 = 10</p>
+            <p>プロンプト = girl</p>
+            <p>ネガティブプロンプト = デフォルト</p>
+            <img src="img/jenerated14.png">
+        </div>
+
+        <div class="jeneratedExample">
+            <p>サンプリングステップ数 = 20</p>
+            <p>プロンプト = girl</p>
+            <p>ネガティブプロンプト = デフォルト</p>
+            <img src="img/jenerated15.png">
+        </div>
+
+        <div class="jeneratedExample">
+            <p>サンプリングステップ数 = 30</p>
+            <p>プロンプト = girl</p>
+            <p>ネガティブプロンプト = デフォルト</p>
+            <img src="img/jenerated16.png">
+        </div>
+
+        <div class="jeneratedExample">
+            <p>サンプリングステップ数 = 40</p>
+            <p>プロンプト = girl</p>
+            <p>ネガティブプロンプト = デフォルト</p>
+            <img src="img/jenerated17.png">
+        </div>
+
+        <div class="jeneratedExample">
+            <p>サンプリングステップ数 = 50</p>
+            <p>プロンプト = girl</p>
+            <p>ネガティブプロンプト = デフォルト</p>
+            <img src="img/jenerated18.png">
+        </div>
+
+
+
+        <h2>CFGスケール(ガイダンススケール)を弄る</h2>
+        <p>CFGスケールとガイダンススケールはほぼ同じ意味です。</p>
+        <p>ここではCFGスケールと呼びます。</p>
+        <p>CFGスケールとは、どれだけプロンプトの命令に従うかというものです。</p>
+        <p>数値が大きいほど命令に忠実になるので、CFGスケールが5より10の方が狙った画像が出しやすいです。</p>
+        <p>しかしその分自己判断しづらくなるので、かなり詳細にプロンプトを書き込まないと変な画像が生成されやすいです。</p>
+        <p>つまり、CFGスケールは多きすぎても少なすぎてもダメなんです。</p>
+        <p>ですがこの値は研究され尽くしてるので、もう使う値は相場が決まってます。</p>
+        <p>CFGスケールの丁度良い値はずばり、6か7です。</p>
+        <p>6と7は若干の差しかないので、お好みで良いと思います。</p>
+        <p>私は6を愛用しています。</p>
+
+        <p>pythonのdiffusersでのCFGスケジューラの変え方は以下の通りです。</p>
+
+
+        <h2>縦横比を変える</h2>
+        <p>この知識を使う機会は少ないかもしれませんが、一応紹介いたします。</p>
+        <p>これは私の経験則になるので正しいかは分かりませんが、実は縦横比が違うだけで生成される画像の傾向が違ってくる気がします。</p>
+        <p>例えば立った画像を生成するとき、縦長だと全身を映しますが、上下の比率が1:1だと肖像絵みたいに腰より上の画像が生成されやすい気がします。</p>
+        <p>仮説ですが、立った人を描く時にわざわざ横長の絵を書かないで縦長の絵を書く人が多い、という傾向をAIが学習しているのではないかと考えています。</p>
+        <p>ちなみに、高さか横幅が1024を超えると画像の質が著しく低下するので、512*512か768*512か512*768のどれかで画像生成することをおすすめします。</p>
+
+        <h2>画像生成モデルを変える</h2>
+        <p>使うモデルを変えるのも大事です。</p>
+        <p>というのも、クオリティの高い絵や好みの画風を出すには、プロンプトやパラメータを弄るだけでは限界があるからです。</p>
+        <p>つまり、完成度の低いモデルで高クオリティの画像を生成するのは熟練のプロンプト職人でもない限り厳しいです。</p>
+        <p>ですので、お気に入りのモデルを探すつもりで画像生成モデルを探してみてはいかがでしょうか？</p>
+
+        <h2>スケジューラを変える</h2>
+        <p>スケジューラとは、ざっくりいうと画像生成を行う過程の仕組みのことです。</p>
+        <p>このスケジューラを変えるとだけで、画像の質が変わったり、生成速度が速くなります。</p>
+        <p>スケジューラはいくつもありますが、現時点では「Eular」と「DPM++ 2m karras」がスケジューラの2強です。</p>
+        <p>ですので、この二つから好きな方をお選びください。</p>
+        <p>ちなみにこの2つの違いですが、「Eular」の方が生成速度が10%～30%程早いです。</p>
+        <p>その代わり、ガチガチにプロンプト組んだ場合、「DPM++ 2m karras」の方が高品質画像を作りやすかったりします。</p>
+        <p>私は「Eular」を愛用していますが、「DPM++ 2m karras」の方が人気が高いかな～って感じがします。</p>
+
+        <p>以下はpythonのduffusersでのスケジューラの変え方です</p>
+        <p>pythonのdiffusersでスケジューラを変えるには、以下のコードをモデルを読み込んでから生成するまでの間に書けばOKです。</p>
+
+        <pre>
+            <code>
+from diffusers import EulerDiscreteScheduler
+pipe.scheduler = EulerDiscreteScheduler.from_config(pipe.scheduler.config)
+            </code>
+        </pre>
+
+
+        <h2>何度も生成する</h2>
+        <p>今までご紹介したことを全て踏まえても、好みの画像が生成されるとは限りません。</p>
+        <p>デモで見せた画像をを見てもらうと分かる通り、全く同じ方法で生成しても、まったく別の画像が生成されます。</p>
+        <p>そのため、何度も生成する必要があります。</p>
+        <p>生成するたびにプロンプトを調整する必要もあります。</p>
+        <p>どれぐらい妥協するかによりますが、最低でも数十回。</p>
+        <p>こだわるなら数百回の画像生成は覚悟しておきましょう。</p>
+        <p>めんどくさいと思ったかもしれませんが、そうなんです。</p>
+        <p>実際めんどくさいんです。</p>
+        <p>狙った画像や良質な画像を作るには、知識や経験が必要なのは勿論、手間も時間もかかります。</p>
+        <p>ガチでやるならお金もかかります。</p>
+
+        <h2>余談</h2>
+        <p>いかがだったでしょうか？</p>
+        <p>生成画像の質を上げたり、狙った画像を生成する際にできることが多くて驚いた方もいると思います。</p>
+        <p>また、画像のサイズを変えると生成される画像の傾向が変わるのが盲点だった方もいると思います。</p>
+        <p>そして皆さん薄々感じてるかもしれませんが、そうなんです！</p>
+        <p>実は画像生成って難しいんです。</p>
+        <p>画像生成で良い画像を作るにはかなりの知識・経験が必要なんです。</p>
+        <p>ですから著作権侵害してるならともかく、AI画像というだけで差別しないようお願いしたいです。</p>
+        <p>一見、Xなどで簡単そうに作ってる人を見かけますが、その裏には努力があるんです。</p>
+        <p>私もまだまだ試行錯誤中ですが、それでも生成した画像は軽く1000を超えます。</p>
+        <p>それでも難しいと感じています。</p>
+        <p>もしAI画像を差別してる人を見かけた場合、「ああ、この人はやったこと無いから分からないんだな」と優しく見守ってあげましょう。</p>
+        <p>皆さんが今まで以上に画像生成を楽しめることを願っています。</p>
+        <p>ではまた！</p>
+
+        <h2>次の記事</h2>
+        <a href="generateImgHowTo3.html">[AI画像生成ノウハウ3]AI画像生成の速度を上げる方法</a>
+    </main>
+
+
+
+    <div class="ad">
+        <script
+            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+        <script type="text/javascript"
+            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div>
+
+    <script src="../js/footer.js"></script>
+
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

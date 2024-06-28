@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[AI画像生成ノウハウ3]AI画像生成の速度を上げる方法</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <script src="../js/header.js"></script>
+
+    <div class="ad">
+        <script
+            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+        <script type="text/javascript"
+            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div>
+
+    <main>
+        <h1>[AI画像生成ノウハウ3]AI画像生成の速度を上げる方法</h1>
+
+        <h2>サンプリングステップ数を減らす</h2>
+        <p>おすすめは20です。</p>
+        <p>これ以上減らすと画像の質が落ちます。</p>
+        <p>しかし、これ以上増やしても画像の質がほぼ変わらないという丁度良いラインでもあります。</p>
+        <p>色々試した結果、私はこの20というラインに落ち着きました。</p>
+
+        <h2>モデルを変える</h2>
+        <p>モデルを変えるのも大切です。</p>
+        <p>同じような画風でも、重いモデルと軽量なモデルがあるので、できるだけ軽量なモデルを選ぶと画像生成の速度が上がります。</p>
+
+        <h2>GPUを使う</h2>
+        <p>GPUはCPUよりパワーがあるので、画像生成の速度が速いです。</p>
+        <p>しかし殆どの画像生成ツールは、Intel製のGPUのCUDAという仕組みを使ったGPUしか対応していません。</p>
+        <p>私はARCというシリーズのGPUを使っているので、仕方なくCPUを使っています。</p>
+
+        <h2>Intel Neural Compute Stick 2を使う</h2>
+        <p>AIの処理に特化したUSB式の外付けGPUみたいなものです。</p>
+        <p>私みたいにGPUが使えない人は、これを使うのも手です。</p>
+        <p>私は試せてないので、試せたら使用感をお伝えしたいと思います。</p>
+
+        <h2>スケジューラを変える</h2>
+        <p>画像を生成するアルゴリズムを決めるのはスケジューラです。</p>
+        <p>スケジューラは色んな種類がありますが、「Euler」と「DPM++2M Karras」が2強です。</p>
+        <p>なぜならこの2つが速度と質の両方を兼ね備えてる万能なアルゴリズムだからです。</p>
+        <p>この2つの違いは「Euler」がの方が速度が10%～30%ほど早く、「DPM++2M Karras」の方が質の良い画像をを生み出しやすいという特徴があります。</p>
+        <p>どちらを選ぶかはお好みです。</p>
+        <p>ちなみに私はEulerを愛用しています。</p>
+
+        <h2>縦横のサイズを減らす</h2>
+        <p>縦横のサイズを減らせば、計算量が減るのでsouks早くなるのは想像できると思います。</p>
+        <p>しかし下げすぎると画質が荒くなるので、基本的には縦横512:512か、縦横512:768がおすすめです。</p>
+        <p>世に出回ってる画像も殆どこのサイズ、もしくはこれを拡大したサイズです。</p>
+
+
+        <h2>まとめ</h2>
+        <p>いかがだったでしょうか？</p>
+        <p>画像生成に時間がかかるのはストレスですよね。</p>
+        <p>この記事を見て、皆さんが快適に画像生成を楽しめるようになることを願っています。</p>
+        <p>ではまた！</p>
+
+        <h2>次の記事</h2>
+        <a href="generateImgHowTo4.html">[AI画像生成ノウハウ4]指が変な形になる時の対策</a>
+    </main>
+
+
+
+    <div class="ad">
+        <script
+            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+        <script type="text/javascript"
+            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div>
+
+    <script src="../js/footer.js"></script>
+</body>
+
+</html>

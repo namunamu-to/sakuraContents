@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>// レベルの生成
+        const generateLevel = (width, height) => {
+          const level = [];
+          for (let y = 0; y < height; y++) {
+            const row = [];
+            for (let x = 0; x < width; x++) {
+              const tileType = Math.random() < 0.2 ? "#" : ".";
+              row.push(tileType);
+            }
+            level.push(row);
+          }
+          return level;
+        };
+        
+        // プレイヤーの作成
+        const createPlayer = (level) => {
+          const player = {
+            x: 1,
+            y: 1,
+          };
+          level[player.y][player.x] = "@";
+          return player;
+        };
+        
+        // ゲームの初期化
+        const initializeGame = (width, height) => {
+          const level = generateLevel(width, height);
+          const player = createPlayer(level);
+          return { level, player };
+        };
+        
+        // プレイヤーの移動
+        const movePlayer = (level, player, dx, dy) => {
+          const newX = player.x + dx;
+          const newY = player.y + dy;
+          if (level[newY] && level[newY][newX] !== "#") {
+            level[player.y][player.x] = ".";
+            player.x = newX;
+            player.y = newY;
+            level[player.y][player.x] = "@";
+          }
+        };
+        
+        // ゲームのループ
+        const gameLoop = (game) => {
+          // プレイヤーからの入力を取得
+          const input = prompt("移動方向を入力してください (w/a/s/d): ");
+        
+          // 入力に基づいてプレイヤーを移動
+          switch (input) {
+            case "w":
+              movePlayer(game.level, game.player, 0, -1);
+              break;
+            case "a":
+              movePlayer(game.level, game.player, -1, 0);
+              break;
+            case "s":
+              movePlayer(game.level, game.player, 0, 1);
+              break;
+            case "d":
+              movePlayer(game.level, game.player, 1, 0);
+              break;
+          }
+        
+          // レベルの表示
+          console.log(game.level.join("\n"));
+        
+          // ゲームループを続行するかどうかを確認
+          if (input !== "q") {
+             gameLoop(game);
+          }
+        };
+        
+        // ゲームの開始
+        const { level, player } = initializeGame(80, 25);
+        gameLoop({ level, player });</script>
+</body>
+</html>

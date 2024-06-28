@@ -1,0 +1,39 @@
+/* 上下の内側余白2remを一括付与 */
+main h2 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.contentList{
+    width: 100%;
+}
+
+.contentBlock{
+    border: #000 solid 1px;
+    display: flex;
+    width: 100%;
+    margin: 1rem 1rem 1rem 0rem;
+    padding: 1rem;
+}
+
+.contentBlock img{
+    width: 5rem;
+    height: 5rem;
+}
+
+.contentBlock div > * {
+    padding: 1rem;
+}
+
+.mainBgColor {
+    background-color: #a9dff3;
+}
+
+.ad{
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
