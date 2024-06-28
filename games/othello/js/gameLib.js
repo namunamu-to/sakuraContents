@@ -1,5 +1,6 @@
 let imgs = {};
 let draws = {};
+let fps = 30;
 
 //方向表すもの
 const dirKeys = ["up", "down", "left", "right", "upLeft", "upRight", "downLeft", "downRight"];
@@ -26,10 +27,6 @@ function getDir(x, y) {
     }
 }
 
-//canvas要素追加
-(function () {
-    document.body.innerHTML += `<canvas id="canvasElm"></canvas>`;
-}());
 
 
 function fillText(color, text, x, y, ){
@@ -70,7 +67,12 @@ function drawImg(imgKey, x1, y1, x2, y2){
 }
 
 //canvasの定義
+(function () { //要素追加
+    document.body.innerHTML += `<canvas id="canvasElm"></canvas>`;
+}());
+
 const ctx = canvasElm.getContext("2d");
+
 setInterval(() => { //描画更新
     canvasElm.width = window.innerWidth;
     canvasElm.height = window.innerHeight;
@@ -80,5 +82,5 @@ setInterval(() => { //描画更新
         draws[key]();
     }
 
-}, 33); //30fps
+}, 1000 / fps);
 
