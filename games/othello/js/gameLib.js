@@ -1,9 +1,9 @@
 function getWidth(elm) {
-    return parseInt(elm.clientWidth);
+    return elm.clientWidth;
 }
 
 function getHeight(elm) {
-    return parseInt(elm.clientHeight);
+    return elm.clientHeight;
 }
 
 function setWidth(elm, width) {
@@ -21,7 +21,7 @@ function setSize(elm, width, height) {
 
 function getX(elm) {
     const pos = elm.getBoundingClientRect();
-    return parseInt(pos.x);
+    return pos.x;
 }
 
 function setX(elm, x) {
@@ -34,7 +34,7 @@ function setY(elm, y) {
 
 function getY(elm) {
     const pos = elm.getBoundingClientRect();
-    return parseInt(pos.y);
+    return pos.y;
 }
 
 function setPosition(elm, toX, toY){
@@ -44,13 +44,13 @@ function setPosition(elm, toX, toY){
 
 function getCenterX(elm) {
     let x = getX(elm);
-    x += parseInt(x / 2);
+    x += x / 2;
     return x;
 }
 
 function getCenteryY(elm) {
     let y = getY(elm);
-    y += parseInt(y / 2);
+    y += y / 2;
     return y;
 }
 
