@@ -1,6 +1,10 @@
+let baseX = 0;
+let baseY = 0;
 let imgs = {};
 let draws = {};
+let sprites = [];
 let fps = 30;
+let jeneratedSprNum = 0;
 
 //方向表すもの
 const dirKeys = ["up", "down", "left", "right", "upLeft", "upRight", "downLeft", "downRight"];
@@ -13,6 +17,38 @@ const dirs = {
     "upRight": [1, -1],
     "downLeft": [-1, 1],
     "downRight": [1, 1],
+}
+
+
+function newSprite(imgPath, x, y, width, height){
+    let spr = {
+        id : jeneratedSprNum++,
+        imgPath: imgPath,
+        x : x,
+        y : y,
+        width : width,
+        height : height,
+    }
+
+    return spr;
+}
+
+function delSprite(spr){
+    for(let i=0; i<sprites.length; i++){
+        if(sprites.id == id) sprites.splice(i, 1);
+    }
+}
+
+// 矩形の位置とサイズを表すクラス
+function makeRectRange(x1, y1, x2, y2) {
+    return {
+        x1: x1,
+        y1: y1,
+        x2: x2,
+        y2: y2,
+        width: x2 - x1,
+        height: y2 - y1,
+    }
 }
 
 
@@ -64,11 +100,11 @@ function readImg(imgPath) {
 }
 
 function drawImg(imgPath, x1, y1, width, height){
-    console.log(imgPath);
     if(imgs[imgPath] == undefined) readImg(imgPath); //読み込んでいなかったら
-    else if(imgs[imgPath] == "reading") return; 
+    else if(imgs[imgPath] == "reading") return;
     else ctx.drawImage(imgs[imgPath], x1, y1, width, height); //読み込んでたら
 }
+
 
 function makeTwoDimList(size, fillElm){
     list = [];
@@ -77,9 +113,8 @@ function makeTwoDimList(size, fillElm){
 }
 
 
-
-//canvasの定義
-(function () { //要素追加
+//canvas定義
+(function () { //このファイルが読み込まれたら、即時関数でcanvasをdomに追加
     document.body.innerHTML += `<canvas id="canvasElm"></canvas>`;
 }());
 
@@ -96,3 +131,7 @@ setInterval(() => { //描画更新
 
 }, 1000 / fps);
 
+
+canvasElm.addEventListener("click", ()=>{
+
+});
