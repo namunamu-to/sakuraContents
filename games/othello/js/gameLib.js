@@ -56,13 +56,18 @@ function rotate(){
 }
 
 function readImg(imgPath) {
-    if(imgs[imgPath] == "reading") return; 
-    console.log("aaa");
     imgs[imgPath] = "reading";
     const img = new Image();
     img.src = imgPath;
     imgs[imgPath] = img;
     return img;
+}
+
+function drawImg(imgPath, x1, y1, width, height){
+    console.log(imgPath);
+    if(imgs[imgPath] == undefined) readImg(imgPath); //読み込んでいなかったら
+    else if(imgs[imgPath] == "reading") return; 
+    else ctx.drawImage(imgs[imgPath], x1, y1, width, height); //読み込んでたら
 }
 
 function makeTwoDimList(size, fillElm){
@@ -72,10 +77,6 @@ function makeTwoDimList(size, fillElm){
 }
 
 
-function drawImg(imgPath, x1, y1, width, height){
-    if(imgs[imgPath] == undefined) readImg(imgPath); //読み込んでいなかったら
-    else ctx.drawImage(imgs[imgPath], x1, y1, width, height); //読み込んでたら
-}
 
 //canvasの定義
 (function () { //要素追加

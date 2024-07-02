@@ -1,3 +1,8 @@
+let boardSize = canvasElm.width;
+let sideTileNum = 8; //値が8なら8x8のマスが生まれる
+let tileSize = boardSize / sideTileNum;
+
+
 let board = makeTwoDimList(8, "");
 board[3][3] = "黒";
 board[4][4] = "黒";
@@ -10,9 +15,10 @@ draws.background = () => {
 }
 
 draws.board = () => { //ボード描画
-    let sideTileNum = 8; //値が8なら8x8のマスが生まれる
-    const boardSize = Math.min(canvasElm.width, canvasElm.height) * 0.95;
-    const tileSize = boardSize / sideTileNum;
+    boardSize = Math.min(canvasElm.width, canvasElm.height) * 0.95;
+    sideTileNum = 8; //値が8なら8x8のマスが生まれる
+    tileSize = boardSize / sideTileNum;
+
     const baseX = (canvasElm.width - boardSize) / 2;
     const baseY = (canvasElm.height - boardSize) / 2;
 
@@ -29,14 +35,12 @@ draws.board = () => { //ボード描画
 
 
 draws.stone = () => {
-    // readImg("img/self0.png", "self0");
+    const baseX = (canvasElm.width - boardSize) / 2;
+    const baseY = (canvasElm.height - boardSize) / 2;
     for (let y = 0; y < board.length; y++) {
         for (let x = 0; x < board.length; x++) {
-            // console.log("aaa");
-            // if (board[y][x] == "黒") console.log("黒", x, y);
-            // if (board[y][x] == "白") console.log("白", x, y);
-            if (board[y][x] == "黒") drawImg("img/黒石.png", canvasElm.width * x, canvasElm.width * y, canvasElm.width / 8, canvasElm.height / 8);
-            if (board[y][x] == "白") drawImg("img/白石.png", canvasElm.width * x, canvasElm.width * y, canvasElm.width / 8, canvasElm.height / 8);
+            if (board[y][x] == "黒") drawImg("img/黒石.png", baseX + tileSize * x, baseY + tileSize * y, tileSize, tileSize);
+            if (board[y][x] == "白") drawImg("img/白石.png", baseX + tileSize * x, baseY + tileSize * y, tileSize, tileSize);
         }
     }
 
