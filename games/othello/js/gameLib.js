@@ -15,6 +15,8 @@ const dirs = {
     "downRight": [1, 1],
 }
 
+
+//方向を取得する関数
 function getDir(x, y) {
     let dirX = 0;
     let dirY = 0;
@@ -26,8 +28,6 @@ function getDir(x, y) {
         if (val[0] == dirX && val[1] == dirY) return key;
     }
 }
-
-
 
 function fillText(color, text, x, y, ){
     ctx.fillStyle = color;
@@ -55,15 +55,26 @@ function rotate(){
     // ctx.restore();
 }
 
-function readImg(imgPath, imgKey) {
+function readImg(imgPath) {
+    if(imgs[imgPath] == "reading") return; 
+    console.log("aaa");
+    imgs[imgPath] = "reading";
     const img = new Image();
     img.src = imgPath;
-    imgs[imgKey] = img;
+    imgs[imgPath] = img;
+    return img;
 }
 
-function drawImg(imgKey, x1, y1, x2, y2){
-    const img = imgs[imgKey];
-    ctx.drawImage(img, x1, y1, x2, y2);
+function makeTwoDimList(size, fillElm){
+    list = [];
+    for (let i = 0; i < size; i++) list.push(new Array(size).fill(fillElm));
+    return list;
+}
+
+
+function drawImg(imgPath, x1, y1, width, height){
+    if(imgs[imgPath] == undefined) readImg(imgPath); //読み込んでいなかったら
+    else ctx.drawImage(imgs[imgPath], x1, y1, width, height); //読み込んでたら
 }
 
 //canvasの定義
