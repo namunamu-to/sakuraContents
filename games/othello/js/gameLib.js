@@ -1,7 +1,5 @@
-let baseX = 0;
-let baseY = 0;
 let imgs = {};
-let draws = {};
+let updates = {};
 let sprites = [];
 let fps = 30;
 let jeneratedSprNum = 0;
@@ -127,8 +125,8 @@ setInterval(() => { //描画更新
     canvasElm.height = window.innerHeight;
     ctx.clearRect(0, 0, canvasElm.width, canvasElm.height) //キャンバスをクリア
     
-    for(let key of Object.keys(draws)){
-        draws[key]();
+    for(let key of Object.keys(updates)){
+        updates[key]();
     }
 
 }, 1000 / fps);

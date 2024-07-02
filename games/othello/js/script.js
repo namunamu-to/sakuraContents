@@ -2,25 +2,57 @@ let board = makeTwoDimList(8, "");
 let boardSize;
 let sideTileNum; //値が8なら8x8のマスが生まれる
 let tileSize;
+let baseX = 0;
+let baseY = 0;
+let stones = [];
 
+function putStone(isBlack, x, y) {
+    let stone = {
+        isBlack: isBlack,
+        x: x,
+        y: y,
+    };
 
-board[3][3] = "黒";
-board[4][4] = "黒";
-board[3][4] = "白";
-board[4][3] = "白";
+    // stones.push(stone);
+    board[x][y] = stone;
+}
+
+putStone(true, 3, 3);
+putStone(true, 4, 4);
+putStone(false, 3, 4);
+putStone(false, 4, 3);
+
+function checkCanPut(x, y){
+    if(x < 0 || y < 0 || x >= sideTileNum || y >= sideTileNum) return false; //盤面外
+
+    const tile = board[y][x];
+    if(tile == "") return false;
+}
+
+function getCanPuts(x, y){
+    let canPuts = [];
+    for(let dirKey of dirKeys){
+        for(let i=0; i<sideTileNum.length; i++){
+            let checkX = x + dirs[dirKey][0];
+            let checkY = y + dirs[dirKey][1];
+            if(checkX < 0 || checkY < 0 || checkX >= sideTileNum || checkY >= sideTileNum) continue; //盤面外なら
+            if(checkX < 0) continue;
+        }
+    }
+}
 
 //背景描画
-draws["background"] = function() {
+updates["background"] = function () {
     fillRect("#aaa", 0, 0, canvasElm.width, canvasElm.width);
 }
 
-draws["board"] = function() { //ボード描画
+updates["board"] = function () { //ボード描画
     boardSize = Math.min(canvasElm.width, canvasElm.height) * 0.95;
     sideTileNum = 8; //値が8なら8x8のマスが生まれる
     tileSize = boardSize / sideTileNum;
 
-    const baseX = (canvasElm.width - boardSize) / 2;
-    const baseY = (canvasElm.height - boardSize) / 2;
+    baseX = (canvasElm.width - boardSize) / 2;
+    baseY = (canvasElm.height - boardSize) / 2;
 
     fillRect("green", baseX, baseY, boardSize, boardSize); //ボードの背景描画
 
@@ -34,15 +66,16 @@ draws["board"] = function() { //ボード描画
 }
 
 
-draws["stone"] = function() {
-    baseX = (canvasElm.width - boardSize) / 2;
-    baseY = (canvasElm.height - boardSize) / 2;
+updates["stone"] = function () {
     for (let y = 0; y < board.length; y++) {
         for (let x = 0; x < board.length; x++) {
-            let posX = baseX + tileSize * x;
-            let posY = baseY + tileSize * y;
-            if (board[y][x] == "黒") drawImg("img/黒石.png", posX, posY, tileSize, tileSize);
-            if (board[y][x] == "白") drawImg("img/白石.png", posX, posY, tileSize, tileSize);
+            let stone = board[y][x];
+            if(stone == "") continue;
+
+            let posX = baseX + tileSize * stone.x;
+            let posY = baseY + tileSize * stone.y;
+            if (stone.isBlack) drawImg("img/黒石.png", posX, posY, tileSize, tileSize);
+            else drawImg("img/白石.png", posX, posY, tileSize, tileSize);
         }
     }
-} 
+}
