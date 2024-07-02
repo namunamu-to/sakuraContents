@@ -5,6 +5,8 @@ let draws = {};
 let sprites = [];
 let fps = 30;
 let jeneratedSprNum = 0;
+let clickedX = -1000;
+let clickedY = -1000;
 
 //方向表すもの
 const dirKeys = ["up", "down", "left", "right", "upLeft", "upRight", "downLeft", "downRight"];
@@ -132,6 +134,7 @@ setInterval(() => { //描画更新
 }, 1000 / fps);
 
 
-canvasElm.addEventListener("click", ()=>{
-
+canvasElm.addEventListener("click", (e)=>{
+    clickedX = e.clientX;
+    clickedY = e.clientY;
 });
