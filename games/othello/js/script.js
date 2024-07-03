@@ -1,5 +1,6 @@
 let board = makeTwoDimList(8, "");
 let boardSize;
+let boardRange;
 let sideTileNum; //値が8なら8x8のマスが生まれる
 let tileSize;
 let baseX = 0;
@@ -13,7 +14,6 @@ function putStone(isBlack, x, y) {
         y: y,
     };
 
-    // stones.push(stone);
     board[x][y] = stone;
 }
 
@@ -22,12 +22,6 @@ putStone(true, 4, 4);
 putStone(false, 3, 4);
 putStone(false, 4, 3);
 
-function checkCanPut(x, y){
-    if(x < 0 || y < 0 || x >= sideTileNum || y >= sideTileNum) return false; //盤面外
-
-    const tile = board[y][x];
-    if(tile == "") return false;
-}
 
 function getCanPuts(x, y){
     let canPuts = [];
@@ -41,18 +35,34 @@ function getCanPuts(x, y){
     }
 }
 
-//背景描画
-updates["background"] = function () {
-    fillRect("#aaa", 0, 0, canvasElm.width, canvasElm.width);
+function checkCanPut(x, y){
+    console.log(board[y][x]);
+    if(x < 0 || y < 0 || x >= sideTileNum || y >= sideTileNum) return false; //盤面外
+
+    const tile = board[y][x];
+    if(tile == "") return false;
+    else return true;
 }
 
-updates["board"] = function () { //ボード描画
+updates["boardInfo"] = function(){
     boardSize = Math.min(canvasElm.width, canvasElm.height) * 0.95;
     sideTileNum = 8; //値が8なら8x8のマスが生まれる
     tileSize = boardSize / sideTileNum;
 
     baseX = (canvasElm.width - boardSize) / 2;
     baseY = (canvasElm.height - boardSize) / 2;
+
+    boardRange = makeRectRange(baseX, baseY, baseX+boardSize, baseY+boardSize); 
+
+}
+
+//背景描画
+updates["background"] = function () {
+    fillRect("#aaa", 0, 0, canvasElm.width, canvasElm.height);
+}
+
+updates["board"] = function () { //ボード描画
+
 
     fillRect("green", baseX, baseY, boardSize, boardSize); //ボードの背景描画
 

@@ -39,7 +39,7 @@ function delSprite(spr){
     }
 }
 
-// 矩形の位置とサイズを表すクラス
+// 矩形の位置と範囲を表すクラス
 function makeRectRange(x1, y1, x2, y2) {
     return {
         x1: x1,
@@ -51,6 +51,10 @@ function makeRectRange(x1, y1, x2, y2) {
     }
 }
 
+function isInnerRange(range, x, y){
+    if(x >= range.x1 && y >= range.y1 && x <= range.x2 && y <= range.y2) return true;
+    else return false;
+}
 
 //方向を取得する関数
 function getDir(x, y) {
@@ -115,14 +119,22 @@ function makeTwoDimList(size, fillElm){
 
 //canvas定義
 (function () { //このファイルが読み込まれたら、即時関数でcanvasをdomに追加
-    document.body.innerHTML += `<canvas id="canvasElm"></canvas>`;
+    const style = `
+        overflow: hidden;
+    `;
+    document.body.innerHTML += `<canvas id="canvasElm" style=${style}></canvas>`;
 }());
 
 const ctx = canvasElm.getContext("2d");
 
 setInterval(() => { //描画更新
-    canvasElm.width = window.innerWidth;
-    canvasElm.height = window.innerHeight;
+    // let scrollbarWidth = window.innerWidth - document.body.clientWidth;
+    // console.log(scrollbarWidth);
+
+    // canvasElm.width = window.innerWidth - scrollbarWidth;
+    // canvasElm.height = window.innerHeight - scrollbarWidth;
+    canvasElm.width = window.innerWidth * 0.97;
+    canvasElm.height = window.innerHeight * 0.97;
     ctx.clearRect(0, 0, canvasElm.width, canvasElm.height) //キャンバスをクリア
     
     for(let key of Object.keys(updates)){
