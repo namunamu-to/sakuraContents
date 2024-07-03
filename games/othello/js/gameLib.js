@@ -69,9 +69,10 @@ function getDir(x, y) {
     }
 }
 
-function fillText(color, text, x, y, ){
+function fillText(color, text, x, y, fontSize=48){
     ctx.fillStyle = color;
-    ctx.fillText(text, x, y);
+    ctx.font = `${fontSize}px serif`;
+    ctx.fillText(text, x, y+fontSize);
 }
 
 function fillRect(color, x1, y1, x2, y2) {
@@ -138,11 +139,6 @@ function isInnerTwoDimList(twoDimList, x, y){
 const ctx = canvasElm.getContext("2d");
 
 setInterval(() => { //描画更新
-    // let scrollbarWidth = window.innerWidth - document.body.clientWidth;
-    // console.log(scrollbarWidth);
-
-    // canvasElm.width = window.innerWidth - scrollbarWidth;
-    // canvasElm.height = window.innerHeight - scrollbarWidth;
     canvasElm.width = window.innerWidth * 0.97;
     canvasElm.height = window.innerHeight * 0.97;
     ctx.clearRect(0, 0, canvasElm.width, canvasElm.height) //キャンバスをクリア

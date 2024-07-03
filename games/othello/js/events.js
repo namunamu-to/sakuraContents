@@ -11,7 +11,6 @@ canvasElm.addEventListener("click", (e)=>{
     
 
     for(let reverseXY of canReverses){
-        console.log(canReverses);
         board[reverseXY[1]][reverseXY[0]].isBlack = nextIsBlack;
     }
     

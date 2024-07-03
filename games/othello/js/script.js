@@ -108,3 +108,8 @@ updates["stone"] = function () {
         }
     }
 }
+
+updates["turnPlayer"] = function(){
+    if(nextIsBlack) fillText("black", "黒の番", 0, 0);
+    else fillText("black", "白の番", 0, 0);
+}
