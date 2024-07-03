@@ -1,7 +1,9 @@
 canvasElm.addEventListener("click", (e)=>{
-    const posX = e.clientX - baseX;
-    const posY = e.clientY - baseY;
+    let posX = e.clientX;
+    let posY = e.clientY;
     if(!isInnerRange(boardRange, posX, posY)) return;
+    posX -= baseX;
+    posY -= baseY;
     const x = parseInt(posX / tileSize);
     const y = parseInt(posY / tileSize);
 
