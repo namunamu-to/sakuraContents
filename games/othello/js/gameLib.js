@@ -116,6 +116,17 @@ function makeTwoDimList(size, fillElm){
     return list;
 }
 
+function isInnerList(list, idx){
+    if(list.length == 0) return false;
+
+    return idx >= 0 && idx < list.length;
+}
+
+function isInnerTwoDimList(twoDimList, x, y){
+    if(twoDimList.left == 0) return false;
+    return isInnerList(twoDimList, y) && isInnerList(twoDimList[y], x);
+}
+
 //canvas定義
 (function () { //このファイルが読み込まれたら、即時関数でcanvasをdomに追加
     const style = `

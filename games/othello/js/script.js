@@ -46,9 +46,8 @@ function findStoneCanReverse(x, y, dir){
 }
 
 function checkCanPut(x, y){
-    const tile = board[y][x];
-    if(x < 0 || y < 0 || x >= sideTileNum || y >= sideTileNum) return false; //盤面外
-    else if(tile != "") return true;
+    if(!isInnerTwoDimList(board, x, y)) return false; //盤面外
+    else if(board[y][x] != "") return false;
 
     return true;
 }
