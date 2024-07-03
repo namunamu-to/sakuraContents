@@ -1,4 +1,6 @@
 canvasElm.addEventListener("click", (e)=>{
+    if(nextPlayer != "player") return;
+
     let posX = e.clientX;
     let posY = e.clientY;
     if(!isInnerRange(boardRange, posX, posY)) return;
@@ -16,5 +18,5 @@ canvasElm.addEventListener("click", (e)=>{
     }
     
     putStone(nextIsBlack, x, y);
-    nextIsBlack = !nextIsBlack;
+    nextTurn();
 });

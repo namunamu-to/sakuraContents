@@ -6,6 +6,24 @@ let tileSize;
 let baseX = 0;
 let baseY = 0;
 let nextIsBlack = true;
+let blackPlayer = "player";
+let whitePlayer = "player";
+let nextPlayer = blackPlayer;
+
+function cpuAction(){
+
+}
+
+function nextTurn(){
+    nextIsBlack = !nextIsBlack;
+
+    if(nextIsBlack) nextPlayer = blackPlayer;
+    else nextPlayer = whitePlayer;
+
+    if(nextPlayer == "cpu"){
+        cpuAction();
+    }
+}
 
 function gameStart() {
     board = makeTwoDimList(8, "");
