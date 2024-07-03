@@ -3,8 +3,6 @@ let updates = {};
 let sprites = [];
 let fps = 30;
 let jeneratedSprNum = 0;
-let clickedX = -1000;
-let clickedY = -1000;
 
 //方向表すもの
 const dirKeys = ["up", "down", "left", "right", "upLeft", "upRight", "downLeft", "downRight"];
@@ -40,7 +38,7 @@ function delSprite(spr){
 }
 
 // 矩形の位置と範囲を表すクラス
-function makeRectRange(x1, y1, x2, y2) {
+function newRange(x1, y1, x2, y2) {
     return {
         x1: x1,
         y1: y1,
@@ -148,9 +146,3 @@ setInterval(() => { //描画更新
     }
 
 }, 1000 / fps);
-
-
-canvasElm.addEventListener("click", (e)=>{
-    clickedX = e.clientX;
-    clickedY = e.clientY;
-});

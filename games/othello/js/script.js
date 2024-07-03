@@ -72,7 +72,7 @@ updates["boardInfo"] = function () {
     baseX = (canvasElm.width - boardSize) / 2;
     baseY = (canvasElm.height - boardSize) / 2;
 
-    boardRange = makeRectRange(baseX, baseY, baseX + boardSize, baseY + boardSize);
+    boardRange = newRange(baseX, baseY, baseX + boardSize, baseY + boardSize);
 }
 
 //背景描画
@@ -111,5 +111,5 @@ updates["stone"] = function () {
 
 updates["turnPlayer"] = function(){
     if(nextIsBlack) fillText("black", "黒の番", 0, 0);
-    else fillText("black", "白の番", 0, 0);
+    else fillText(range, "black", "白の番", 0, 0);
 }

@@ -1,5 +1,4 @@
 canvasElm.addEventListener("click", (e)=>{
-    console.log(nextIsBlack);
     const posX = e.clientX - baseX;
     const posY = e.clientY - baseY;
     if(!isInnerRange(boardRange, posX, posY)) return;
