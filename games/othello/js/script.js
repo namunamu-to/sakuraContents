@@ -6,6 +6,7 @@ let tileSize;
 let baseX = 0;
 let baseY = 0;
 let stones = [];
+let nextIsBlack = true;
 
 function putStone(isBlack, x, y) {
     let stone = {
@@ -14,7 +15,8 @@ function putStone(isBlack, x, y) {
         y: y,
     };
 
-    board[x][y] = stone;
+    board[y][x] = stone;
+    nextIsBlack = !nextIsBlack;
 }
 
 putStone(true, 3, 3);
@@ -23,25 +25,32 @@ putStone(false, 3, 4);
 putStone(false, 4, 3);
 
 
-function getCanPuts(x, y){
-    let canPuts = [];
-    for(let dirKey of dirKeys){
-        for(let i=0; i<sideTileNum.length; i++){
-            let checkX = x + dirs[dirKey][0];
-            let checkY = y + dirs[dirKey][1];
-            if(checkX < 0 || checkY < 0 || checkX >= sideTileNum || checkY >= sideTileNum) continue; //盤面外なら
-            if(checkX < 0) continue;
-        }
-    }
+// function getCanPuts(x, y){
+//     let canPuts = [];
+//     for(let dirKey of dirKeys){
+//         for(let i=0; i<sideTileNum.length; i++){
+//             let checkX = x + dirs[dirKey][0];
+//             let checkY = y + dirs[dirKey][1];
+//             if(checkX < 0 || checkY < 0 || checkX >= sideTileNum || checkY >= sideTileNum) continue; //盤面外なら
+//             if(checkX < 0) continue;
+//         }
+//     }
+// }
+
+function findStoneCanReverse(x, y, dir){
+    let i = y;
+    let j = x;
+
+    
+
 }
 
 function checkCanPut(x, y){
-    console.log(board[y][x]);
-    if(x < 0 || y < 0 || x >= sideTileNum || y >= sideTileNum) return false; //盤面外
-
     const tile = board[y][x];
-    if(tile == "") return false;
-    else return true;
+    if(x < 0 || y < 0 || x >= sideTileNum || y >= sideTileNum) return false; //盤面外
+    else if(tile != "") return true;
+
+    return true;
 }
 
 updates["boardInfo"] = function(){
@@ -52,8 +61,7 @@ updates["boardInfo"] = function(){
     baseX = (canvasElm.width - boardSize) / 2;
     baseY = (canvasElm.height - boardSize) / 2;
 
-    boardRange = makeRectRange(baseX, baseY, baseX+boardSize, baseY+boardSize); 
-
+    boardRange = makeRectRange(baseX, baseY, baseX+boardSize, baseY+boardSize);
 }
 
 //背景描画

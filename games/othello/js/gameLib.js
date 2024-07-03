@@ -116,7 +116,6 @@ function makeTwoDimList(size, fillElm){
     return list;
 }
 
-
 //canvas定義
 (function () { //このファイルが読み込まれたら、即時関数でcanvasをdomに追加
     const style = `
