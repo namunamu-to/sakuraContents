@@ -5,8 +5,48 @@ let sideTileNum; //値が8なら8x8のマスが生まれる
 let tileSize;
 let baseX = 0;
 let baseY = 0;
-let stones = [];
 let nextIsBlack = true;
+
+function gameStart() {
+    board = makeTwoDimList(8, "");
+    boardSize;
+    boardRange;
+    sideTileNum; //値が8なら8x8のマスが生まれる
+    tileSize;
+    baseX = 0;
+    baseY = 0;
+    nextIsBlack = true;
+
+    putStone(true, 3, 3);
+    putStone(true, 4, 4);
+    putStone(false, 3, 4);
+    putStone(false, 4, 3);
+}
+
+gameStart();
+
+function checkGameEnd() {
+    let blackNum = 0;
+    let whiteNum = 0;
+
+    for (let yLine of board) {
+        for (let stone of yLine) {
+            if (stone == "") continue;
+            else if (stone.isBlack) blackNum++;
+            else if (stone == "") whiteNum++;
+        }
+    }
+
+    if (whiteNum + blackNum == board.length ^ 2) {
+        if (whiteNum == blackNum) confirm("引き分け");
+        else if (whiteNum < blackNum) confirm(`黒が${blackNum}。白が${whiteNum}。\n$黒の勝利`);
+        else if (whiteNum > blackNum) confirm(`黒が${blackNum}。白が${whiteNum}。\n$白の勝利`);
+    }
+
+    if (confirm("もう一度プレイしますか？")) {
+        gameStart();
+    }
+}
 
 function putStone(isBlack, x, y) {
     let stone = {
@@ -17,11 +57,6 @@ function putStone(isBlack, x, y) {
 
     board[y][x] = stone;
 }
-
-putStone(true, 3, 3);
-putStone(true, 4, 4);
-putStone(false, 3, 4);
-putStone(false, 4, 3);
 
 function findStoneCanReverse(isBlack, x, y) {
     let canList = [];
@@ -37,14 +72,14 @@ function findStoneCanReverse(isBlack, x, y) {
         for (; ;) {
             i += dirY;
             j += dirX;
-            
+
             if (!isInnerTwoDimList(board, j, i)) break; //盤面外
 
             const tile = board[i][j];
             if (tile == "") break; //石が無い
             else if (tile.isBlack != isBlack) { //相手の石なら
                 chainEnemyStones.push([j, i]);
-            } else if(tile.isBlack == isBlack){ //自分の石なら
+            } else if (tile.isBlack == isBlack) { //自分の石なら
                 isSand = true;
                 break;
             }
@@ -109,7 +144,7 @@ updates["stone"] = function () {
     }
 }
 
-updates["turnPlayer"] = function(){
-    if(nextIsBlack) fillText("black", "黒の番", 0, 0);
-    else fillText(range, "black", "白の番", 0, 0);
+updates["turnPlayer"] = function () {
+    if (nextIsBlack) fillText("black", "黒の番", 0, 0);
+    else fillText("black", "白の番", 0, 0);
 }

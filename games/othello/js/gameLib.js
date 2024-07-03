@@ -1,8 +1,6 @@
 let imgs = {};
 let updates = {};
-let sprites = [];
 let fps = 30;
-let jeneratedSprNum = 0;
 
 //方向表すもの
 const dirKeys = ["up", "down", "left", "right", "upLeft", "upRight", "downLeft", "downRight"];
@@ -15,26 +13,6 @@ const dirs = {
     "upRight": [1, -1],
     "downLeft": [-1, 1],
     "downRight": [1, 1],
-}
-
-
-function newSprite(imgPath, x, y, width, height){
-    let spr = {
-        id : jeneratedSprNum++,
-        imgPath: imgPath,
-        x : x,
-        y : y,
-        width : width,
-        height : height,
-    }
-
-    return spr;
-}
-
-function delSprite(spr){
-    for(let i=0; i<sprites.length; i++){
-        if(sprites.id == id) sprites.splice(i, 1);
-    }
 }
 
 // 矩形の位置と範囲を表すクラス
@@ -126,12 +104,44 @@ function isInnerTwoDimList(twoDimList, x, y){
     return isInnerList(twoDimList, y) && isInnerList(twoDimList[y], x);
 }
 
+(function (){
+    const style = `
+        padding: 1rem;
+        font-size: 3rem;
+        width: fit-content;
+        height: fit-content;
+        background-color: #fff;
+        margin: auto;
+        display: none;
+        text-align: center;
+        border : 1px solid #fff;
+        position : fixed;
+        top: 0;
+        left: 0;
+    `;
+
+    const addHtml = `<div id="showDialogElm" style="${style}"></div>`;
+    document.body.innerHTML += addHtml;
+}());
+
+
+function dialog(innerHTML = "", x=0, y=0) {
+    if(innerHTML == "") showDialogElm.style.display = "none";
+    else showDialogElm.style.display = "block";
+
+    showDialogElm.style.left = parseInt(x) + "px";
+    showDialogElm.style.top = parseInt(y) + "px";
+    showDialogElm.innerHTML = innerHTML;
+}
+
 //canvas定義
 (function () { //このファイルが読み込まれたら、即時関数でcanvasをdomに追加
     const style = `
-        overflow: hidden;
+        width : 100vw;
+        height : 100vh;
+        position : relative;
     `;
-    document.body.innerHTML += `<canvas id="canvasElm" style=${style}></canvas>`;
+    document.body.innerHTML += `<div id="gameDisplay" style=${style}><canvas id="canvasElm"></canvas></div>`;
 }());
 
 const ctx = canvasElm.getContext("2d");
