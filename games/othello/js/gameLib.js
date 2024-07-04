@@ -80,10 +80,16 @@ function readImg(imgPath) {
     return img;
 }
 
-function drawImg(imgPath, x1, y1, width, height){
+function drawImg(imgPath, x, y, width, height, angle=0){
+    ctx.save();
+    // ctx.translate(x + width / 2, y + height / 2);
+    // ctx.rotate(Math.PI / 180 * angle);
+    // drawTileSizeImg(char.kind + char.nowFrame, -tileSize / 2, -tileSize / 2);
     if(imgs[imgPath] == undefined) readImg(imgPath); //読み込んでいなかったら
     else if(imgs[imgPath] == "reading") return;
-    else ctx.drawImage(imgs[imgPath], x1, y1, width, height); //読み込んでたら
+    // else ctx.drawImage(imgs[imgPath], -x / 2, -y / 2, width, height); //読み込んでたら
+    else ctx.drawImage(imgs[imgPath], x, y, width, height); //読み込んでたら
+    ctx.restore();
 }
 
 
