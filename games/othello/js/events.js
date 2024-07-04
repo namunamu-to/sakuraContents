@@ -9,13 +9,11 @@ canvasElm.addEventListener("click", (e)=>{
     const x = parseInt(posX / tileSize);
     const y = parseInt(posY / tileSize);
 
-    const canReverses = findStoneCanReverse(nextIsBlack, x, y);
-    if(canReverses.length == 0) return;
-    
+    if(!checkCanPut(x, y)) return;
 
-    for(let reverseXY of canReverses){
-        board[reverseXY[1]][reverseXY[0]].isBlack = nextIsBlack;
-    }
+    //相手の石を裏返す
+    const canReverses = findStoneCanReverse(nextIsBlack, x, y);
+    reverseStones(canReverses);
     
     putStone(nextIsBlack, x, y);
     nextTurn();
