@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[サーバーノウハウ1]nginxでHTMLを公開するまでの手順と前提知識</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <script src="../js/header.js"></script>
+
+    <div class="ad">
+        <script
+            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+        <script type="text/javascript"
+            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div>
+
+    <main>
+        <h1>[nginx入門1]nginxでhtmlを公開するまでの手順と前提知識</h1>
+        <h2>実行環境</h2>
+        <p>今回私が使用する実行環境は以下の通りです</p>
+        <p>os : ubuntu 20.04</p>
+
+        <h2>nginxで公開するまでの流れ</h2>
+        <p>nginxで公開するまでの流れは以下の通りです。</p>
+
+        <ol>
+            <li>aptの更新</li>
+            <li>nginxをダウンロード</li>
+            <li>nginxの設定ファイルを弄る</li>
+            <li>nginxを起動</li>
+            <li>サイトにアクセスできるか確認</li>
+            <li>ポート開放</li>
+        </ol>
+
+        <p>次はそれぞれの項目について解説していきます。</p>
+
+        <h2>aptの更新</h2>
+        <p>まずはubuntuのaptを更新しましょう。</p>
+        <p>nginxに限った話ではないですが、特に理由がない限り、aptのバージョンは最新にしておきましょう。</p>
+        <p>aptを最新にするコマンドは以下の通りです。</p>
+        <p class="code">
+            sudo apt update<br>
+            sudo apt upgrade
+        </p>
+
+
+        <h2>nginxをダウンロード</h2>
+        <p>nginxのダウンロードは以下のコマンドを実行するだけです。</p>
+        <p class="code">sudo apt install nginx</p>
+
+
+        <h2>nginxの設定ファイルを弄る</h2>
+        <p>nginxをダウンロードしたら、「/etc/nginx」のフォルダが自動生成されます。</p>
+        <p>設定ファイルは「/etc/nginx」内にあります。</p>
+        <p>設定ファイルは用途に応じてファイル分割されています。</p>
+        <p>ただ公開するだけなら設定ファイルを弄らなくて大丈夫ですが、今回はドメイン使用したいので少し弄ります。</p>
+        <p>ドメインを使用するには、「/etc/nginx/sites-available/default」を弄ります。</p>
+        <p>まずはvimやnanoなどの適当なエディタでファイルを開いてみましょう。</p>
+        <p>色々ごちゃごちゃと書いてありますが、ドメインを使用するには「#server_name _;」と書かれた行の「#server_name ドメイン名;」という形に置き換えるだけです。</p>
+        <p>設定ファイルの書き方が正しいか不安な方は、以下のコマンドで構文チェックできるので試してみましょう。</p>
+        <p class="code">nginx -t</p>
+        <p>nginxは設定を変更したら、反映するためにnginx自体を起動させるか再起動させるのが基本です。</p>
+        <p>今回はnginxをまだ起動してないので起動しましょう。</p>
+        <p>nginxを起動するコマンドは次の項目でお話します。</p>
+        <p>ちなみに、再起動するコマンドは以下の通りです。</p>
+        <p class="code">sudo nginx -s reload</p>
+
+        <h2>nginxの起動</h2>
+        <p>nginxの起動コマンドは何通りかありますが、今回私が使用したコマンドは以下です。</p>
+        <p class="code">sudo service nginx start</p>
+        <p>このコマンド実行すればnginxが起動すると思います。</p>
+
+        <h2>サイトにアクセスできるか確認</h2>
+        <p>nginxが動いているか確認するには、以下のコマンドを実行してみましょう。</p>
+        <p class="w-100 bg-dark text-light">curl http://localhost</p>
+        <p>curlは指定されたURLのhtml表示する便利コマンドです。</p>
+        <p>形式は「curl URL」です。</p>
+        <p>もしcurlがデフォルトでインストールされていない場合は、以下のコマンドでインストールしましょう。</p>
+        <p class="code">sudo apt install curl</p>
+        <p>そしてcurlで「http://localhost/」をURLとして指定しましたが、この書き方が見慣れない方が多いと思うので、説明します。。</p>
+        <p>まずURLは「プロトコル://ホスト名/ファイル名またはパス」という形式で成り立っています。</p>
+        <p>よく見るhttpsというのはデフォルト設定で使えないので、httpというプロトコルを指定しています。</p>
+        <p>ホスト名というのは、IPアドレスのことです。</p>
+        <p>また、ホスト名にドメインを使うこともできます。</p>
+        <p>なぜならドメインとIPアドレスは紐づいているので、ドメインからIPアドレスを特定できるからです。</p>
+        <p>そしてホスト名に「localhost」が使えるのは、ドメインが使えるのと同じ理由です。</p>
+        <p>ちなみに「localhost」とは自身のIPアドレスのことです。</p>
+        <p>つまりIPアドレスでいうと「127.0.0.1」です。</p>
+        <p>IPアドレスにはいくつか特殊なものがあり、「127.0.0.1」というのもその一つです。</p>
+        <p>このIPアドレスは他サイトでもこのIPを見かけると思いますが、見かけたら「このIPは自身を表すもの」と思いましょう。</p>
+
+
+        <h2>公開</h2>
+        <p>レンタルサーバーの種類やデフォルト設定によっては何もしなくても、設定ファイルで指定したドメイン名でアクセスできると思います。</p>
+        <p>しかしそうじゃない場合もあります。</p>
+        <p>その場合、ポート開放という作業をすれば大体の場合は解決できると思います。</p>
+        <p>それでもだめならレンタルサーバーのアカウント設定を弄るとインターネットからアクセスできたりします。</p>
+
+        <h3>ポート開放のやり方</h3>
+        <p>ubuntuでは、ufwコマンドでポートに関する操作ができます。</p>
+        <p>もしプリインストールされてなかったら以下のコマンドでインストールできます。</p>
+        <p  class="code">sudo apt install ufw</p>
+        <p>よく使うコマンドは以下の通りです。</p>
+        <ul>
+            <li>ポート開放の状況確認 : sudo ufw status</li>
+            <li>ポート開放を有効化 : sudo ufw enable</li>
+            <li>ポート開放を無効化 : sudo ufw disable</li>
+            <li>指定したポート番号をインターネットに開放 : sudo ufw allow ポート番号</li>
+        </ul>
+
+        <p>ポート開放するにはまず以下のコマンドでポート開放を有効化してあげる必要があります。</p>
+        <p class="w-100 bg-dark text-light">sudo ufw enable</p>
+        <p>そしたら以下のコマンドを実行しましょう。</p>
+        <p class="code">sudo ufw allow 80</p>
+        <p>これでポートがインターネットに解放され、インターネットからドメインでアクセスできると思います。</p>
+        <p>ポート80はhttpのポート番号です。</p>
+        <p>よく見かけるhttpsのポート番号は443ですが、こちらは少し手順を踏まなきゃ使えないので、別記事にて解説できればと思います。</p>
+
+
+
+        <h3>さくらサーバーでポート開放する例</h3>
+        <p>私もここで躓いたのですが、さくらサーバーだとufwでポート開放してもインターネットからアクセスできないと思います。</p>
+        <p>どうやらレンタルサーバーによっては、そのサーバー特有のやり方でポート開放しなくてはいけないみたいです。</p>
+        <p>以下はさくらサーバーの場合の手順です。</p>
+
+        <ol>
+            <li><a href="https://secure.sakura.ad.jp/vps/">さくらサーバー管理画面</a>を開く</li>
+            <li>ログインする</li>
+            <li>ポート開放したいサーバーをクリック</li>
+            <li>「パケットフィルター設定」の項目をクリック</li>
+            <li>「パケットフィルターを設定」というボタンをクリック</li>
+            <li>「パケットフィルター設定を追加する」というボタンをクリック</li>
+            <li>追加されたフィルター設定の「フィルターの種類」で「Web」を選ぶ</li>
+        </ol>
+
+        <p>これでポート開放されたと思います。</p>
+
+
+        <h2>まとめ</h2>
+        <p>いかがだったでしょうか？。</p>
+        <p>皆さんのコンテンツを世の中に公開出来たら嬉しいです。</p>
+        <p>ではまた！</p>
+
+        <h2>次の記事</h2>
+        <a href="serverKnowHow2.html">[サーバーノウハウ2]レッツエンクリプトで無料でhttps化する手順(nginx)</a>
+    </main>
+
+
+
+    <div class="ad">
+        <script
+            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+        <script type="text/javascript"
+            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div>
+
+    <script src="../js/footer.js"></script>
+</body>
+
+</html>
