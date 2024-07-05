@@ -89,35 +89,127 @@
         <p>Idleはループさせるという指定です</p>
         <p>草の生成上限は60個にしています</p>
 
-        <p class="code">
-            function isPickUp(spr) {<br>&nbsp;&nbsp;&nbsp;&nbsp;
-            if (spr.isTouched()) {<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-            // Pickupが終わったら消えるように設定<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-            spr.setTagNames(["Pickup","DIE"]);<br>&nbsp;&nbsp;&nbsp;&nbsp;
-            }<br>
-            }<br><br>
-
-            function getRandomInt(max) {<br>&nbsp;&nbsp;&nbsp;&nbsp;
-            return Math.floor(Math.random() * max);<br>
-            }<br><br>
-
-            async function dispatch() {<br>&nbsp;&nbsp;&nbsp;&nbsp;
-            // 最大６０個にしておく<br>&nbsp;&nbsp;&nbsp;&nbsp;
-            if (gPrim.primitives.length <= 60) { <br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                // 乱数で座標を生成<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                var x=32 + getRandomInt(640 - 64);<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                var y=32 + getRandomInt(480 - 64);<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                // ["Mebae", "Idle" ,"REPEAT"]のように指定すると、Mebae、Idleの順に実行した後、Idleをリピートする //<br>&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                ["Mebae", "Idle" ,"DIE"]の場合はIdleを実行した後Spriteが消える<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                var sp=await Sprite.build("Futaba", jsMebae,<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                ["Mebae", "Idle" ,"REPEAT"], x, y, 1, 0);<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                sp.addPhysic(isPickUp); gPrim.append(sp);<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                console.log("dispatched", x, y) <br>&nbsp;&nbsp;&nbsp;&nbsp;
-                }<br>&nbsp;&nbsp;&nbsp;&nbsp;
-                nextTime=3 + getRandomInt(5) * 1000; <br>&nbsp;&nbsp;&nbsp;&nbsp;
-                setTimeout(dispatch, nextTime); <br>
-                }
+        <div
+            style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px; padding: 1rem; width: fit-content; overflow: auto; white-space: nowrap;">
+            <div><span style="color: #569cd6;">function</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #dcdcaa;">isPickUp</span><span style="color: #cccccc;">(</span><span
+                    style="color: #9cdcfe;">spr</span><span style="color: #cccccc;">)&nbsp;{</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">if</span><span style="color: #cccccc;">&nbsp;(</span><span
+                    style="color: #9cdcfe;">spr</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">isTouched</span><span style="color: #cccccc;">())&nbsp;{</span>
+            </div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #6a9955;">//&nbsp;Pickupが終わったら消えるように設定</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">spr</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">setTagNames</span><span style="color: #cccccc;">([</span><span
+                    style="color: #ce9178;">"Pickup"</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #ce9178;">"DIE"</span><span style="color: #cccccc;">]);</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></div>
+            <div><span style="color: #cccccc;">}</span></div>
+            <div><br></div>
+            <div><span style="color: #569cd6;">function</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #dcdcaa;">getRandomInt</span><span style="color: #cccccc;">(</span><span
+                    style="color: #9cdcfe;">max</span><span style="color: #cccccc;">)&nbsp;{</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">return</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">Math</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">floor</span><span style="color: #cccccc;">(</span><span
+                    style="color: #9cdcfe;">Math</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">random</span><span style="color: #cccccc;">()&nbsp;</span><span
+                    style="color: #d4d4d4;">*</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">max</span><span style="color: #cccccc;">);</span></div>
+            <div><span style="color: #cccccc;">}</span></div>
+            <div><br></div>
+            <div><span style="color: #569cd6;">async</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #569cd6;">function</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #dcdcaa;">dispatch</span><span style="color: #cccccc;">()&nbsp;{</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #6a9955;">//&nbsp;最大６０個にしておく</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">if</span><span style="color: #cccccc;">&nbsp;(</span><span
+                    style="color: #9cdcfe;">gPrim</span><span style="color: #cccccc;">.</span><span
+                    style="color: #9cdcfe;">primitives</span><span style="color: #cccccc;">.</span><span
+                    style="color: #9cdcfe;">length</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">&lt;=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #b5cea8;">60</span><span style="color: #cccccc;">)&nbsp;{</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #6a9955;">//&nbsp;乱数で座標を生成</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">var</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">x</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #b5cea8;">32</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">+</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #dcdcaa;">getRandomInt</span><span style="color: #cccccc;">(</span><span
+                    style="color: #b5cea8;">640</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">-</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #b5cea8;">64</span><span style="color: #cccccc;">);</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">var</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">y</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #b5cea8;">32</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">+</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #dcdcaa;">getRandomInt</span><span style="color: #cccccc;">(</span><span
+                    style="color: #b5cea8;">480</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">-</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #b5cea8;">64</span><span style="color: #cccccc;">);</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #6a9955;">//&nbsp;["Mebae",&nbsp;"Idle","REPEAT"]のように指定すると、Mebae、Idleの順に実行した後、Idleをリピートする</span>
+            </div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #6a9955;">//&nbsp;["Mebae",&nbsp;"Idle","DIE"]の場合はIdleを実行した後Spriteが消える</span>
+            </div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">var</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">sp</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">await</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">Sprite</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">build</span><span style="color: #cccccc;">(</span><span
+                    style="color: #ce9178;">"Futaba"</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">jsMebae</span><span style="color: #cccccc;">,&nbsp;[</span><span
+                    style="color: #ce9178;">"Mebae"</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #ce9178;">"Idle"</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #ce9178;">"REPEAT"</span><span style="color: #cccccc;">],&nbsp;</span><span
+                    style="color: #9cdcfe;">x</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">y</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #b5cea8;">1</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #b5cea8;">0</span><span style="color: #cccccc;">);</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">sp</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">addPhysic</span><span style="color: #cccccc;">(</span><span
+                    style="color: #dcdcaa;">isPickUp</span><span style="color: #cccccc;">);</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">gPrim</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">append</span><span style="color: #cccccc;">(</span><span
+                    style="color: #9cdcfe;">sp</span><span style="color: #cccccc;">);</span></div>
+            <div><br></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">console</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">log</span><span style="color: #cccccc;">(</span><span
+                    style="color: #ce9178;">"dispatched"</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">x</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">y</span><span style="color: #cccccc;">)</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">nextTime</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #b5cea8;">3</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">+</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #dcdcaa;">getRandomInt</span><span style="color: #cccccc;">(</span><span
+                    style="color: #b5cea8;">5</span><span style="color: #cccccc;">)&nbsp;</span><span
+                    style="color: #d4d4d4;">*</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #b5cea8;">1000</span><span style="color: #cccccc;">;</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #dcdcaa;">setTimeout</span><span style="color: #cccccc;">(</span><span
+                    style="color: #dcdcaa;">dispatch</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">nextTime</span><span style="color: #cccccc;">);</span></div>
+            <div><span style="color: #cccccc;">}</span></div>
+        </div>
         </p>
 
         <p>ゲームエンジンは画面の表示位置以外も担当しています</p>
