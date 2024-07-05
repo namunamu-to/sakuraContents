@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>記事タイトル</title>
+    <title>作成したゲームエンジン紹介1</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
@@ -24,42 +24,118 @@
             src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
     </div>
 
-    
+
     <main>
-        <h1>記事タイトル</h1>
-        <!-- 目次 -->
+        <h1>作成したゲームエンジン紹介1</h1>
+
+
+        <h2>ゲームエンジン紹介</h2>
+        <p><a href="https://github.com/ChaosReadman/NovelEngine">作成したゲームエンジンのコード</a></p>
+        <p>ゲームエンジンを作りました</p>
+        <p>このゲームエンジンを使い、出てきた芽をつつくと昇天するゲームを作ってみました</p>
+
+        <iframe allowfullscreen="" class="BLOG_video_class" height="377" src="https://www.youtube.com/embed/tK4Y2Adjpco"
+            width="453" youtube-src-id="tK4Y2Adjpco"></iframe>
+
+        <p>今回は、このゲームの解説を通してゲームエンジンの使い方をお話ししたいと思います</p>
+
+
+        <h2>ゲームエンジンとは</h2>
+        <p>ゲームエンジンとは、ゲームでよく行う処理をまとめたものです</p>
+        <p>ゲームエンジンでは座標の計算やレイアウト、画像処理などを楽に行うための関数やクラスなどが用意されています</p>
+        <p>これにより、面倒なプログラムを自分でいちいち書かなくて済むようになるので、ゲーム開発が楽になります</p>
+        <p>これがゲームエンジンというものです</p>
+
+
+        <h2>作成したゲームエンジンの解説</h2>
+        <p>今回作成したゲームエンジンは、オブジェクト指向で作っています</p>
+        <p>興味がある方は、このゲームエンジンのプログラムコードも見ていただけると嬉しいです</p>
+        <p>たった数百行程度しかないので、プログラム初心者の方でも頑張れば読めると思います</p>
+        <p>また、データドリブンの勉強にもなると思います</p>
+        <p>「データドリブンって何？」と思った方は、この機にデータドリブンを深く知ってみるのはどうでしょうか？</p>
+
+        <p>画像素材について</p>
+        <p>アニメーションを作るための画像は、「Aseprite」というスプライトエディタで作りました</p>
+        <p>また、「Aseprite」ではアニメーションのタイミングや間隔、スプライトシートの切り取り範囲などをjson形式で出力できます</p>
+        <p>「Aseprite」は便利なのでオススメです</p>
+
+
+        <h2>便利機能紹介</h2>
+        <h3>座標指定の基点を指定できる</h3>
+        <p>画面に絵を描画する時、以下のような考えでＸ，Ｙ座標を指定しますよね？</p>
+        <p><img src="img/pivotEx.jpg"></a></p>
+        <p>その際、普通は座標を計算するプログラムを書かなくてはいけませんが、このゲームエンジンではその指定ができます</p>
+        <p>つまり、コードの記述量が減ります</p>
+        <p>一番右の例は対戦格闘など、キャラクターの地面の立ち位置を基点にして表示する時に使います</p>
+        <p>真ん中の例は、雪の結晶や光を四方八方に光を散らせるパーティクル効果を表現する際に使われます</p>
+        <p>このようにゲーム開発では都合に合わせて、どこを基点に表示するのか変わってくると思います</p>
+        <p>これらをプログラムで一々調整するのではなく、「Aseprite」などのアニメーションデータで雪がチラつくようなアニメーションを組み、それを再生させながら四方八方に散らせて、最後はアニメーションの透明度で消えていくようにすればいいよねっていう発想です。
+        <p>大体のゲームエンジンも、このように画像側主体で動かしてるみたいで、基本的な考え方でもあります</p>
+        <p>つまり、画像が自分で自分の次のフレームの画像を切り替え、自分の位置も切り替えるということです</p>
+        <p>プログラムはその切り替えるアニメーションパターンや、四方八方に飛び散る物理演算を設定するだけで、あとは画像側が勝手に動く</p>
+        <p>私が紹介した草を引っこ抜くゲームでは、「Mebae」「Idle」「Pickup」のアニメーションパターンをAsepriteで作っています</p>
+        <iframe allowfullscreen="" class="BLOG_video_class" height="368" src="https://www.youtube.com/embed/O9kho_53VCM"
+            width="443" youtube-src-id="O9kho_53VCM"></iframe>
+
+        <p>インターバルで草を生成するルーチンは、以下方法でスプライトを生み出している</p>
         <ol>
-            <li>項目1</li>
-            <li>項目2</li>
-            <li>項目3</li>
-            <li>項目4</li>
-            <li>項目5</li>
-            <li>項目6</li>
+            <li>MebaeからIdleまで再生</li>
+            <li>X、Y位置をランダムに生成し、スプライトを生成</li>
+            <li>当たり判定を物理演算の一種として登録</li>
+            <li>クリックされていたら「Pickup」へ切り替える</li>
+            <li>「Pickup」が終われば、スプライトが消えるよう指定</li>
         </ol>
+        <p>といた感じの処理をしています</p>
+        <p>Idleはループさせるという指定です</p>
+        <p>草の生成上限は60個にしています</p>
 
-
-        <!-- 本文 -->
-        <h2>項目1</h2>
-        <p>項目1の本文1行目</p>
-        <p>項目1の本文2行目</p>
-        
-        <h2>項目2</h2>
-        <p>項目2の本文1行目</p>
-        <p>項目2の本文2行目</p>
-
-        <h2>項目2</h2>
-        <p>項目2の本文1行目</p>
-        <p>項目2の本文2行目</p>
-
-        <!-- プログラムなどのコード -->
         <p class="code">
-            sudo apt update<br>
-            sudo apt upgrade
+            function isPickUp(spr) {<br>&nbsp;&nbsp;&nbsp;&nbsp;
+            if (spr.isTouched()) {<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+            // Pickupが終わったら消えるように設定<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+            spr.setTagNames(["Pickup","DIE"]);<br>&nbsp;&nbsp;&nbsp;&nbsp;
+            }<br>
+            }<br><br>
+
+            function getRandomInt(max) {<br>&nbsp;&nbsp;&nbsp;&nbsp;
+            return Math.floor(Math.random() * max);<br>
+            }<br><br>
+
+            async function dispatch() {<br>&nbsp;&nbsp;&nbsp;&nbsp;
+            // 最大６０個にしておく<br>&nbsp;&nbsp;&nbsp;&nbsp;
+            if (gPrim.primitives.length <= 60) { <br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                // 乱数で座標を生成<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                var x=32 + getRandomInt(640 - 64);<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                var y=32 + getRandomInt(480 - 64);<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                // ["Mebae", "Idle" ,"REPEAT"]のように指定すると、Mebae、Idleの順に実行した後、Idleをリピートする //<br>&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                ["Mebae", "Idle" ,"DIE"]の場合はIdleを実行した後Spriteが消える<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                var sp=await Sprite.build("Futaba", jsMebae,<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                ["Mebae", "Idle" ,"REPEAT"], x, y, 1, 0);<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                sp.addPhysic(isPickUp); gPrim.append(sp);<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                console.log("dispatched", x, y) <br>&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>&nbsp;&nbsp;&nbsp;&nbsp;
+                nextTime=3 + getRandomInt(5) * 1000; <br>&nbsp;&nbsp;&nbsp;&nbsp;
+                setTimeout(dispatch, nextTime); <br>
+                }
         </p>
 
-        <p class="w-100 bg-dark text-light">sudo ufw enable</p>
+        <p>ゲームエンジンは画面の表示位置以外も担当しています</p>
+        <p>当たり判定、繰り返し、消滅、親子関係（親に追従するかしないかの指定も可）、音声再生などなどです</p>
+        <p>例えば何もないスプライトを親にし、その子供としてダンジョンマップを登録する</p>
+        <p>上下左右の移動で、何もない親スプライトの位置を変えれば子供の位置が全部変わる</p>
+        <p>つまりマップがスクロールします</p>
+        <p>例えばぷよぷよのぷよが、自分の上下左右に自分と同じぷよがいるかどうかを調べ、自分の体を変形させる（その際、変形用アニメも用意されていればスムーズに変形する）</p>
+        <p>こういったことを、プログラムだけでやるとすごく大変です</p>
+        <p>ゲームエンジンを使えば、スプライトが自分で考えて自分の姿形を変え、消滅したり、新たなスプライトを生む出したりもできます</p>
+        <p>ゲームエンジンのシナリオデータだけで、自分がやられたら、子供をたくさん生み出すような敵も作れます</p>
+        <p>子供は子供の攻撃パターンで動くこともでき、物理エンジンの一種として登録させることもできます</p>
+        <p>ゲームエンジンがあれば、これらの処理を全部同時に動かすことができます</p>
+        <p>RPGもシューティングも格闘ゲームもパズルも同じ要領で作れます</p>
+        <p>ゲームの仕事が来た時、ゲームエンジンを作ってゲームを作れば楽をでき、余った時間で好きなことができます。</p>
+        <p>G123などは、すでにやっているのではないでしょうか？</p>
 
-        <p class="code">sudo ufw allow 80</p>
+        <p>あと、ブラウザに特化したゲームエンジンなら、スマホでもPCでもゲームをプレイできるといったメリットもあります</p>
 
 
         <h2>まとめ</h2>
