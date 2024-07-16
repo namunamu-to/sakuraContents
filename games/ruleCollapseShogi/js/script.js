@@ -60,6 +60,6 @@ ws.addEventListener("message", (message)=>{
 });
 
 startMatch.addEventListener("click", ()=>{
-    console.log(`moveRoom ${roomId.value+roomPw.value} ${plName.value}`);
-    ws.send(`moveRoom ${roomId.value+roomPw.value} ${plName.value}`);
+    console.log(`moveRoom ${roomPw.value} ${"default"}`);
+    ws.send(`moveRoom ${roomPw.value} ${"default"}`);
 });
