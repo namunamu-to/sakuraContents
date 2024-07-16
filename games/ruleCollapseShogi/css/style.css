@@ -105,9 +105,12 @@ main {
   margin: auto;
 }
 
-#gameControlWrap>*,
-#matchWrap>* {
+#gameControlWrap>* {
   margin: 3px;
+}
+
+.matchWrap > *{
+  margin : 1px 1px 1rem 1px;
 }
 
 #victoryOrDefeatElm h1 {
