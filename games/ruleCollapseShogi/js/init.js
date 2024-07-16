@@ -42,8 +42,7 @@ let pausing = true;
 
 
 //ソケット繋げとく
-const ws = new WebSocket('wss://galleon.yachiyo.tech/shogi/cmd');
-
+const ws = new WebSocket('wss://galleon.yachiyo.tech/commonGameServer/shogi');
 
 function myDialog(msg){
     dialogElm.style.display = "block";
