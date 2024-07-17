@@ -1,7 +1,18 @@
 document.body.innerHTML += `<canvas id="canvasElm"></canvas>`;
 let ctx = canvasElm.getContext("2d");
 let updates = {};
+let exes = [];
 let imgs = {};
+let clicked = {
+    x : -1,
+    y : -1,
+};
+
+canvasElm.addEventListener("click", (e)=>{
+    clicked.x = e.offsetX;
+    clicked.y = e.offsetY;
+});
+
 
 //方向表すもの
 const dirKeys = ["up", "down", "left", "right", "upLeft", "upRight", "downLeft", "downRight"];
@@ -39,12 +50,31 @@ function getDir(x, y) {
     }
 }
 
+function newDrawInfo(x1, y1, width, height){
+    let drawInfo = {
+        x1 : x1,
+        y1 : y1,
+        x2 : x1+width,
+        y2 : y1 + height,
+        width : width,
+        height : height,
+    };
+
+    return drawInfo;
+}
+
 //処理更新
 setInterval(() => {
     ctx.clearRect(0, 0, canvasElm.width, canvasElm.height);
     let keys = Object.keys(updates);
     for (let key of keys) {
         updates[key]();
+    }
+
+
+    for(let i=0; i<exes.length; i++){
+        exes[0]();
+        exes.splice(0, 1);
     }
 }, 1000 / 60);
 
@@ -92,12 +122,17 @@ function readImg(imgPath) {
     imgs[imgPath] = image;
 }
 
-function drawImage(imgPath, x1, y1, x2, y2) {
+function drawImage(imgPath, x1, y1, width, height, dir="down") {
     readImg(imgPath);
     if (!Object.keys(imgs).includes(imgPath)) return;
 
+    // ctx.drawImage(imgs[imgPath], x1, y1, width, height);
     //画像描画
-    ctx.drawImage(imgs[imgPath], x1, y1, x2, y2);
+    ctx.save();
+    ctx.translate(x1 + width / 2, y1 + height / 2);
+    ctx.rotate(Math.PI / 180 * digs[dir]);
+    ctx.drawImage(imgs[imgPath], -width / 2, -height / 2, width, height);
+    ctx.restore();
 }
 
 function makeElm(toElm, tagName, id = "", className = "") {

@@ -1,7 +1,7 @@
-body {
-  background-image: url(../img/木床タイル.png);
+/* body {
+  background-image: url(../img/青タイル.png);
   background-repeat: repeat;
-}
+} */
 
 main {
   display: flex;

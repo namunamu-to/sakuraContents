@@ -1,4 +1,8 @@
 const ws = new WebSocket('wss://galleon.yachiyo.tech/commonGameServer/shogi');
+let canMoves = [];
+let tileSize = 0;
+let pausing = true; //ポーズフラグ
+let imgDir = "img/"
 
 //ゲームボードの設定
 //初期配置の位置を定義
@@ -16,25 +20,24 @@ let startBoard = [
 
 //盤面の状況を表す配列作成
 let boardSize = 9
-let nowBoard = newTwoList(boardSize, boardSize, "");
+let nowBoard;
 
+function initBoard(){
+    nowBoard = structuredClone(startBoard);
+    
+    for(let y=0; y<nowBoard.length; y++){
+        for(let x=0; x<nowBoard.length; x++){
+            const onSpace = nowBoard[y][x]
+            if(onSpace == "") continue;
 
-//必須な変数を定義
-//1マスの定義
-let tileSize = 0;
-let pausing = true; //ポーズフラグ
-let imgDir = "img/"
+            let isEnemy = y < 3;
 
-updates.board = () => {
-    tileSize = Math.min(canvasElm.width, canvasElm.height) / 9;
-    const imgFiles = ["赤タイル.png", "黄タイル.png", "青タイル.png"]; 
-
-    //タイル描画
-    for(let y=0; y<boardSize; y++){
-        const imgPath = imgDir + imgFiles[Math.floor(y/3)];
-        for(let x=0; x<boardSize; x++) drawImage(imgPath, x*tileSize, y*tileSize, tileSize, tileSize);
+            nowBoard[y][x] = newPiece(onSpace, isEnemy);
+        }
     }
-};
+}
+
+initBoard();
 
 
 //難易度選択
