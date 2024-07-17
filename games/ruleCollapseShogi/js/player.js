@@ -85,10 +85,6 @@ class Player {
         else if (fromY <= piece.y && endY >= piece.y) return true;
         else return false;
     }
-
-    move(x, y) {
-        
-    }
     
     move(piece, toX, toY) {
         if(piece.coolTimeCount > 0) return;
@@ -100,6 +96,8 @@ class Player {
         //移動
         piece.setPosition(toX, toY);
         piece.coolTimeCount = piece.moveCoolTime;
+
+        // moveSeElm.play();
     }
 
 

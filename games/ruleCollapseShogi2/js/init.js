@@ -1,4 +1,4 @@
-const gameBoard = document.getElementById("gameBoard");
+const ws = new WebSocket('wss://galleon.yachiyo.tech/commonGameServer/shogi');
 
 //ゲームボードの設定
 //初期配置の位置を定義
@@ -15,43 +15,30 @@ let startBoard = [
 ];
 
 //盤面の状況を表す配列作成
-let nowBoard;
-function initNowBoard(){
-    nowBoard = [];
+let boardSize = 9
+let nowBoard = newTwoList(boardSize, boardSize, "");
 
-    for(let y=0; y<9; y++){
-        let list = [];
-        for(let x=0; x<9; x++){
-            list.push("");
-        }
-        
-        nowBoard.push(list);
-    }
-}
-initNowBoard();
 
 //必須な変数を定義
 //1マスの定義
-const gameBoardSize = parseInt(Math.min(window.innerWidth, window.innerHeight));
-setSize(gameBoard, gameBoardSize, gameBoardSize);
-const tileSize = gameBoardSize / 9;
-const halfTileSize = parseInt(tileSize / 2);
+let tileSize = 0;
+let pausing = true; //ポーズフラグ
+let imgDir = "img/"
 
+updates.board = () => {
+    tileSize = Math.min(canvasElm.width, canvasElm.height) / 9;
+    const imgFiles = ["赤タイル.png", "黄タイル.png", "青タイル.png"]; 
 
-//ポーズフラグ
-let pausing = true;
+    //タイル描画
+    for(let y=0; y<boardSize; y++){
+        const imgPath = imgDir + imgFiles[Math.floor(y/3)];
+        for(let x=0; x<boardSize; x++) drawImage(imgPath, x*tileSize, y*tileSize, tileSize, tileSize);
+    }
+};
 
-
-//ソケット繋げとく
-const ws = new WebSocket('wss://galleon.yachiyo.tech/commonGameServer/shogi');
-
-function myDialog(msg){
-    dialogElm.style.display = "block";
-    dialogElm.innerHTML = msg;
-}
 
 //難易度選択
-for(let i=1; i<=14; i++){
+for (let i = 1; i <= 14; i++) {
     let optHtml = `<option value="${i}">Lv${i}</option>`;
     easyLvElm.innerHTML += optHtml;
 }
