@@ -1,14 +1,17 @@
-document.body.innerHTML += `<canvas id="canvasElm"></canvas>`;
+document.body.innerHTML += `<div style="position: relative;"><canvas id="canvasElm"></canvas><div>`;
 let ctx = canvasElm.getContext("2d");
 let updates = {};
 let exes = [];
 let imgs = {};
+let cycledTime = Date.now();
+let cycle;
+let cycleCnt = 0;
 let clicked = {
-    x : -1,
-    y : -1,
+    x: -1,
+    y: -1,
 };
 
-canvasElm.addEventListener("click", (e)=>{
+canvasElm.addEventListener("click", (e) => {
     clicked.x = e.offsetX;
     clicked.y = e.offsetY;
 });
@@ -38,6 +41,11 @@ const digs = {
     "downRight": 315,
 }
 
+function isPointInRange(checkX, checkY, rangeX1, rangeY1, rangeWidth, rangeHeight) {
+    if (checkX < rangeWidth && checkY < rangeHeight && checkX > rangeX1 && checkY > rangeHeight) return true;
+    return false;
+}
+
 function getDir(x, y) {
     let dirX = 0;
     let dirY = 0;
@@ -50,21 +58,25 @@ function getDir(x, y) {
     }
 }
 
-function newDrawInfo(x1, y1, width, height){
+function newDrawInfo(x1, y1, width, height) {
     let drawInfo = {
-        x1 : x1,
-        y1 : y1,
-        x2 : x1+width,
-        y2 : y1 + height,
-        width : width,
-        height : height,
+        x1: x1,
+        y1: y1,
+        x2: x1 + width,
+        y2: y1 + height,
+        width: width,
+        height: height,
     };
 
     return drawInfo;
 }
 
-//処理更新
-setInterval(() => {
+function ctxLoop() {
+    const nowDate = Date.now();
+    cycle = nowDate - cycledTime;
+    cycleCnt += cycle;
+    cycledTime = nowDate;
+
     ctx.clearRect(0, 0, canvasElm.width, canvasElm.height);
     let keys = Object.keys(updates);
     for (let key of keys) {
@@ -72,11 +84,17 @@ setInterval(() => {
     }
 
 
-    for(let i=0; i<exes.length; i++){
+    for (let i = 0; i < exes.length; i++) {
         exes[0]();
         exes.splice(0, 1);
     }
-}, 1000 / 60);
+
+    if (cycleCnt > 1000) cycleCnt -= 1000;
+    window.requestAnimationFrame(ctxLoop);
+}
+
+//処理更新
+window.requestAnimationFrame(ctxLoop);
 
 updates.drawCanvas = () => {
     canvasElm.width = window.innerWidth;
@@ -113,20 +131,26 @@ function fillRect(color, fromX, fromY, toX, toY) {
     ctx.fillRect(fromX, fromY, toX, toY);
 }
 
+function fillText(text="", x, y, fontSize=10) {
+    ctx.font = fontSize + "px serif";
+    width = fontSize * text.length;
+    // fillRect(backColor, x, y, x+width, y+fontSize);
+    ctx.fillText(text, x, y, width);
+}
+
 function readImg(imgPath) {
-    if (Object.keys(imgs).includes(imgPath)) return ;
-    
+    if (Object.keys(imgs).includes(imgPath)) return;
+
     // Canvasに合成したい画像を設定する
     const image = new Image();
     image.src = imgPath;
     imgs[imgPath] = image;
 }
 
-function drawImage(imgPath, x1, y1, width, height, dir="down") {
+function drawImage(imgPath, x1, y1, width, height, dir = "down") {
     readImg(imgPath);
     if (!Object.keys(imgs).includes(imgPath)) return;
 
-    // ctx.drawImage(imgs[imgPath], x1, y1, width, height);
     //画像描画
     ctx.save();
     ctx.translate(x1 + width / 2, y1 + height / 2);

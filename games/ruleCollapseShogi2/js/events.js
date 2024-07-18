@@ -10,15 +10,38 @@ matchCPU.addEventListener("click", () => {
     retryMatch();
 });
 
+function showCanMoveTileHandller(boardX, boardY){
+    canMoves = [];
+    if (boardX >= boardSize || boardX < 0 || boardY >= boardSize || boardY < 0) return;
+
+    const onSpace = nowBoard[boardY][boardX];
+    if (onSpace == "") return;
+    if (onSpace.isEnemy) return;
+
+    let piece = onSpace;
+    clickedPieceX = boardX;
+    clickedPieceY = boardY;
+    canMoves = getCanMoves(piece, boardX, boardY);
+}
+
+function moveToCanMoveTileHandller(boardX, boardY){
+    for(let canMove of canMoves){
+        if(boardX == canMove[0] && boardY == canMove[1]) {
+            movePiece(clickedPieceX, clickedPieceY, boardX, boardY);
+            return true;
+        }
+    }
+
+}
+
 canvasElm.addEventListener("click", () => {
     const boardX = parseInt((clicked.x - boardDrawInfo.x1) / tileSize);
     const boardY = parseInt((clicked.y - boardDrawInfo.y1) / tileSize);
-    console.log(boardX, boardY);
-    if (boardX >= boardSize || boardX < 0 || boardY >= boardSize || boardY < 0) return;
-    if (nowBoard[boardY][boardX] == "") return;
 
-    let piece = nowBoard[boardY][boardX];
-    canMoves = getCanMoves(piece, boardX, boardY);
+    const moved = moveToCanMoveTileHandller(boardX, boardY);
+    if(moved) canMoves = [];
+    else showCanMoveTileHandller(boardX, boardY);
+    
 });
 
 

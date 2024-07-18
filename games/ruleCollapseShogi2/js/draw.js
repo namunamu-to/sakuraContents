@@ -2,6 +2,10 @@ let boardOffsetX = 0;
 let boardOffsetY = 0;
 let boardDrawInfo; 
 
+updates.background = () =>{
+    // drawImage();
+};
+
 updates.board = () => {
     let oneSidePx = Math.min(window.innerWidth, window.innerHeight) * 0.90;
     boardDrawInfo = newDrawInfo((window.innerWidth - oneSidePx) / 2, (window.innerHeight - oneSidePx) / 2, oneSidePx, oneSidePx);
@@ -22,7 +26,17 @@ updates.pieces = () => {
             const imgPath = imgDir + onSpace.kind + ".png";
             
             const drawDir = onSpace.isEnemy ? "up" : "down";
-            drawImage(imgPath, boardDrawInfo.x1+x*tileSize, boardDrawInfo.y1+y*tileSize, tileSize*0.95, tileSize*0.95, dir=drawDir);
+            const drawX = boardDrawInfo.x1+x*tileSize;
+            const drawY = boardDrawInfo.y1+y*tileSize;
+            
+            drawImage(imgPath, drawX, drawY, tileSize*0.95, tileSize*0.95, dir=drawDir);
+
+
+            //クールタイム表示
+            onSpace.coolDown -= cycle;
+            if(onSpace.coolDown <= 0) onSpace.coolDown = pieceStatus[onSpace.kind].coolDown;
+            fillText(parseInt(onSpace.coolDown / 1000), drawX, drawY);
+            // console.log(onSpace.coolDown / 1000);
         }
     }
 };

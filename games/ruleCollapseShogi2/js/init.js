@@ -1,5 +1,7 @@
 const ws = new WebSocket('wss://galleon.yachiyo.tech/commonGameServer/shogi');
 let canMoves = [];
+let clickedPieceX;
+let clickedPieceY;
 let tileSize = 0;
 let pausing = true; //ポーズフラグ
 let imgDir = "img/"
