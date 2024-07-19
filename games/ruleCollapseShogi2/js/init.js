@@ -47,3 +47,5 @@ for (let i = 1; i <= 14; i++) {
     let optHtml = `<option value="${i}">Lv${i}</option>`;
     easyLvElm.innerHTML += optHtml;
 }
+
+easyLvElm.options[2].selected = true;

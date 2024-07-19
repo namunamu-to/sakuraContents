@@ -10,9 +10,12 @@
         text-align: center;
         top: 0;
         left: 0;
+        right: 0;
+        left: 0;
+        z-index: 1000;
     `;
 
-    const addHtml = `<div class="position-fixed border border-dark dialogElm" id="showDialogElm" style="${style}"></div>`;
+    const addHtml = `<div class="position-fixed border border-dark" id="showDialogElm" style="${style}"></div>`;
     document.body.innerHTML += addHtml;
 }());
 

@@ -3,14 +3,34 @@ stopCPUElm.addEventListener("click", () => {
 });
 
 startCPUElm.addEventListener("click", () => {
-    pausing = false;
+    vsStartCount();
 });
 
 matchCPU.addEventListener("click", () => {
-    retryMatch();
+    retryMatch(true);
 });
 
-function showCanMoveTileHandller(boardX, boardY){
+
+function vsStartCount() {
+    pausing = true;
+    location.href = "#canvasElm";
+    const msgs = ["対戦開始まで\n3", "対戦開始まで\n2", "対戦開始まで\n1", "対戦開始！", ""];
+    dialog(msgs[0]);
+    for (let i = 1; i < msgs.length + 1; i++) {
+        setTimeout(() => {
+            dialog(msgs[i]);
+            if (i == msgs.length) pausing = false;
+        }, i * 1000);
+    }
+}
+
+function retryMatch(isCpuEnemy) {
+    isCpuEnemy = isCpuEnemy;
+    initBoard();
+    vsStartCount();
+}
+
+function showCanMoveTileHandller(boardX, boardY) {
     canMoves = [];
     if (boardX >= boardSize || boardX < 0 || boardY >= boardSize || boardY < 0) return;
 
@@ -24,48 +44,28 @@ function showCanMoveTileHandller(boardX, boardY){
     canMoves = getCanMoves(piece, boardX, boardY);
 }
 
-function moveToCanMoveTileHandller(boardX, boardY){
-    for(let canMove of canMoves){
-        if(boardX == canMove[0] && boardY == canMove[1]) {
+function moveToCanMoveTileHandller(boardX, boardY) {
+    for (let canMove of canMoves) {
+        if (boardX == canMove[0] && boardY == canMove[1]) {
             movePiece(clickedPieceX, clickedPieceY, boardX, boardY);
+
+            console.log(isCpuEnemy);
+            if (!isCpuEnemy) ws.send("move" + fromX + fromY + toX + toY + reversed);
             return true;
         }
     }
-
 }
 
 canvasElm.addEventListener("click", () => {
+    if (pausing) return;
     const boardX = parseInt((clicked.x - boardDrawInfo.x1) / tileSize);
     const boardY = parseInt((clicked.y - boardDrawInfo.y1) / tileSize);
 
     const moved = moveToCanMoveTileHandller(boardX, boardY);
-    if(moved) canMoves = [];
+    if (moved) canMoves = [];
     else showCanMoveTileHandller(boardX, boardY);
-    
+
 });
-
-
-function vsStartCount(count) {
-    location.href = "#gameBoard";
-    myDialog(`<div><p>対戦開始まで<p><p id=${"startVsCount"}>${count}</p><div>`);
-
-    const intervalId = setInterval(() => {
-        count--;
-        myDialog(`<div><p>対戦開始まで<p><p id=${"startVsCount"}>${count}</p><div>`);
-
-        if (count <= 0) {
-            myDialog("<p>対戦開始！</p>");
-
-            setTimeout(() => {
-                myDialog("")
-                pausing = false;
-            }, 1000);
-
-            clearInterval(intervalId);
-        }
-
-    }, 1000);
-}
 
 ws.addEventListener("open", (message) => {
     console.log('ソケット通信成功');
@@ -76,16 +76,16 @@ ws.addEventListener("message", (message) => {
     const cmd = msg.split(" ");
 
     if (cmd[0] == "fullMember") {
-        myDialog("満員です。違うID・パスワードを使ってください");
+        dialog("満員です。違うID・パスワードを使ってください");
     } else if (cmd[0] == "matched") {
         retryMatch(false);
     } else if (cmd[0] == "matching") {
-        myDialog(`
+        dialog(`
         <p>マッチング中です</p>
         <p>人数 : ${cmd[1]}</p>
     `);
     } else if (cmd[0] == "move") {
-        player2.humanOneAction(cmd[1], cmd[2], cmd[3], cmd[4]);
+        enemyPlayerAction(cmd.slice(1));
     } else if (cmd[0] == "disConnect") {
         alert("相手プレイヤーと通信が切れました。\n対戦を終了します");
     }
@@ -95,5 +95,6 @@ ws.addEventListener("message", (message) => {
 
 startMatch.addEventListener("click", () => {
     console.log(`moveRoom ${roomPw.value} ${"default"}`);
+
     ws.send(`moveRoom ${roomPw.value} ${"default"}`);
 });

@@ -10,11 +10,8 @@ let clicked = {
     x: -1,
     y: -1,
 };
+let jenerateId = 0;
 
-canvasElm.addEventListener("click", (e) => {
-    clicked.x = e.offsetX;
-    clicked.y = e.offsetY;
-});
 
 
 //方向表すもの
@@ -41,6 +38,22 @@ const digs = {
     "downRight": 315,
 }
 
+function getRandomInt(min, max){
+    const result = Math.floor( Math.random(new Date()) * (max - min) + min)
+    return result;
+}
+
+function exeInterval(func, interval){
+    let coolTime = interval;
+    updates[jenerateId] = ()=>{
+        coolTime -= cycle;
+        if (coolTime < 0) {
+            coolTime = interval;
+            func();
+        }
+    };
+}
+
 function isPointInRange(checkX, checkY, rangeX1, rangeY1, rangeWidth, rangeHeight) {
     if (checkX < rangeWidth && checkY < rangeHeight && checkX > rangeX1 && checkY > rangeHeight) return true;
     return false;
@@ -51,7 +64,7 @@ function getDir(x, y) {
     let dirY = 0;
     if (x != 0) dirX = x / Math.abs(x);
     if (y != 0) dirY = y / Math.abs(y);
-
+    
     for (let key of dirKeys) {
         const val = dirs[key];
         if (val[0] == dirX && val[1] == dirY) return key;
@@ -67,7 +80,7 @@ function newDrawInfo(x1, y1, width, height) {
         width: width,
         height: height,
     };
-
+    
     return drawInfo;
 }
 
@@ -76,30 +89,22 @@ function ctxLoop() {
     cycle = nowDate - cycledTime;
     cycleCnt += cycle;
     cycledTime = nowDate;
-
+    
     ctx.clearRect(0, 0, canvasElm.width, canvasElm.height);
     let keys = Object.keys(updates);
     for (let key of keys) {
         updates[key]();
     }
-
-
+    
+    
     for (let i = 0; i < exes.length; i++) {
         exes[0]();
         exes.splice(0, 1);
     }
-
+    
     if (cycleCnt > 1000) cycleCnt -= 1000;
     window.requestAnimationFrame(ctxLoop);
 }
-
-//処理更新
-window.requestAnimationFrame(ctxLoop);
-
-updates.drawCanvas = () => {
-    canvasElm.width = window.innerWidth;
-    canvasElm.height = window.innerHeight;
-};
 
 function newTwoList(ySize, xSize, fillElm) {
     list = [];
@@ -131,11 +136,14 @@ function fillRect(color, fromX, fromY, toX, toY) {
     ctx.fillRect(fromX, fromY, toX, toY);
 }
 
-function fillText(text="", x, y, fontSize=10) {
+// function fillText(backImgPath, text = "", x, y, fontSize = 10) {
+function fillText(text = "", x, y, fontSize = 10) {
     ctx.font = fontSize + "px serif";
     width = fontSize * text.length;
-    // fillRect(backColor, x, y, x+width, y+fontSize);
-    ctx.fillText(text, x, y, width);
+    fillRect("#fff", x, y, width, fontSize);
+    ctx.textBaseline = "top";
+    ctx.fillStyle = "#000";
+    ctx.fillText(text, x + (width / 5), y, width);
 }
 
 function readImg(imgPath) {
@@ -167,3 +175,16 @@ function makeElm(toElm, tagName, id = "", className = "") {
 
     return elm;
 }
+
+canvasElm.addEventListener("click", (e) => {
+    clicked.x = e.offsetX;
+    clicked.y = e.offsetY;
+});
+
+//処理更新
+window.requestAnimationFrame(ctxLoop);
+
+updates.drawCanvas = () => {
+    canvasElm.width = window.innerWidth;
+    canvasElm.height = window.innerHeight;
+};
