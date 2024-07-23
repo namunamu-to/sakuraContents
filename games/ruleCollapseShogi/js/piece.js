@@ -1,132 +1,147 @@
 //駒の移動範囲を定義
-const moveDir = { "up": [0, -1], "down": [0, 1], "left": [-1, 0], "right": [1, 0], "leftUp": [-1, -1], "rightUp": [1, -1], "leftDown": [-1, 1], "rightDown": [1, 1], "keima1":[-1, -2], "keima2":[1, -2]};
-const mobilitys = {
-    "歩兵": { "up": 1, "down": 0, "left": 0, "right": 0, "leftUp": 0, "rightUp": 0, "leftDown": 0, "rightDown": 0, "keima1":0, "keima2": 0 },
-    "と金": { "up": 1, "down": 1, "left": 1, "right": 1, "leftUp": 1, "rightUp": 1, "leftDown": 0, "rightDown": 0, "keima1":0, "keima2": 0 },
-    "飛車": { "up": 8, "down": 8, "left": 8, "right": 8, "leftUp": 0, "rightUp": 0, "leftDown": 0, "rightDown": 0, "keima1":0, "keima2": 0 },
-    "龍王": { "up": 8, "down": 8, "left": 8, "right": 8, "leftUp": 1, "rightUp": 1, "leftDown": 1, "rightDown": 1, "keima1":0, "keima2": 0 },
-    "角行": { "up": 0, "down": 0, "left": 0, "right": 0, "leftUp": 8, "rightUp": 8, "leftDown": 8, "rightDown": 8, "keima1":0, "keima2": 0 },
-    "龍馬": { "up": 1, "down": 1, "left": 1, "right": 1, "leftUp": 8, "rightUp": 8, "leftDown": 8, "rightDown": 8, "keima1":0, "keima2": 0 },
-    "王将": { "up": 1, "down": 1, "left": 1, "right": 1, "leftUp": 1, "rightUp": 1, "leftDown": 1, "rightDown": 1, "keima1":0, "keima2": 0 },
-    "金将": { "up": 1, "down": 1, "left": 1, "right": 1, "leftUp": 1, "rightUp": 1, "leftDown": 0, "rightDown": 0, "keima1":0, "keima2": 0 },
-    "銀将": { "up": 1, "down": 0, "left": 0, "right": 0, "leftUp": 1, "rightUp": 1, "leftDown": 1, "rightDown": 1, "keima1":0, "keima2": 0 },
-    "成銀": { "up": 1, "down": 1, "left": 1, "right": 1, "leftUp": 1, "rightUp": 1, "leftDown": 0, "rightDown": 0, "keima1":0, "keima2": 0 },
-    "桂馬": { "up": 0, "down": 0, "left": 0, "right": 0, "leftUp": 0, "rightUp": 0, "leftDown": 0, "rightDown": 0, "keima1":1, "keima2": 1 },
-    "成桂": { "up": 1, "down": 1, "left": 1, "right": 1, "leftUp": 1, "rightUp": 1, "leftDown": 0, "rightDown": 0, "keima1":0, "keima2": 0 },
-    "香車": { "up": 8, "down": 0, "left": 0, "right": 0, "leftUp": 0, "rightUp": 0, "leftDown": 0, "rightDown": 0, "keima1":0, "keima2": 0 },
-    "成香": { "up": 1, "down": 1, "left": 1, "right": 1, "leftUp": 1, "rightUp": 1, "leftDown": 0, "rightDown": 0, "keima1":0, "keima2": 0 },
+//桂馬は動きは特殊だから定義しない
+const pieceStatus = {
+    "歩兵": {
+        move: { "up": 1 },
+        coolDown: 3000,
+    },
+    "金将": {
+        move: { "up": 1, "down": 1, "left": 1, "right": 1, "upLeft": 1, "upRight": 1 },
+        coolDown: 4000,
+    },
+    "銀将": {
+        move: { "up": 1, "upLeft": 1, "upRight": 1, "downLeft": 1, "downRight": 1 },
+        coolDown: 4000,
+    },
+    "飛車": {
+        move: { "up": 8, "down": 8, "left": 8, "right": 8 },
+        coolDown: 5000,
+    },
+    "龍王": {
+        move: { "up": 8, "down": 8, "left": 8, "right": 8, "upLeft": 1, "upRight": 1, "downLeft": 1, "downRight": 1 },
+        coolDown: 5000,
+    },
+    "角行": {
+        move: { "upLeft": 8, "upRight": 8, "downLeft": 8, "downRight": 8 },
+        coolDown: 5000,
+    },
+    "龍馬": {
+        move: { "up": 1, "down": 1, "left": 1, "right": 1, "upLeft": 8, "upRight": 8, "downLeft": 8, "downRight": 8 },
+        coolDown: 5000,
+    },
+    "王将": {
+        move: { "up": 1, "down": 1, "left": 1, "right": 1, "upLeft": 1, "upRight": 1, "downLeft": 1, "downRight": 1 },
+        coolDown: 5000,
+    },
+    "桂馬": {
+        move: {},
+        coolDown: 4000,
+    },
+    "香車": {
+        move: { "up": 8 },
+        coolDown: 4000,
+    }
 }
 
-//生存している駒のインスタンスリスト
-let allPieces = []
-class Piece {
-    static createdNum = 0;
-    constructor(role, x, y, moveCoolTime, isEnemy) {
-        //インスタンス変数セット
-        this.id = Piece.createdNum++;
-        this.role = role;
-        this.x = x;
-        this.y = y;
-        this.isEnemy = isEnemy;
-        this.moveRange = mobilitys[role];
-        this.moveCoolTime = moveCoolTime;
-        this.coolTimeCount = 0;
-        this.reversed = false;
-        this.startX = x;
-        this.startY = y;
-        this.dead = false
-
-        //駒を表示するための要素を設定し、表示
-        this.elm = makeElm(gameBoard, "span", this.getElmId(), "piece");
-        this.elm.style.backgroundImage = `url(${this.getImgPath()})`;
-
-        //駒の表示サイズと位置設定
-        const pieceSize = tileSize - 10;
-        setSize(this.elm, pieceSize, tileSize - 10);
-
-        //要素の初期配置
-        this.setPosition(x, y)
-
-
-        //this以外から自身を参照するための配列に自身を追加
-        nowBoard[y][x] = this;
-
+function newPiece(kind, isEnemy) {
+    let piece = {
+        isEnemy: isEnemy,
+        kind: kind,
+        coolDown: 0,
+        offsetX: 0,
+        offsetY: 0,
     }
 
-    getImgPath(){
-        return "./img/" + this.role + ".png";
-    }
+    return piece
+}
 
-    //駒のdomのidを取得
-    getElmId() {
-        return "piece" + this.id;
-    }
+function checkCanMoveTo(piece, toX, toY) {
+    if (toX >= boardSize || toX < 0 || toY >= boardSize || toY < 0) return false;
+    let onSpace = nowBoard[toY][toX];
+    if (onSpace == "") return true;
+    if (piece.isEnemy == onSpace.isEnemy) return false;
+    else return true;
+}
 
+function getCanMoves(piece, nowX, nowY) {
+    let canMoves = [];
+    if (piece.coolDown > 0) return canMoves;
 
-    setPosition(toX, toY) {
-        //座標を移動
-        setPosition(this.elm, toX * tileSize + 5, toY * tileSize + 5);
+    let moves = pieceStatus[piece.kind].move;
+    let moveKeys = Object.keys(moves);
 
-        nowBoard[toY][toX] = this;
-
-        //現在地を保存
-        this.x = toX;
-        this.y = toY;
-    }
-
-    checkCanMove(toX, toY) {
-        if (toX < 0 || toX > 8 || toY < 0 || toY > 8) return false; //盤面外なら
-        else if (nowBoard[toY][toX] == "") return true;
-        else if (nowBoard[toY][toX].isEnemy == this.isEnemy) return false; //移動先に味方がいるか
-
-        return true;
-    }
-
-    //動ける範囲を取得
-    getCanMoves() {
-        let canMoves = [];
-
-        const moveKeys = ["up", "down", "left", "right", "leftUp", "rightUp", "leftDown", "rightDown", "keima1", "keima2"]
-        for (let moveKey of moveKeys) { //8方向の移動範囲を処理
-            for (let i = 1; i < mobilitys[this.role][moveKey] + 1; i++) { //方向に対する移動量分繰り返す
-                //チェックする座標
-                let moveX = moveDir[moveKey][0];
-                let moveY = moveDir[moveKey][1];
-
-                //レッドチームなら移動方向を反転させる
-                if(this.isEnemy){
-                    moveX *= -1;
-                    moveY *= -1;
-                }
-
-                const toX = this.x + (moveX * i);
-                const toY = this.y + (moveY * i);
-
-                if (!this.checkCanMove(toX, toY)) break; //移動できないならbreak
-
-                canMoves.push([toX, toY]);
-                const therePiece = nowBoard[toY][toX];
-                if (therePiece != "") break; //駒があるならbreak
-            }
+    if (piece.kind == "桂馬") {
+        moves = [[-1, -2], [1, -2]];
+        if (piece.isEnemy) {
+            moves[0][1] *= -1;
+            moves[1][1] *= -1;
         }
+
+        const toX1 = moves[0][0] + nowX;
+        const toY1 = moves[0][1] + nowY;
+        const toX2 = moves[1][0] + nowX;
+        const toY2 = moves[1][1] + nowY;
+        if (checkCanMoveTo(piece, toX1, toY1)) canMoves.push([toX1, toY1]);
+        if (checkCanMoveTo(piece, toX2, toY2)) canMoves.push([toX2, toY2]);
 
         return canMoves;
     }
 
-    reverse() {
-        this.reversed = true;
-        if (this.role == "歩兵" || this.role == "銀将" || this.role == "桂馬" || this.role == "香車") this.role = "金将";
-        if (this.role == "飛車") this.role = "龍王";
-        if (this.role == "角行") this.role = "龍馬";
+    //桂馬以外の場合の移動
+    for (let dir of moveKeys) {
+        let moveAmmount = moves[dir];
+        for (let i = 1; i <= moveAmmount; i++) {
+            let moveX = dirs[dir][0] * i;
+            let moveY = dirs[dir][1] * i;
+            moveY = piece.isEnemy ? -moveY : moveY;
+            const toX = nowX + moveX;
+            let toY = nowY + moveY;
 
-        this.moveRange = mobilitys[this.role];
-        this.elm.style.backgroundImage = `url(${this.getImgPath()})`;
+            if (toX >= boardSize || toX < 0 || toY >= boardSize || toY < 0) break;
+
+            let onSpace = nowBoard[toY][toX];
+            if (onSpace != "") {
+
+                if (piece.isEnemy != onSpace.isEnemy) canMoves.push([toX, toY]);
+
+                break
+            }
+
+            canMoves.push([toX, toY])
+        }
     }
 
-    refreshStatus() {
-        let html = "";
-        if (this.coolTimeCount > 0) html += `<div class="statusElm">${this.coolTimeCount}</div>`;
+    return canMoves;
+}
 
-        this.elm.innerHTML = html;
+function movePiece(fromX, fromY, toX, toY) {
+    const piece = nowBoard[fromY][fromX];
+
+    piece.coolDown = pieceStatus[piece.kind].coolDown;
+    nowBoard[fromY][fromX] = "";
+    if (nowBoard[toY][toX].kind == "王将") {
+        pausing = true;
+        showVsResult(!piece.isEnemy);
     }
+
+    nowBoard[toY][toX] = piece;
+    if (isCpuEnemy) reversePiece(piece, toX, toY);
+    console.log(nowBoard[toY][toX].coolDown);
+}
+
+function reversePiece(piece, x, y, doReverse=true) {
+    if(!doReverse) return false;
+    if (piece.isEnemy && y < 6) return false;
+    if (!piece.isEnemy && y >= 3) return false;
+
+    const canReversePieces = ["角行", "飛車", "歩兵", "銀将", "桂馬", "香車"];
+    const reversePieces = ["龍馬", "龍王", "金将", "金将", "金将", "金将"];
+    const reverseIdx = canReversePieces.indexOf(piece.kind);
+    if (reverseIdx == -1) return false;
+
+    if(!piece.isEnemy) doReverse = confirm("成りますか");
+    if(!doReverse) return;
+
+    piece.kind = reversePieces[reverseIdx];
+    return doReverse;
 }

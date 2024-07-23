@@ -24,8 +24,8 @@ function vsStartCount() {
     }
 }
 
-function retryMatch(isCpuEnemy) {
-    isCpuEnemy = isCpuEnemy;
+function retryMatch(isCpu) {
+    isCpuEnemy = isCpu;
     initBoard();
     vsStartCount();
 }
@@ -44,13 +44,13 @@ function showCanMoveTileHandller(boardX, boardY) {
     canMoves = getCanMoves(piece, boardX, boardY);
 }
 
-function moveToCanMoveTileHandller(boardX, boardY) {
+function moveToCanMoveTileHandller(toX, toY) {
     for (let canMove of canMoves) {
-        if (boardX == canMove[0] && boardY == canMove[1]) {
-            movePiece(clickedPieceX, clickedPieceY, boardX, boardY);
+        if (toX == canMove[0] && toY == canMove[1]) {
+            movePiece(clickedPieceX, clickedPieceY, toX, toY);
+            const reversed = reversePiece(nowBoard[toY][toX], toX, toY);
+            if (!isCpuEnemy) ws.send(`move ${clickedPieceX} ${clickedPieceY} ${toX} ${toY} ${reversed}`);
 
-            console.log(isCpuEnemy);
-            if (!isCpuEnemy) ws.send("move" + fromX + fromY + toX + toY + reversed);
             return true;
         }
     }
