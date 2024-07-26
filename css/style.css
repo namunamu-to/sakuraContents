@@ -1,41 +1,361 @@
-/* 上下の内側余白2remを一括付与 */
-main h2 {
-    padding-top: 2rem;
+body {
+    background-color: #fafafa;
+    font-family: "游ゴシック体", "Yu Gothic", "YuGothic", "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
+    letter-spacing: 3px;
+}
+
+main {
+    width: 80%;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+/* padding 1rem */
+.contentList:after,
+.contentBlock {
+    padding: 1rem;
+}
+
+.contentListHeadding {
+    border-bottom: solid 5px #a9dff3;
+    width: fit-content;
+    margin: 3rem auto;
+    font-size: 3rem;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.contentList {
+    width: 100%;
+    display: grid;
     padding-bottom: 2rem;
-    display: block;
+    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr);
 }
 
-.contentList{
+
+.blogContentsList {
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.contentBlock {
+    height: fit-content;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.5);
+    word-break: break-all;
+    text-align: center;
+    background-color: #fff;
+    text-decoration: none;
+    text-decoration-line: none;
+}
+
+.contentSummary{
+    color: #000;
+}
+
+.blogContentsList .contentBlock {
+    padding: 2rem;
+    text-align: left;
+}
+
+@media screen and (max-width: 1550px) {
+    .gameContentsList {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 1135px) {
+    .gameContentsList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 480px以下に適用されるCSS（スマホ用） */
+@media screen and (max-width: 780px) {
+    .gameContentsList {
+        display: block;
+    }
+
+    .gameContentsList .contentBlock {
+        width: 100%;
+        display: flex;
+        border-radius: 30px;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .gameContentsList .contentBlock img {
+        height: 6rem;
+        width: auto;
+    }
+    
+    .gameContentsList .contentBlock .contentText {
+        width: 100%;
+        padding-left: 2rem;
+    }
+
+}
+
+.gameContentsList .contentBlock:hover {
+    z-index: 1000;
+    width: 120%;
+    margin: auto;
+}
+
+.blogContentsList .contentBlock:hover {
+    opacity: 0.4;
+}
+
+.contentBlock img {
+    border-radius: 30px;
     width: 100%;
+    aspect-ratio: 1;
 }
 
-.contentBlock{
-    border: #000 solid 1px;
-    display: flex;
-    width: 100%;
-    margin: 1rem 1rem 1rem 0rem;
-    padding: 1rem;
+.contentTitle {
+    text-align: center;
+    margin: 1rem auto, 0, auto;
+    margin-bottom: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
 }
 
-.contentBlock img{
-    width: 5rem;
-    height: 5rem;
+.blogContentsList .contentTitle {
+    font-size: 1.5rem;
 }
 
-.contentBlock div > * {
-    padding: 1rem;
-}
-
-.mainBgColor {
-    background-color: #a9dff3;
-}
-
-.ad{
+.ad {
     text-align: center;
     padding: 1rem;
+    margin: 2rem auto;
 }
 
 img {
     max-width: 100%;
     height: auto;
+}
+
+#headerElm {
+    height: 10rem;
+    gap: 2rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+#headerElm a {
+    text-decoration: none;
+    color: #fff;
+}
+
+#headerElm a:hover {
+    opacity: 0.5;
+}
+
+#headerLogo {
+    height: 100%;
+}
+
+#headerNavElm {
+    font-size: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#headerNavElm>* {
+    margin-left: 2rem;
+}
+
+.mainBgColor {
+    background-color: #000;
+}
+
+.navNowPage {
+    border-bottom: solid 3px #a9dff3;
+}
+
+
+/* リセットCSS */
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+html {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%
+}
+
+body {
+    margin: 0
+}
+
+main {
+    display: block
+}
+
+h1 {
+    font-size: 2em;
+    margin: .67em 0
+}
+
+hr {
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible
+}
+
+pre {
+    font-family: monospace, monospace;
+    font-size: 1em
+}
+
+a {
+    background-color: transparent
+}
+
+abbr[title] {
+    border-bottom: none;
+    text-decoration: underline;
+    text-decoration: underline dotted
+}
+
+b,
+strong {
+    font-weight: bolder
+}
+
+code,
+kbd,
+samp {
+    font-family: monospace, monospace;
+    font-size: 1em
+}
+
+small {
+    font-size: 80%
+}
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline
+}
+
+sub {
+    bottom: -.25em
+}
+
+sup {
+    top: -.5em
+}
+
+img {
+    border-style: none
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0
+}
+
+button,
+input {
+    overflow: visible
+}
+
+button,
+select {
+    text-transform: none
+}
+
+[type=button],
+[type=reset],
+[type=submit],
+button {
+    -webkit-appearance: button
+}
+
+[type=button]::-moz-focus-inner,
+[type=reset]::-moz-focus-inner,
+[type=submit]::-moz-focus-inner,
+button::-moz-focus-inner {
+    border-style: none;
+    padding: 0
+}
+
+[type=button]:-moz-focusring,
+[type=reset]:-moz-focusring,
+[type=submit]:-moz-focusring,
+button:-moz-focusring {
+    outline: 1px dotted ButtonText
+}
+
+fieldset {
+    padding: .35em .75em .625em
+}
+
+legend {
+    box-sizing: border-box;
+    color: inherit;
+    display: table;
+    max-width: 100%;
+    padding: 0;
+    white-space: normal
+}
+
+progress {
+    vertical-align: baseline
+}
+
+textarea {
+    overflow: auto
+}
+
+[type=checkbox],
+[type=radio] {
+    box-sizing: border-box;
+    padding: 0
+}
+
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
+    height: auto
+}
+
+[type=search] {
+    -webkit-appearance: textfield;
+    outline-offset: -2px
+}
+
+[type=search]::-webkit-search-decoration {
+    -webkit-appearance: none
+}
+
+::-webkit-file-upload-button {
+    -webkit-appearance: button;
+    font: inherit
+}
+
+details {
+    display: block
+}
+
+summary {
+    display: list-item
+}
+
+template {
+    display: none
+}
+
+[hidden] {
+    display: none
 }

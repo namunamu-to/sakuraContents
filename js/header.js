@@ -1,22 +1,45 @@
-(function() {
+(function () {
     let addHtml = ` 
-        <img src="https://galleon.yachiyo.tech/ROGO.png" class="titleLogo w-auto h-10 my-3" alt="ロゴ">
+    
+    <nav id="headerNavElm" class="mainBgColor nav py-3 mb-5 ">
+        <span></span>
+        <img id="headerLogo" src="https://galleon.yachiyo.tech/ROGO.png" alt="ロゴ">
+        <span>
+            <a class="navLink" href="https://galleon.yachiyo.tech/index.html">HOME</a>
+        </span>
+    </nav>
+    
+    
 
-        <nav id="headerNavElm" class="mainBgColor nav py-3 mb-5">
-            <a class="nav-link" href="https://galleon.yachiyo.tech/index.html">ホーム</a>
-        </nav>
+    <style>
+        #headerNavElm {
+            height: 10rem;
+            gap: 2rem;
+            color: #fff;
+            font-size: 2rem;
+            align-items: center;
+        }
 
-        <style>
-            .titleLogo {
-                width: auto;
-                height: 10rem;
-            }
+            
+        #headerNavElm a {
+            text-decoration:none;
+            color: #fff;
+            border-bottom: solid 3px #66deff;
+        }
 
-            .mainBgColor {
-                background-color: #a9dff3;
-            }
-        </style>
+        #headerLogo {
+            height: 100%;
+        }
+
+        .mainBgColor {
+            background-color: #000;
+        }
+    </style>
     `;
+
+    const urls = {
+        
+    }
 
     document.body.innerHTML += addHtml;
 }())

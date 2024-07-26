@@ -38,14 +38,14 @@ const digs = {
     "downRight": 315,
 }
 
-function getRandomInt(min, max){
-    const result = Math.floor( Math.random(new Date()) * (max - min) + min)
+function getRandomInt(min, max) {
+    const result = Math.floor(Math.random(new Date()) * (max - min) + min)
     return result;
 }
 
-function exeInterval(func, interval){
+function exeInterval(func, interval) {
     let coolTime = interval;
-    updates[jenerateId] = ()=>{
+    updates[jenerateId] = () => {
         coolTime -= cycle;
         if (coolTime < 0) {
             coolTime = interval;
@@ -64,7 +64,7 @@ function getDir(x, y) {
     let dirY = 0;
     if (x != 0) dirX = x / Math.abs(x);
     if (y != 0) dirY = y / Math.abs(y);
-    
+
     for (let key of dirKeys) {
         const val = dirs[key];
         if (val[0] == dirX && val[1] == dirY) return key;
@@ -80,7 +80,7 @@ function newDrawInfo(x1, y1, width, height) {
         width: width,
         height: height,
     };
-    
+
     return drawInfo;
 }
 
@@ -89,19 +89,19 @@ function ctxLoop() {
     cycle = nowDate - cycledTime;
     cycleCnt += cycle;
     cycledTime = nowDate;
-    
+
     ctx.clearRect(0, 0, canvasElm.width, canvasElm.height);
     let keys = Object.keys(updates);
     for (let key of keys) {
         updates[key]();
     }
-    
-    
+
+
     for (let i = 0; i < exes.length; i++) {
         exes[0]();
         exes.splice(0, 1);
     }
-    
+
     if (cycleCnt > 1000) cycleCnt -= 1000;
     window.requestAnimationFrame(ctxLoop);
 }
@@ -136,7 +136,13 @@ function fillRect(color, fromX, fromY, toX, toY) {
     ctx.fillRect(fromX, fromY, toX, toY);
 }
 
-// function fillText(backImgPath, text = "", x, y, fontSize = 10) {
+function lineTo(x1, y1, x2, y2) {
+    ctx.beginPath(); // 新しいパスを開始
+    ctx.moveTo(x1, y1); // ペンを (30, 50) へ移動
+    ctx.lineTo(x2, y2); // 直線を (150, 100) へ描く
+    ctx.stroke(); // パスを描画
+}
+
 function fillText(text = "", x, y, fontSize = 10) {
     ctx.font = fontSize + "px serif";
     width = fontSize * text.length;
