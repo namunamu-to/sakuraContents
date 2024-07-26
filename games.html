@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>八千代技研のゲーム集</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="ROGO.png">
 
@@ -24,117 +22,88 @@
     </script>
 
 
-    <nav id="headerNavElm" class="mainBgColor nav py-3 mb-5 ">
-        <span></span>
-        <img id="headerLogo" src="https://galleon.yachiyo.tech/ROGO.png" alt="ロゴ">
-
-        <span>
-            <a class="navLink" href="index.html">HOME</a>
-        </span>
-
-        <span>
-            <a class="navLink navNowPage" href="games.html">ゲーム一覧</a>
-        </span>
-
-        <span>
-            <a class="navLink" href="blogs.html">ブログ一覧</a>
-        </span>
-    </nav>
+    <script src="js/header.js"></script>
 
 
-    <!-- <div class="ad">
+    <div class="ad">
         <script
             type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
         <script type="text/javascript"
             src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
-    </div> -->
+    </div>
 
 
-    <main class="p-3">
+    <main>
         <!-- ゲーム一覧 -->
-        <h2 class="contentListHeadding">ゲーム一覧</h2>
-        <div class="contentList">
-            <div class="contentBlock">
-                <img class="contentIcon" src="./games/ruleCollapseShogi/img/王将.png">
-                <div>
-                    <a class="contentTitle" href="games/ruleCollapseShogi/index.html" target="_blank">ルール崩壊将棋</a>
-                    <p class="contentSummary">
-                        将棋を基にした何かです
-                    </p>
-                </div>
-            </div>
+        <h1 class="contentListHeadding">Games</h1>
+        <div class="contentList gameContentsList">
 
-            <div class="contentBlock">
+            <a class="contentBlock" href="games/ruleCollapseShogi/index.html" target="_blank">
+                <img class="contentIcon" src="./games/ruleCollapseShogi/img/icon.png">
+                <div class="contentText">
+                    <p class="contentTitle">リアルタイム制将棋</p>
+                    <p class="contentSummary">フレンドや世界中の人と気軽に対戦！</p>
+                </div>
+            </a>
+
+            <a class="contentBlock" href="games/BlockBreaker/index.html" target="_blank">
                 <img class="contentIcon" src="./games/BlockBreaker/icon.png">
-                <div>
-                    <a class="contentTitle" href="games/BlockBreaker/index.html" target="_blank">ブロック崩し</a>
-                    <p class="contentSummary">
-                        ブロック崩しゲームです。
-                    </p>
+                <div class="contentText">
+                    <p class="contentTitle">ブロック崩し</p>
+                    <p class="contentSummary">君は何ブロック破壊できるかな？</p>
                 </div>
-            </div>
+            </a>
 
-            <div class="contentBlock">
+            <a class="contentBlock" href="games/WaterGame/index.html" target="_blank">
                 <img class="contentIcon" src="./games/WaterGame/img/bg_natural_ocean.jpg">
-                <div>
-                    <a class="contentTitle" href="games/WaterGame/index.html" target="_blank">ウォーターゲーム</a>
-                    <p class="contentSummary">
-                        小さい頃遊んだウォーターゲームのデジタル版です。
-                    </p>
+                <div class="contentText">
+                    <p class="contentTitle">ウォーターゲーム</p>
+                    <p class="contentSummary">懐かしのおもちゃをデジタルで！</p>
                 </div>
-            </div>
+            </a>
 
-            <div class="contentBlock">
+            <a class="contentBlock" href="games/dungeonGame/index.html" target="_blank">
                 <img class="contentIcon" src="./games/dungeonGame/img/icon.png">
-                <div>
-                    <a class="contentTitle" href="games/dungeonGame/index.html" target="_blank">ローグライクゲーム</a>
-                    <p class="contentSummary">
-                        ローグライクゲームです。
-                    </p>
+                <div class="contentText">
+                    <p class="contentTitle">ローグライクゲーム</p>
+                    <p class="contentSummary">無限ダンジョン！</p>
                 </div>
-            </div>
+            </a>
 
-            <div class="contentBlock">
+            <a class="contentBlock" href="games/mashGame/index.html" target="_blank">
                 <img class="contentIcon" src="./games/mashGame/img/icon.png">
-                <div>
-                    <a class="contentTitle" href="games/mashGame/index.html" target="_blank">連打ンピック</a>
-                    <p class="contentSummary">
-                        世界中の人と連打速度を競うゲームです。
-                    </p>
+                <div class="contentText">
+                    <p class="contentTitle">連打ンピック</p>
+                    <p class="contentSummary">世界中の奴らと連打力で競い合え！</p>
                 </div>
-            </div>
+            </a>
 
-            <div class="contentBlock">
+            <a class="contentBlock" href="games/azInputGame/index.html" target="_blank">
                 <img class="contentIcon" src="./games/azInputGame/img/icon.png">
-                <div>
-                    <a class="contentTitle" href="games/azInputGame/index.html" target="_blank">az入力ゲーム</a>
-                    <p class="contentSummary">
-                        a～zまでの入力速度を世界中の人と競うゲームです。
-                    </p>
+                <div class="contentText">
+                    <p class="contentTitle">連打ンピック</p>
+                    <p class="contentSummary">世界中の奴らとタイピング速度を競おう！</p>
                 </div>
-            </div>
+            </a>
 
-            <div class="contentBlock">
+            <a class="contentBlock" href="games/othello/index.html" target="_blank">
                 <img class="contentIcon" src="./games/othello/img/icon.png">
-                <div>
-                    <a class="contentTitle" href="games/othello/index.html" target="_blank">オセロ</a>
-                    <p class="contentSummary">
-                        オセロです。
-                    </p>
+                <div class="contentText">
+                    <p class="contentTitle">オセロ</p>
+                    <p class="contentSummary">フレンドや世界中の人と気軽に対戦！</p>
                 </div>
-            </div>
+            </a>
 
+            <a class="contentBlock" href="games/pullOutGrass/aseprite.html" target="_blank">
+                <img class="contentIcon" src="./games/pullOutGrass/images/icon.png">
+                <div class="contentText">
+                    <p class="contentTitle">草引っこ抜く</p>
+                    <p class="contentSummary">おふざけ癒し系！</p>
+                </div>
+            </a>
+        </div>
     </main>
-
-    <!-- <div class="ad">
-        <script
-            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
-        <script type="text/javascript"
-            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
-    </div> -->
-
     <script src="js/footer.js"></script>
-    <script src="js/script.js"></script>
 </body>
 
 </html>

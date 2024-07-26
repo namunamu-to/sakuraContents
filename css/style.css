@@ -136,47 +136,6 @@ img {
     height: auto;
 }
 
-#headerElm {
-    height: 10rem;
-    gap: 2rem;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-}
-
-#headerElm a {
-    text-decoration: none;
-    color: #fff;
-}
-
-#headerElm a:hover {
-    opacity: 0.5;
-}
-
-#headerLogo {
-    height: 100%;
-}
-
-#headerNavElm {
-    font-size: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-#headerNavElm>* {
-    margin-left: 2rem;
-}
-
-.mainBgColor {
-    background-color: #000;
-}
-
-.navNowPage {
-    border-bottom: solid 3px #a9dff3;
-}
-
 
 /* リセットCSS */
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
