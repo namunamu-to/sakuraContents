@@ -10,9 +10,11 @@
         text-align: center;
         top: 0;
         left: 0;
+        border: soloid 1px #000;
+        position: fixed;
     `;
 
-    const addHtml = `<div class="position-fixed border border-dark dialogElm" id="showDialogElm" style="${style}"></div>`;
+    const addHtml = `<div id="showDialogElm" style="${style}"></div>`;
     document.body.innerHTML += addHtml;
 }());
 

@@ -4,16 +4,22 @@ body {
     letter-spacing: 3px;
 }
 
-main {
+/* main {
     width: 80%;
     margin: 2rem auto;
     padding: 2rem;
-}
+} */
 
 /* padding 1rem */
 .contentList:after,
 .contentBlock {
     padding: 1rem;
+}
+
+.contentsListWrap {
+    width: 80%;
+    margin: 2rem auto;
+    padding: 2rem;
 }
 
 .contentListHeadding {
