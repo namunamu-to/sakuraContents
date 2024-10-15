@@ -82,3 +82,7 @@ img {
 img {
     padding: 1rem;
 }
+
+.indent3 {
+    position: -12rem;
+}
