@@ -45,6 +45,10 @@
                 <a class="contentBlock contentTitle" href="blog/orgGameEngine1.html">
                     作成したゲームエンジン紹介1
                 </a>
+
+                <a class="contentBlock contentTitle" href="blog/unity3dTpsCameraHowTo">
+                    [unity3D]cinemachineを使い、TPSカメラを作成を楽にする方法
+                </a>
             </div>
         </div>
 

@@ -63,6 +63,7 @@
     let nowFile = window.location.href.split("/").pop();
     for (let key of Object.keys(files)){
         const nowPageClass = nowFile == key ? "navNowPage" : "";
-        headerNavElm.innerHTML += `<span><a class="navLink ${nowPageClass}" href="${"./" + key}">${files[key]}</a></span>`;
+        // headerNavElm.innerHTML += `<span><a class="navLink ${nowPageClass}" href="${"./" + key}">${files[key]}</a></span>`;
+        headerNavElm.innerHTML += `<span><a class="navLink ${nowPageClass}" href="${"https://galleon.yachiyo.tech/" + key}">${files[key]}</a></span>`;
     }
 }())
