@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字列を一行ごとに囲うツール</title>
+</head>
+
+<body>
+    <h1>文字列を一行ごとに囲うツール</h1>
+    <div id="mainWrap">
+        <label>
+            プリセット選択 :
+            <select id="presetElm">
+                <option value="<p>行</p>">&lt;p&gt;行&lt;/p&gt;</option>
+                <option value='str += "行";'>str += "行"</option>
+                <option value='sb.Append("行");'>sb.Append("行")</option>
+            </select>
+        </label>
+
+        <label>
+            pre : <input type="text" id="preStrElm" value="<p>">
+        </label>
+
+        <label>
+            end : <input type="text" id="endStrElm" value="</p>">
+        </label>
+
+        <button id="outBtn">出力(ctrl + Enter)</button>
+
+        <label>
+            <div>入力文字列</div>
+            <textarea id="inStrElm" spellcheck="false">
+SELECT
+    books.id AS ""本(ID)""
+    , books.title AS ""タイトル""
+    , books.price AS ""価格""
+    , shops.shop_name AS ""店名""
+    , Count(SOLD) AS ""販売個数""
+    , books.price * Count(SOLD) AS ""販売（円）""
+    , sold.sold_datetime AS ""販売時刻""
+FROM
+    sold
+    INNER JOIN shops
+        ON sold.sold_shop_id = shops.id
+    INNER JOIN books
+        ON sold.sold_book_id = books.id
+WHERE
+    DATE(sold.sold_datetime) BETWEEN @StartDateTime AND @EndDateTime
+GROUP BY
+    books.id
+    , shops.shop_name
+    , sold.sold_datetime</textarea>
+        </label>
+
+
+        <label>
+            <div>出力文字列</div>
+            <textarea id="outStrElm" spellcheck="false"></textarea>
+        </label>
+    </div>
+
+    <script>
+        exeOut();
+
+        function exeOut() {
+            const lineList = inStrElm.value.split("\n");
+            let outStr = "";
+
+            //出力文字作成
+            for (let line of lineList) {
+                outStr += preStrElm.value + line + endStrElm.value + "\n";
+            }
+
+            outStr[outStr.length - 1] = ""; //一番最後に追加した改行コードを空文字に置き換える
+            outStrElm.value = outStr; //出力
+        }
+
+        outBtn.addEventListener("click", exeOut);
+
+        //ショートカットキー
+        document.addEventListener('keydown', event => {
+            if (event.ctrlKey && event.key === "Enter") {
+                exeOut();
+            }
+        });
+
+
+        //プリセット変更時
+        presetElm.addEventListener("change", () => {
+            const options = presetElm.options;
+            const idx = presetElm.selectedIndex
+            const input = options[idx].value;
+
+            const preEnd = input.split("行");
+
+            preStrElm.value = preEnd[0];
+            endStrElm.value = preEnd[1];
+        });
+    </script>
+
+
+    <style>
+        #mainWrap>* {
+            display: block;
+            margin: 2rem;
+        }
+
+        #inStrElm,
+        #outStrElm {
+            height: 50vh;
+            width: 90vw;
+            overflow: scroll;
+        }
+    </style>
+</body>
+
+</html>
