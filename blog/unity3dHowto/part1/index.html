@@ -10,12 +10,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 
 <body>
-    <script src="../js/header.js"></script>
+    <script src="../../../js/header.js"></script>
 
     <div class="ad">
         <script
@@ -28,6 +28,7 @@
         <h1>[unity3D]cinemachineを使い、TPSカメラの作成を楽にする方法</h1>
         <!-- 目次 -->
         <ol class="contentsIndex">
+            <li>STEP0. 前準備</li>
             <li>STEP1. cinemachineをインストール</li>
             <li>STEP2. メインカメラにbrainを追加</li>
             <li>STEP3. 設定を弄ってTPS視点完成!!</li>
@@ -35,25 +36,53 @@
         </ol>
 
         <!-- 前書き -->
-        <p>unityのカメラ実装って地味に面倒ですよね。</p>
-        <p>今回はcinemachineというものを使い、超楽にTPS視点のカメラを作る方法を紹介します。</p>
-        <p>ちなみに、cinemachineでTPS視点を実装する記事って少ないんですよね。</p>
-        <p>仮にあっても複雑に書いていたりするので、私がゲームを作る際、実装に苦労しました。</p>
-        <p>ですので私と同じように苦しむ人を減らすため、この記事を書いていこうと思います。</p>
+        <p>unityのカメラ実装って地味に面倒ですよね</p>
+        <p>今回はcinemachineというものを使い、超楽にTPS視点のカメラを作る方法を紹介します</p>
+        <p>ちなみに、cinemachineでTPS視点を実装する記事って少ないんですよね</p>
+        <p>仮にあっても複雑に書いていたりするので、私がゲームを作る際、実装に苦労しました</p>
+        <p>ですので私と同じように苦しむ人を減らすため、この記事を書いていこうと思います</p>
 
-        <p>ちなみに使用しているUnityのバージョンは「2022.3.24f1」です。</p>
+        <p>ちなみに使用しているUnityのバージョンは「2022.3.24f1」です</p>
 
 
         <!-- 本文 -->
         <h2>cinemachineとは</h2>
-        <p>簡単に言うと、カメラの作成を楽にするための公式アセットです。</p>
-        <p>fpsやtps、真上からの視点などはよく使うカメラワークだと思います。</p>
-        <p>そういったカメラワークを自分で毎回1から作ると大変です。</p>
-        <p>このcinemachineでは、そういったよく使うカメラの処理を予め用意してくれているので、ゲーム開発者は少し設定を弄るだけで簡単にいい感じのカメラを作ることが出来るのです。</p>
+        <p>簡単に言うと、カメラの作成を楽にするための公式アセットです</p>
+        <p>fpsやtps、真上からの視点などはよく使うカメラワークだと思います</p>
+        <p>そういったカメラワークを自分で毎回1から作ると大変です</p>
+        <p>このcinemachineでは、そういったよく使うカメラの処理を予め用意してくれているので、ゲーム開発者は少し設定を弄るだけで簡単にいい感じのカメラを作ることが出来るのです</p>
 
+        <h2>前準備</h2>
+        <p>下記の画像のように、操作したいキャラをシーンに配置しましょう</p>
+        <p>私は分かりやすいよう、「ただのブロック」というブロックを二つくっつけたキャラもどきをシーンに配置しました</p>
+        
+        <p><img src="data/1.png" alt=""></p>
+
+        <p>前準備はこれだけです</p>
+        <p>次はTPSカメラを作成していきます</p>
 
         <h2>STEP1. cinemachineをインストール</h2>
-        <p>まずはcinemachineをインストールしましょう。</p>
+        <p>まずはcinemachineをインストールしましょう</p>
+        <p>手順は以下の通りです</p>
+
+
+        
+        <p><img src="data/2.png" alt=""></p>
+        <p><img src="data/3.png" alt=""></p>
+        <p><img src="data/4.png" alt=""></p>
+        <p><img src="data/5.png" alt=""></p>
+        <p><img src="data/6.png" alt=""></p>
+        <p><img src="data/7.png" alt=""></p>
+        <p><img src="data/8.png" alt=""></p>
+        <p><img src="data/9.png" alt=""></p>
+        <p><img src="data/10.png" alt=""></p>
+        <p><img src="data/11.png" alt=""></p>
+        <p><img src="data/12.png" alt=""></p>
+        <p><img src="data/13.png" alt=""></p>
+        <p><img src="data/14.png" alt=""></p>
+        <p><img src="data/15.png" alt=""></p>
+
+
 
 
 
@@ -68,8 +97,8 @@
 
 
         <h2>まとめ</h2>
-        <p>いかがだったでしょうか？。</p>
-        <p>この記事が皆さんのお役に立てたら嬉しいです。</p>
+        <p>いかがだったでしょうか？</p>
+        <p>この記事が皆さんのお役に立てたら嬉しいです</p>
         <p>ではまた！</p>
 
         <h2>次の記事</h2>
@@ -84,7 +113,7 @@
         <script type="text/javascript"
             src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
     </div>
-
+    blog\unity3dHowto\part1\index.html
 
 
     <script>
@@ -92,7 +121,8 @@
         
         `;
     </script>
-    <script src="../js/footer.js"></script>
+
+    <script src="../../../js/footer.js"></script>
 
 </body>
 

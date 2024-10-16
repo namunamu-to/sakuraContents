@@ -1,7 +1,7 @@
 (function () {
     let addHtml = ` 
     <nav id="headerElm">
-        <img id="headerLogo" src="./ROGO.png" alt="ロゴ">
+        <img id="headerLogo" src="https://galleon.yachiyo.tech/ROGO.png" alt="ロゴ">
 
         <span id="headerNavElm"></span>
     </nav>
