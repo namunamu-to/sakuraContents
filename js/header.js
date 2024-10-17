@@ -17,6 +17,7 @@
             align-items: center;
             padding: 1rem;
             background-color: #000;
+            width: 100vw;
         }
         
         #headerElm a {
@@ -36,7 +37,7 @@
         #headerNavElm {
             font-size: 2rem;
             display: flex;
-            flex-wrap: wrap;
+            // flex-wrap: wrap;
             gap: 1rem;
         }
         

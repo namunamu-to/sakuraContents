@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[unity3D]超シンプルなコードでTPSのキャラ移動操作を実装する方法</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+    <script src="../../../js/header.js"></script>
+
+    <div class="ad">
+        <script
+            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+        <script type="text/javascript"
+            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div>
+
+    <main>
+        <h1>[unity3D]超シンプルなコードでTPSのキャラ移動操作を実装する方法</h1>
+
+        <!-- 前書き -->
+        <p>TPSのキャラ移動操作をプログラミングする時、もっとシンプルに分かりやすく書けないかなと思い、色々試行錯誤してみました</p>
+        <p>その経験を皆さんと共有できれば思い、この記事を書くことにしました</p>
+        <p>ちなみに、使用しているUnityのバージョンは「2022.3.24f1」です</p>
+
+        <h2>結論</h2>
+        <code id="resultCode" class="code">
+            <div>using UnityEngine;</div>
+            <div></div>
+            <div>public class PlayerController : MonoBehaviour</div>
+            <div>{</div>
+            <div>    protected float speed = 0.1f; //移動速度</div>
+            <div></div>
+            <div>    void Start()</div>
+            <div>    {</div>
+            <div>    }</div>
+            <div></div>
+            <div></div>
+            <div>    //angleは移動方向を度数で指定</div>
+            <div>    //moveAmountは移動量。</div>
+            <div>    void Run(float angle, float moveAmount)</div>
+            <div>    {</div>
+            <div>        //カメラ向きの角度取得</div>
+            <div>        Vector3 cameraAngle = Camera.main.transform.localEulerAngles;</div>
+            <div>        </div>
+            <div>        //カメラの向きを基準に、プライヤーの向きを引数angle分回転</div>
+            <div>        transform.localEulerAngles = new Vector3(0, cameraAngle.y + angle, 0);</div>
+            <div></div>
+            <div>        //プレイヤーの向いてる方向に引数moveAmmountだけ移動</div>
+            <div>        transform.Translate(0, 0, moveAmount);</div>
+            <div>    }</div>
+            <div></div>
+            <div></div>
+            <div>    void Update()</div>
+            <div>    {</div>
+            <div>        //押されたキー取得</div>
+            <div>        bool w = Input.GetKey(KeyCode.W);</div>
+            <div>        bool a = Input.GetKey(KeyCode.A);</div>
+            <div>        bool s = Input.GetKey(KeyCode.S);</div>
+            <div>        bool d = Input.GetKey(KeyCode.D);</div>
+            <div></div>
+            <div>        //押されたキーに応じた方向に移動</div>
+            <div>        if (w && d) Run(45, speed); //右上</div>
+            <div>        else if (w && a) Run(-45, speed); //左上</div>
+            <div>        else if (s && d) Run(135, speed); //右下</div>
+            <div>        else if (s && a) Run(-135, speed); //左下</div>
+            <div>        else if (w) Run(0, speed); //上</div>
+            <div>        else if (s) Run(180, speed); //下</div>
+            <div>        else if (a) Run(-90, speed); //左</div>
+            <div>        else if (d) Run(90, speed); //右</div>
+            <div>    }</div>
+            <div>}</div>
+        </code>
+
+        <h2>まとめ</h2>
+        <p>いかがだったでしょうか？</p>
+        <p>この記事が皆さんのお役に立てたら嬉しいです</p>
+        <p>ではまた！</p>
+
+        <h2>次の記事</h2>
+        <a href="preparation.html">準備中</a>
+    </main>
+
+
+
+    <div class="ad">
+        <script
+            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+        <script type="text/javascript"
+            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div>
+
+    <script>
+        // let addHtml = ``;
+        // addHtml += `using UnityEngine;<br>`;
+        // addHtml += `<br>`;
+        // addHtml += `public class PlayerController2 : MonoBehaviour<br>`;
+        // addHtml += `{<br>`;
+        // addHtml += `    protected float speed = 0.1f; //移動速度<br>`;
+        // addHtml += `<br>`;
+        // addHtml += `    void Start()<br>`;
+        // addHtml += `    {<br>`;
+        // addHtml += `    }<br>`;
+        // addHtml += `<br>`;
+        // addHtml += `<br>`;
+        // addHtml += `    //angleは移動方向を度数で指定<br>`;
+        // addHtml += `    //moveAmountは移動量。<br>`;
+        // addHtml += `    void Run(float angle, float moveAmount)<br>`;
+        // addHtml += `    {<br>`;
+        // addHtml += `        //カメラ向きの角度取得<br>`;
+        // addHtml += `        Vector3 cameraAngle = Camera.main.transform.localEulerAngles;<br>`;
+        // addHtml += `        <br>`;
+        // addHtml += `        //カメラの向きを基準に、プライヤーの向きを引数angle分回転<br>`;
+        // addHtml += `        transform.localEulerAngles = new Vector3(0, cameraAngle.y + angle, 0);<br>`;
+        // addHtml += `<br>`;
+        // addHtml += `        //プレイヤーの向いてる方向に引数moveAmmountだけ移動<br>`;
+        // addHtml += `        transform.Translate(0, 0, moveAmount);<br>`;
+        // addHtml += `    }<br>`;
+        // addHtml += `<br>`;
+        // addHtml += `<br>`;
+        // addHtml += `    void Update()<br>`;
+        // addHtml += `    {<br>`;
+        // addHtml += `        //押されたキー取得<br>`;
+        // addHtml += `        bool w = Input.GetKey(KeyCode.W);<br>`;
+        // addHtml += `        bool a = Input.GetKey(KeyCode.A);<br>`;
+        // addHtml += `        bool s = Input.GetKey(KeyCode.S);<br>`;
+        // addHtml += `        bool d = Input.GetKey(KeyCode.D);<br>`;
+        // addHtml += `<br>`;
+        // addHtml += `        //押されたキーに応じた方向に移動<br>`;
+        // addHtml += `        if (w && d) Run(45, speed); //右上<br>`;
+        // addHtml += `        else if (w && a) Run(-45, speed); //左上<br>`;
+        // addHtml += `        else if (s && d) Run(135, speed); //右下<br>`;
+        // addHtml += `        else if (s && a) Run(-135, speed); //左下<br>`;
+        // addHtml += `        else if (w) Run(0, speed); //上<br>`;
+        // addHtml += `        else if (s) Run(180, speed); //下<br>`;
+        // addHtml += `        else if (a) Run(-90, speed); //左<br>`;
+        // addHtml += `        else if (d) Run(90, speed); //右<br>`;
+        // addHtml += `    }<br>`;
+        // addHtml += `}`;
+
+        // resultCode.innerHTML = addHtml;
+    </script>
+
+
+    <script src="../../../js/footer.js"></script>
+
+</body>
+
+</html>

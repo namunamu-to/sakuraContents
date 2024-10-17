@@ -6,14 +6,10 @@ main {
     padding: 2rem;
 }
 
-.code {
-    background: #000;
-    color: #fff;
-}
-
 h1, h2, h3 {
     padding: 1.5rem;
     width: 100%;
+    overflow-wrap: break-word;
 }
 
 h1 {
