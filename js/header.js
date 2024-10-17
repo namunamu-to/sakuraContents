@@ -4,8 +4,7 @@
         <img id="headerLogo" src="https://galleon.yachiyo.tech/ROGO.png" alt="ロゴ">
 
         <span id="headerNavElm"></span>
-    </nav>
-    
+    </nav>    
     
 
     <style>
@@ -31,6 +30,7 @@
         
         #headerLogo {
             height: 100%;
+            width: auto
         }
         
         #headerNavElm {
