@@ -26,14 +26,6 @@
 
     <main>
         <h1>[unity3D]cinemachineを使い、TPSカメラの作成を楽にする方法</h1>
-        <!-- 目次 -->
-        <ol class="contentsIndex">
-            <li>STEP0. 前準備</li>
-            <li>STEP1. cinemachineをインストール</li>
-            <li>STEP2. メインカメラにbrainを追加</li>
-            <li>STEP3. 設定を弄ってTPS視点完成!!</li>
-            <li>STEP4. (おまけ)カメラの方向に合わせた移動</li>
-        </ol>
 
         <!-- 前書き -->
         <p>unityのカメラ実装って地味に面倒ですよね</p>
@@ -45,55 +37,118 @@
         <p>ちなみに使用しているUnityのバージョンは「2022.3.24f1」です</p>
 
 
-        <!-- 本文 -->
-        <h2>cinemachineとは</h2>
+        <h2>Cinemachineとは</h2>
         <p>簡単に言うと、カメラの作成を楽にするための公式アセットです</p>
-        <p>fpsやtps、真上からの視点などはよく使うカメラワークだと思います</p>
+        <p>FPS・TPS・MOVAの視点など、ジャンル毎によく使うカメラワークがあります</p>
         <p>そういったカメラワークを自分で毎回1から作ると大変です</p>
-        <p>このcinemachineでは、そういったよく使うカメラの処理を予め用意してくれているので、ゲーム開発者は少し設定を弄るだけで簡単にいい感じのカメラを作ることが出来るのです</p>
+        <p>Cinemachineでは、そういったよく使うカメラの処理を予め用意してくれているので、ゲーム開発者は少し設定を弄るだけで簡単にいい感じのカメラを作ることが出来るのです</p>
+        <p>ChinemaBrainという核に、設定を肉付けしていくようなイメージで扱います</p>
 
         <h2>前準備</h2>
         <p>下記の画像のように、操作したいキャラをシーンに配置しましょう</p>
-        <p>私は分かりやすいよう、「ただのブロック」というブロックを二つくっつけたキャラもどきをシーンに配置しました</p>
-        
+        <p>私は「ただのブロック」というキャラもどきをシーンに配置しました</p>
+
         <p><img src="data/1.png" alt=""></p>
 
         <p>前準備はこれだけです</p>
         <p>次はTPSカメラを作成していきます</p>
 
-        <h2>STEP1. cinemachineをインストール</h2>
+        <h2>STEP1. Cinemachineをインストール</h2>
         <p>まずはcinemachineをインストールしましょう</p>
         <p>手順は以下の通りです</p>
 
-
         
+        <p>パッケージマネージャーを開くために、ウィンドウ > パッケージマネージャーを選択</p>
         <p><img src="data/2.png" alt=""></p>
+
+        <p>「パッケージ: プロジェクト内」をクリックし、ドロップダウンを開く</p>
         <p><img src="data/3.png" alt=""></p>
+
+        <p>「Unityレジストリ」を選択</p>
         <p><img src="data/4.png" alt=""></p>
+
+        <p>検索窓で「Cinemachin」を検索</p>
+        <p>表示されたCinemachinを選択し、インポート</p>
         <p><img src="data/5.png" alt=""></p>
+        <p>私はインポートしてあるので削除ボタンがありますが、皆さんは「インポート」になってると思います</p>
+
+        <p>パーケージマネージャを閉じる</p>
         <p><img src="data/6.png" alt=""></p>
+
+
+        <h2>STEP2. メインカメラにChinemachineを追加</h2>
+        <h3>ChinemachineBrainをメインカメラに追加</h3>
+        <p>ChinemachineBrainとは名前の通りChinemachineの脳であり、核みたいなものです</p>
+        <p>なのでChinemachineBrainは、とりあえずメインカメラにくっつけておくものだと覚えましょう</p>
+        <p>手順は以下の通りです</p>
+        <p>メインカメラを選択し、コンポーネント > Chinemachine > ChinemachineBrain</p>
+
         <p><img src="data/7.png" alt=""></p>
+
+
+        <h3>ChinemachineVirtualCameraをメインカメラに追加</h3>
+        <p>ChinemachineVirtualCameraとは、カメラ操作に関する設定を行うものです</p>
+        <p>先ほどChinemaBrainを追加した要領で、ChinemachineVirtualCameraも追加しましょう</p>
         <p><img src="data/8.png" alt=""></p>
+
+        <h3>ChinemachineCameraOffsetを追加</h3>
+        <p>ChinemachineCameraOffsetとは、名前の通りカメラとの距離感を調整するものです</p>
+        <p>では追加していきましょう</p>
+        <p>手順は以下の通りです。</p>
+        <p>ChinemachineVirtualCameraのAdd Extentionプロパティから、ChinemachineCameraOffsetを選択</p>
         <p><img src="data/9.png" alt=""></p>
-        <p><img src="data/10.png" alt=""></p>
-        <p><img src="data/11.png" alt=""></p>
-        <p><img src="data/12.png" alt=""></p>
-        <p><img src="data/13.png" alt=""></p>
-        <p><img src="data/14.png" alt=""></p>
-        <p><img src="data/15.png" alt=""></p>
 
 
-
-
-
-
-        <h2>STEP2. メインカメラにbrainを追加</h2>
 
         <h2>STEP3. 設定を弄ってTPS視点完成!!</h2>
+        <h3>Followの設定</h3>
+        <p>Followとは追跡する対象を選択する項目です</p>
+        <p>Chinemachineではこの項目があるので、キャラの子要素にカメラを設定する必要がありません</p>
+        <p>便利ですね～</p>
+        <p>ということで、Followを設定していきます</p>
+        <p>手順は以下の通りです</p>
+        <p>Follow > Followのドロップダウンから、操作したいキャラを選びます</p>
+        <p><img src="data/10.png" alt=""></p>
+        <p><img src="data/11.png" alt=""></p>
+        
+        
+        <p>私は「ただのキューブ」を操作したいので、それ選びます</p>
+        <p>ゲームオブジェクトなら何でも選べるので、皆さんはお好みで操作したいキャラを選んで大丈夫です</p>
+        <p><img src="data/12.png" alt=""></p>
+        
+        
+        
+        <h3>Bodyの設定</h3>
+        <p>Bodyとは、カメラを動かすアルゴリズムを選択する項目です</p>
+        <p>Body項目のドロップダウンから「Hard Look To Target」を選択します</p>
+        <p><img src="data/13.png" alt=""></p>
+        <p>「Hard Look To Target」とは名前の通り、常にFollowで設定した対象にカメラを向けるように動くための設定です</p>
+        <p>「3rd person Follow」を選ばなくていいの？</p>
+        <p>と思った方もいるかもしれません</p>
+        <p>私も最初はそう思いました</p>
+        <p>しかしこれは孔明の罠です</p>
+        <p>私は躓きました</p>
+        <p>というのも、「3rd person Follow」はキャラの向きを変えるとカメラが移動し、向きも変わります</p>
+        <p>ですのでTPSには向きませんでした</p>
+        <p>色々試行錯誤した結果、「Hard Look To Target」使う方法に行きつきました</p>
 
-        <h2>STEP4. (おまけ)カメラの方向に合わせた移動</h2>
-        <p class="code indent3"></p>
 
+        <h3>Aimの設定</h3>
+        <p>Aimとは、カメラ向きをどのように変えるかを選択する項目です</p>
+        <p>設定方法は、Aim項目のドロップダウンから「POV」を選択するだけです</p>
+        <p><img src="data/14.png" alt=""></p>
+        <p><img src="data/15.png" alt=""></p>
+        <p>POVとはFPSみたいなカメラ操作を指します</p>
+        <p>TPSとFPSの違いは距離感と、キャラの向きが連動するかの違いだけです</p>
+        <p>ですのでカメラの向きの設定は、FPSと同じような設定で大丈夫です</p>
+
+        <h3>キャラとカメラの距離感設定</h3>
+        <p>ChinemachineCameraOffsetのオフセットという項目で、キャラとカメラの距離感を設定できます</p>
+        <p><img src="data/16.png" alt=""></p>
+        
+        <p>これでTPSっぽい距離感に調整したら、TPSカメラ完成の完成です!!</p>
+        <p>下記がカメラの操作感です</p>
+        <p><img src="data/1.gif" alt=""></p>
 
 
         <h2>まとめ</h2>
@@ -113,8 +168,6 @@
         <script type="text/javascript"
             src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
     </div>
-    blog\unity3dHowto\part1\index.html
-
 
     <script>
         const addHtml = `
