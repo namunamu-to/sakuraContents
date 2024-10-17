@@ -47,7 +47,7 @@
                 </a>
 
                 <a class="contentBlock contentTitle" href="blog/unity3dHowto/part1/index.html">
-                    [unity3D]cinemachineを使い、TPSカメラの作成を楽にする方法
+                    [unity3D]Cinemachineを使い、TPSカメラの作成を楽にする方法
                 </a>
             </div>
         </div>
