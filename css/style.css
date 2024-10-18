@@ -42,7 +42,7 @@ body {
     text-decoration-line: none;
 }
 
-.contentSummary{
+.contentSummary {
     color: #000;
 }
 
@@ -81,7 +81,7 @@ body {
         height: 6rem;
         width: auto;
     }
-    
+
     .gameContentsList .contentBlock .contentText {
         width: 100%;
         padding-left: 2rem;
@@ -127,6 +127,11 @@ body {
 img {
     max-width: 100%;
     height: auto;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 

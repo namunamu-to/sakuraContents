@@ -1,7 +1,7 @@
 main {
     width: 100vw;
     margin: auto;
-    padding: 2rem;
+    padding: 0.5rem;
 }
 
 h1, h2, h3 {
@@ -44,10 +44,6 @@ p {
     word-break: break-all;
 }
 
-p img {
-    text-align: center;
-}
-
 .prompt{
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -69,8 +65,10 @@ p img {
 }
 
 img {
-    width: min(100vw, 100vh);
+    width: min(90vw, 90vh);
     height:  auto;
+    text-align: center;
+
 }
 
 .indent3 {
