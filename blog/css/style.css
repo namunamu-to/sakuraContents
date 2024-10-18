@@ -41,16 +41,11 @@ h3:before {
 
 p {
     padding: 1rem;
+    word-break: break-all;
 }
 
 p img {
     text-align: center;
-}
-
-img {
-    max-width: 100%;
-    width: 100%;
-    height: auto;
 }
 
 .prompt{
@@ -74,7 +69,6 @@ img {
 }
 
 img {
-    padding: 1rem;
     width: min(100vw, 100vh);
     height:  auto;
 }
