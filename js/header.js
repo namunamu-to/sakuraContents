@@ -8,17 +8,17 @@
     
 
     <style>
+        // styleがなぜか効いてないかもだから要修正
         #headerElm {
             font-size: 16px;
             color: #fff;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            padding: 1rem;
             background-color: #000;
-            width: 100vw;
+            width: auto;
             height: fit-content;
-            padding: 1rem
+            gap: 1rem;
         }
         
         #headerElm a {
@@ -32,19 +32,14 @@
         
         #headerLogo {
             height: 8rem;
-            width: auto
+            width: auto;
+            margin: 1rem;
         }
         
         #headerNavElm {
             font-size: 2rem;
             display: flex;
             flex-wrap: wrap;
-
-            gap: 1rem;
-        }
-        
-        #headerNavElm > * {
-            margin-left: 2rem;
         }
         
         .navNowPage {
@@ -67,6 +62,6 @@
     let nowFile = window.location.href.split("/").pop();
     for (let key of Object.keys(files)){
         const nowPageClass = nowFile == key ? "navNowPage" : "";
-        headerNavElm.innerHTML += `<span><a class="navLink ${nowPageClass}" href="${"https://galleon.yachiyo.tech/" + key}">${files[key]}</a></span>`;
+        headerNavElm.innerHTML += `<span><a class="${nowPageClass}" href="${"https://galleon.yachiyo.tech/" + key}">${files[key]}</a></span>`;
     }
 }())
