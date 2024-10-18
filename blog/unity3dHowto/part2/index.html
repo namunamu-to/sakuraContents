@@ -12,6 +12,10 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../../css/style.css">
     <link rel="stylesheet" href="../../css/style.css">
+
+        <!-- highlight.js関連 -->
+        <link rel="stylesheet" href="../../css/hilight.css">
+        <script src="../../js/highlight.min.js"></script>
 </head>
 
 <body>
@@ -33,53 +37,55 @@
         <p>ちなみに、使用しているUnityのバージョンは「2022.3.24f1」です</p>
 
         <h2>結論</h2>
-        <code id="resultCode" class="code">
-            <div>using UnityEngine;</div>
-            <div></div>
-            <div>public class PlayerController : MonoBehaviour</div>
-            <div>{</div>
-            <div>    protected float speed = 0.1f; //移動速度</div>
-            <div></div>
-            <div>    void Start()</div>
-            <div>    {</div>
-            <div>    }</div>
-            <div></div>
-            <div></div>
-            <div>    //angleは移動方向を度数で指定</div>
-            <div>    //moveAmountは移動量。</div>
-            <div>    void Run(float angle, float moveAmount)</div>
-            <div>    {</div>
-            <div>        //カメラ向きの角度取得</div>
-            <div>        Vector3 cameraAngle = Camera.main.transform.localEulerAngles;</div>
-            <div>        </div>
-            <div>        //カメラの向きを基準に、プライヤーの向きを引数angle分回転</div>
-            <div>        transform.localEulerAngles = new Vector3(0, cameraAngle.y + angle, 0);</div>
-            <div></div>
-            <div>        //プレイヤーの向いてる方向に引数moveAmmountだけ移動</div>
-            <div>        transform.Translate(0, 0, moveAmount);</div>
-            <div>    }</div>
-            <div></div>
-            <div></div>
-            <div>    void Update()</div>
-            <div>    {</div>
-            <div>        //押されたキー取得</div>
-            <div>        bool w = Input.GetKey(KeyCode.W);</div>
-            <div>        bool a = Input.GetKey(KeyCode.A);</div>
-            <div>        bool s = Input.GetKey(KeyCode.S);</div>
-            <div>        bool d = Input.GetKey(KeyCode.D);</div>
-            <div></div>
-            <div>        //押されたキーに応じた方向に移動</div>
-            <div>        if (w && d) Run(45, speed); //右上</div>
-            <div>        else if (w && a) Run(-45, speed); //左上</div>
-            <div>        else if (s && d) Run(135, speed); //右下</div>
-            <div>        else if (s && a) Run(-135, speed); //左下</div>
-            <div>        else if (w) Run(0, speed); //上</div>
-            <div>        else if (s) Run(180, speed); //下</div>
-            <div>        else if (a) Run(-90, speed); //左</div>
-            <div>        else if (d) Run(90, speed); //右</div>
-            <div>    }</div>
-            <div>}</div>
-        </code>
+        <pre>
+            <code id="resultCode" class="language-python">
+                <div>using UnityEngine;</div>
+                <div></div>
+                <div>public class PlayerController : MonoBehaviour</div>
+                <div>{</div>
+                <div>    protected float speed = 0.1f; //移動速度</div>
+                <div></div>
+                <div>    void Start()</div>
+                <div>    {</div>
+                <div>    }</div>
+                <div></div>
+                <div></div>
+                <div>    //angleは移動方向を度数で指定</div>
+                <div>    //moveAmountは移動量。</div>
+                <div>    void Run(float angle, float moveAmount)</div>
+                <div>    {</div>
+                <div>        //カメラ向きの角度取得</div>
+                <div>        Vector3 cameraAngle = Camera.main.transform.localEulerAngles;</div>
+                <div>        </div>
+                <div>        //カメラの向きを基準に、プライヤーの向きを引数angle分回転</div>
+                <div>        transform.localEulerAngles = new Vector3(0, cameraAngle.y + angle, 0);</div>
+                <div></div>
+                <div>        //プレイヤーの向いてる方向に引数moveAmmountだけ移動</div>
+                <div>        transform.Translate(0, 0, moveAmount);</div>
+                <div>    }</div>
+                <div></div>
+                <div></div>
+                <div>    void Update()</div>
+                <div>    {</div>
+                <div>        //押されたキー取得</div>
+                <div>        bool w = Input.GetKey(KeyCode.W);</div>
+                <div>        bool a = Input.GetKey(KeyCode.A);</div>
+                <div>        bool s = Input.GetKey(KeyCode.S);</div>
+                <div>        bool d = Input.GetKey(KeyCode.D);</div>
+                <div></div>
+                <div>        //押されたキーに応じた方向に移動</div>
+                <div>        if (w && d) Run(45, speed); //右上</div>
+                <div>        else if (w && a) Run(-45, speed); //左上</div>
+                <div>        else if (s && d) Run(135, speed); //右下</div>
+                <div>        else if (s && a) Run(-135, speed); //左下</div>
+                <div>        else if (w) Run(0, speed); //上</div>
+                <div>        else if (s) Run(180, speed); //下</div>
+                <div>        else if (a) Run(-90, speed); //左</div>
+                <div>        else if (d) Run(90, speed); //右</div>
+                <div>    }</div>
+                <div>}</div>
+            </code>
+        </pre>
 
         <h2>まとめ</h2>
         <p>いかがだったでしょうか？</p>
@@ -99,59 +105,8 @@
             src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
     </div>
 
-    <script>
-        // let addHtml = ``;
-        // addHtml += `using UnityEngine;<br>`;
-        // addHtml += `<br>`;
-        // addHtml += `public class PlayerController2 : MonoBehaviour<br>`;
-        // addHtml += `{<br>`;
-        // addHtml += `    protected float speed = 0.1f; //移動速度<br>`;
-        // addHtml += `<br>`;
-        // addHtml += `    void Start()<br>`;
-        // addHtml += `    {<br>`;
-        // addHtml += `    }<br>`;
-        // addHtml += `<br>`;
-        // addHtml += `<br>`;
-        // addHtml += `    //angleは移動方向を度数で指定<br>`;
-        // addHtml += `    //moveAmountは移動量。<br>`;
-        // addHtml += `    void Run(float angle, float moveAmount)<br>`;
-        // addHtml += `    {<br>`;
-        // addHtml += `        //カメラ向きの角度取得<br>`;
-        // addHtml += `        Vector3 cameraAngle = Camera.main.transform.localEulerAngles;<br>`;
-        // addHtml += `        <br>`;
-        // addHtml += `        //カメラの向きを基準に、プライヤーの向きを引数angle分回転<br>`;
-        // addHtml += `        transform.localEulerAngles = new Vector3(0, cameraAngle.y + angle, 0);<br>`;
-        // addHtml += `<br>`;
-        // addHtml += `        //プレイヤーの向いてる方向に引数moveAmmountだけ移動<br>`;
-        // addHtml += `        transform.Translate(0, 0, moveAmount);<br>`;
-        // addHtml += `    }<br>`;
-        // addHtml += `<br>`;
-        // addHtml += `<br>`;
-        // addHtml += `    void Update()<br>`;
-        // addHtml += `    {<br>`;
-        // addHtml += `        //押されたキー取得<br>`;
-        // addHtml += `        bool w = Input.GetKey(KeyCode.W);<br>`;
-        // addHtml += `        bool a = Input.GetKey(KeyCode.A);<br>`;
-        // addHtml += `        bool s = Input.GetKey(KeyCode.S);<br>`;
-        // addHtml += `        bool d = Input.GetKey(KeyCode.D);<br>`;
-        // addHtml += `<br>`;
-        // addHtml += `        //押されたキーに応じた方向に移動<br>`;
-        // addHtml += `        if (w && d) Run(45, speed); //右上<br>`;
-        // addHtml += `        else if (w && a) Run(-45, speed); //左上<br>`;
-        // addHtml += `        else if (s && d) Run(135, speed); //右下<br>`;
-        // addHtml += `        else if (s && a) Run(-135, speed); //左下<br>`;
-        // addHtml += `        else if (w) Run(0, speed); //上<br>`;
-        // addHtml += `        else if (s) Run(180, speed); //下<br>`;
-        // addHtml += `        else if (a) Run(-90, speed); //左<br>`;
-        // addHtml += `        else if (d) Run(90, speed); //右<br>`;
-        // addHtml += `    }<br>`;
-        // addHtml += `}`;
-
-        // resultCode.innerHTML = addHtml;
-    </script>
-
-
     <script src="../../../js/footer.js"></script>
+    <script>hljs.highlightAll();</script>
 
 </body>
 
