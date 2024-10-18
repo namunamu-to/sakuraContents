@@ -1,8 +1,6 @@
 main {
     width: 100vw;
     margin: auto;
-    border-left: #000 solid 1px;
-    border-right: #000 solid 1px;
     padding: 2rem;
 }
 
@@ -77,8 +75,8 @@ img {
 
 img {
     padding: 1rem;
-    width: auto;
-    height:  70vh;
+    width: min(100vw, 100vh);
+    height:  auto;
 }
 
 .indent3 {
