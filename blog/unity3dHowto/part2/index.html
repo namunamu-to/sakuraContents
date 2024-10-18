@@ -12,10 +12,6 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../../css/style.css">
     <link rel="stylesheet" href="../../css/style.css">
-
-        <!-- highlight.js関連 -->
-        <link rel="stylesheet" href="../../css/hilight.css">
-        <script src="../../js/highlight.min.js"></script>
 </head>
 
 <body>
@@ -37,55 +33,195 @@
         <p>ちなみに、使用しているUnityのバージョンは「2022.3.24f1」です</p>
 
         <h2>結論</h2>
-        <pre>
-            <code id="resultCode" class="language-python">
-                <div>using UnityEngine;</div>
-                <div></div>
-                <div>public class PlayerController : MonoBehaviour</div>
-                <div>{</div>
-                <div>    protected float speed = 0.1f; //移動速度</div>
-                <div></div>
-                <div>    void Start()</div>
-                <div>    {</div>
-                <div>    }</div>
-                <div></div>
-                <div></div>
-                <div>    //angleは移動方向を度数で指定</div>
-                <div>    //moveAmountは移動量。</div>
-                <div>    void Run(float angle, float moveAmount)</div>
-                <div>    {</div>
-                <div>        //カメラ向きの角度取得</div>
-                <div>        Vector3 cameraAngle = Camera.main.transform.localEulerAngles;</div>
-                <div>        </div>
-                <div>        //カメラの向きを基準に、プライヤーの向きを引数angle分回転</div>
-                <div>        transform.localEulerAngles = new Vector3(0, cameraAngle.y + angle, 0);</div>
-                <div></div>
-                <div>        //プレイヤーの向いてる方向に引数moveAmmountだけ移動</div>
-                <div>        transform.Translate(0, 0, moveAmount);</div>
-                <div>    }</div>
-                <div></div>
-                <div></div>
-                <div>    void Update()</div>
-                <div>    {</div>
-                <div>        //押されたキー取得</div>
-                <div>        bool w = Input.GetKey(KeyCode.W);</div>
-                <div>        bool a = Input.GetKey(KeyCode.A);</div>
-                <div>        bool s = Input.GetKey(KeyCode.S);</div>
-                <div>        bool d = Input.GetKey(KeyCode.D);</div>
-                <div></div>
-                <div>        //押されたキーに応じた方向に移動</div>
-                <div>        if (w && d) Run(45, speed); //右上</div>
-                <div>        else if (w && a) Run(-45, speed); //左上</div>
-                <div>        else if (s && d) Run(135, speed); //右下</div>
-                <div>        else if (s && a) Run(-135, speed); //左下</div>
-                <div>        else if (w) Run(0, speed); //上</div>
-                <div>        else if (s) Run(180, speed); //下</div>
-                <div>        else if (a) Run(-90, speed); //左</div>
-                <div>        else if (d) Run(90, speed); //右</div>
-                <div>    }</div>
-                <div>}</div>
-            </code>
-        </pre>
+        <div
+            style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px; margin: auto; width: fit-content; overflow: auto; white-space: nowrap;">
+            <div><span style="color: #569cd6;">using</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">UnityEngine</span><span style="color: #cccccc;">;</span></div>
+            <div><br></div>
+            <div><span style="color: #569cd6;">public</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #569cd6;">class</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">PlayerController2</span><span
+                    style="color: #cccccc;">&nbsp;:&nbsp;</span><span style="color: #4ec9b0;">MonoBehaviour</span></div>
+            <div><span style="color: #cccccc;">{</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">protected</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #569cd6;">float</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">speed</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #b5cea8;">0.1f</span><span style="color: #cccccc;">;&nbsp;</span><span
+                    style="color: #6a9955;">//移動速度</span></div>
+            <div><br></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">void</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #dcdcaa;">Start</span><span style="color: #cccccc;">()</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;{</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></div>
+            <div><br></div>
+            <div><br></div>
+            <div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #6a9955;">//angleは移動方向を度数で指定</span></div>
+            <div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #6a9955;">//moveAmountは移動量。</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">void</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #dcdcaa;">Run</span><span style="color: #cccccc;">(</span><span
+                    style="color: #569cd6;">float</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">angle</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #569cd6;">float</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">moveAmount</span><span style="color: #cccccc;">)</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;{</span></div>
+            <div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #6a9955;">//カメラ向きの角度取得</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #4ec9b0;">Vector3</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">cameraAngle</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">Camera</span><span style="color: #d4d4d4;">.</span><span
+                    style="color: #9cdcfe;">main</span><span style="color: #d4d4d4;">.</span><span
+                    style="color: #9cdcfe;">transform</span><span style="color: #d4d4d4;">.</span><span
+                    style="color: #9cdcfe;">localEulerAngles</span><span style="color: #cccccc;">;</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+            <div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #6a9955;">//カメラの向きを基準に、プライヤーの向きを引数angle分回転</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">transform</span><span style="color: #d4d4d4;">.</span><span
+                    style="color: #9cdcfe;">localEulerAngles</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #569cd6;">new</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">Vector3</span><span style="color: #cccccc;">(</span><span
+                    style="color: #b5cea8;">0</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">cameraAngle</span><span style="color: #d4d4d4;">.</span><span
+                    style="color: #9cdcfe;">y</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">+</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">angle</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #b5cea8;">0</span><span style="color: #cccccc;">);</span></div>
+            <div><br></div>
+            <div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #6a9955;">//プレイヤーの向いてる方向に引数moveAmmountだけ移動</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">transform</span><span style="color: #d4d4d4;">.</span><span
+                    style="color: #dcdcaa;">Translate</span><span style="color: #cccccc;">(</span><span
+                    style="color: #b5cea8;">0</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #b5cea8;">0</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">moveAmount</span><span style="color: #cccccc;">);</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></div>
+            <div><br></div>
+            <div><br></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">void</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #dcdcaa;">Update</span><span style="color: #cccccc;">()</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;{</span></div>
+            <div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #6a9955;">//押されたキー取得</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">bool</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">w</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">Input</span><span style="color: #d4d4d4;">.</span><span
+                    style="color: #dcdcaa;">GetKey</span><span style="color: #cccccc;">(</span><span
+                    style="color: #4ec9b0;">KeyCode</span><span style="color: #d4d4d4;">.</span><span
+                    style="color: #4fc1ff;">W</span><span style="color: #cccccc;">);</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">bool</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">a</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">Input</span><span style="color: #d4d4d4;">.</span><span
+                    style="color: #dcdcaa;">GetKey</span><span style="color: #cccccc;">(</span><span
+                    style="color: #4ec9b0;">KeyCode</span><span style="color: #d4d4d4;">.</span><span
+                    style="color: #4fc1ff;">A</span><span style="color: #cccccc;">);</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">bool</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">s</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">Input</span><span style="color: #d4d4d4;">.</span><span
+                    style="color: #dcdcaa;">GetKey</span><span style="color: #cccccc;">(</span><span
+                    style="color: #4ec9b0;">KeyCode</span><span style="color: #d4d4d4;">.</span><span
+                    style="color: #4fc1ff;">S</span><span style="color: #cccccc;">);</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">bool</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">d</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">Input</span><span style="color: #d4d4d4;">.</span><span
+                    style="color: #dcdcaa;">GetKey</span><span style="color: #cccccc;">(</span><span
+                    style="color: #4ec9b0;">KeyCode</span><span style="color: #d4d4d4;">.</span><span
+                    style="color: #4fc1ff;">D</span><span style="color: #cccccc;">);</span></div>
+            <div><br></div>
+            <div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #6a9955;">//押されたキーに応じた方向に移動</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">if</span><span style="color: #cccccc;">&nbsp;(</span><span
+                    style="color: #9cdcfe;">w</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">&amp;&amp;</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">d</span><span style="color: #cccccc;">)&nbsp;</span><span
+                    style="color: #dcdcaa;">Run</span><span style="color: #cccccc;">(</span><span
+                    style="color: #b5cea8;">45</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">speed</span><span style="color: #cccccc;">);&nbsp;</span><span
+                    style="color: #6a9955;">//右上</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">else</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">if</span><span style="color: #cccccc;">&nbsp;(</span><span
+                    style="color: #9cdcfe;">w</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">&amp;&amp;</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">a</span><span style="color: #cccccc;">)&nbsp;</span><span
+                    style="color: #dcdcaa;">Run</span><span style="color: #cccccc;">(</span><span
+                    style="color: #d4d4d4;">-</span><span style="color: #b5cea8;">45</span><span
+                    style="color: #cccccc;">,&nbsp;</span><span style="color: #9cdcfe;">speed</span><span
+                    style="color: #cccccc;">);&nbsp;</span><span style="color: #6a9955;">//左上</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">else</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">if</span><span style="color: #cccccc;">&nbsp;(</span><span
+                    style="color: #9cdcfe;">s</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">&amp;&amp;</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">d</span><span style="color: #cccccc;">)&nbsp;</span><span
+                    style="color: #dcdcaa;">Run</span><span style="color: #cccccc;">(</span><span
+                    style="color: #b5cea8;">135</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">speed</span><span style="color: #cccccc;">);&nbsp;</span><span
+                    style="color: #6a9955;">//右下</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">else</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">if</span><span style="color: #cccccc;">&nbsp;(</span><span
+                    style="color: #9cdcfe;">s</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">&amp;&amp;</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">a</span><span style="color: #cccccc;">)&nbsp;</span><span
+                    style="color: #dcdcaa;">Run</span><span style="color: #cccccc;">(</span><span
+                    style="color: #d4d4d4;">-</span><span style="color: #b5cea8;">135</span><span
+                    style="color: #cccccc;">,&nbsp;</span><span style="color: #9cdcfe;">speed</span><span
+                    style="color: #cccccc;">);&nbsp;</span><span style="color: #6a9955;">//左下</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">else</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">if</span><span style="color: #cccccc;">&nbsp;(</span><span
+                    style="color: #9cdcfe;">w</span><span style="color: #cccccc;">)&nbsp;</span><span
+                    style="color: #dcdcaa;">Run</span><span style="color: #cccccc;">(</span><span
+                    style="color: #b5cea8;">0</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">speed</span><span style="color: #cccccc;">);&nbsp;</span><span
+                    style="color: #6a9955;">//上</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">else</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">if</span><span style="color: #cccccc;">&nbsp;(</span><span
+                    style="color: #9cdcfe;">s</span><span style="color: #cccccc;">)&nbsp;</span><span
+                    style="color: #dcdcaa;">Run</span><span style="color: #cccccc;">(</span><span
+                    style="color: #b5cea8;">180</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">speed</span><span style="color: #cccccc;">);&nbsp;</span><span
+                    style="color: #6a9955;">//下</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">else</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">if</span><span style="color: #cccccc;">&nbsp;(</span><span
+                    style="color: #9cdcfe;">a</span><span style="color: #cccccc;">)&nbsp;</span><span
+                    style="color: #dcdcaa;">Run</span><span style="color: #cccccc;">(</span><span
+                    style="color: #d4d4d4;">-</span><span style="color: #b5cea8;">90</span><span
+                    style="color: #cccccc;">,&nbsp;</span><span style="color: #9cdcfe;">speed</span><span
+                    style="color: #cccccc;">);&nbsp;</span><span style="color: #6a9955;">//左</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">else</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">if</span><span style="color: #cccccc;">&nbsp;(</span><span
+                    style="color: #9cdcfe;">d</span><span style="color: #cccccc;">)&nbsp;</span><span
+                    style="color: #dcdcaa;">Run</span><span style="color: #cccccc;">(</span><span
+                    style="color: #b5cea8;">90</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">speed</span><span style="color: #cccccc;">);&nbsp;</span><span
+                    style="color: #6a9955;">//右</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></div>
+            <div><span style="color: #cccccc;">}</span></div>
+        </div>
 
         <h2>まとめ</h2>
         <p>いかがだったでしょうか？</p>
@@ -106,8 +242,6 @@
     </div>
 
     <script src="../../../js/footer.js"></script>
-    <script>hljs.highlightAll();</script>
-
 </body>
 
 </html>

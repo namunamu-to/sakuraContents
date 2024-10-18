@@ -13,9 +13,6 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- highlight.js関連 -->
-    <link rel="stylesheet" href="css/hilight.css">
-    <script src="js/highlight.min.js"></script>
 </head>
 
 <body>
@@ -33,11 +30,31 @@
         <h2>デモ</h2>
         <p>以下が実際のコードです</p>
 
-        <pre><code class="language-python">
-            from diffusers import StableDiffusionPipeline
-            pipe = StableDiffusionPipeline.from_single_file("./AnythingXL_v50.safetensors", num_inference_steps=20)
-            pipe(prompt="girl", width=512, height=512).images[0].save(f"./janerated.png")
-          </code></pre>
+        <div
+            style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px; margin: auto; padding: 1rem; overflow: auto; white-space: nowrap; padding: 1rem;">
+            <div><span style="color: #c586c0;">from</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">diffusers</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">import</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">StableDiffusionPipeline</span></div>
+            <div><span style="color: #9cdcfe;">pipe</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">StableDiffusionPipeline</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">from_single_file</span><span style="color: #cccccc;">(</span><span
+                    style="color: #ce9178;">"./AnythingXL_v50.safetensors"</span><span
+                    style="color: #cccccc;">,&nbsp;</span><span style="color: #9cdcfe;">num_inference_steps</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #b5cea8;">20</span><span
+                    style="color: #cccccc;">)</span></div>
+            <div><span style="color: #9cdcfe;">pipe</span><span style="color: #cccccc;">(</span><span
+                    style="color: #9cdcfe;">prompt</span><span style="color: #d4d4d4;">=</span><span
+                    style="color: #ce9178;">"girl"</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">width</span><span style="color: #d4d4d4;">=</span><span
+                    style="color: #b5cea8;">512</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">height</span><span style="color: #d4d4d4;">=</span><span
+                    style="color: #b5cea8;">512</span><span style="color: #cccccc;">).images[</span><span
+                    style="color: #b5cea8;">0</span><span style="color: #cccccc;">].save(</span><span
+                    style="color: #569cd6;">f</span><span style="color: #ce9178;">"./janerated.png"</span><span
+                    style="color: #cccccc;">)</span></div>
+        </div>
 
         <p>上記のコードを実行して実際に生成された画像は以下の通りです</p>
         <p><img src="./img/jenerated1.png"></p>
@@ -51,17 +68,30 @@
         <p>次は各行の解説をします</p>
 
         <h3>1行目</h3>
-        <pre><code class="language-python">
-            from diffusers import StableDiffusionPipeline
-          </code></pre>
+        <div
+            style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px; margin: auto; width: 100%; overflow: auto; white-space: nowrap; padding: 1rem;">
+            <div><span style="color: #c586c0;">from</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">diffusers</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">import</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">StableDiffusionPipeline</span></div>
+        </div>
+
         <p>1行目の意味は、「<a href="explainWord/diffusers.html">diffusers</a>という<a
                 href="./explainWord/pythonLibrary.html">ライブラリ</a>の中にある、StableDiffusionPipelineというファイルを読み込む」です</p>
         <p>diffusersライブラリをインストールしないと1行目が実行できないのでご注意ください。</p>
 
         <h3>2行目</h3>
-        <pre><code class="language-python">
-            pipe = StableDiffusionPipeline.from_single_file("./AnythingXL_v50.safetensors", num_inference_steps=20)
-          </code></pre>
+        <div
+            style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px; margin: auto; width: 100%; overflow: auto; white-space: nowrap; padding: 1rem;">
+            <div><span style="color: #9cdcfe;">pipe</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span
+                    style="color: #cccccc;">&nbsp;StableDiffusionPipeline.from_single_file(</span><span
+                    style="color: #ce9178;">"./AnythingXL_v50.safetensors"</span><span
+                    style="color: #cccccc;">,&nbsp;</span><span style="color: #9cdcfe;">num_inference_steps</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #b5cea8;">20</span><span
+                    style="color: #cccccc;">)</span></div>
+        </div>
+
         <p>2行目ではfrom_single_file関数を使って<a href="./explainWord/jenerateImgModel.html">画像生成モデル</a>を読み込んでいます。</p>
         <p>第一引数で<a href="">画像生成モデル</a>のファイルパスを指定して読み込み、戻り値をpipe変数に代入しています。</p>
         <p>この時、pipe変数には実際に画像生成を行うための関数が入っています。</p>
@@ -75,9 +105,19 @@
                 target="_blank">https://civitai.com/models/9409?modelVersionId=30163</a>。</p>
 
         <h3>3行目</h3>
-        <pre><code class="language-python">
-            pipe(prompt="girl", width=512, height=512).images[0].save(f"./janerated.png")
-          </code></pre>
+        <div
+            style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px; margin: auto; width: 100%; overflow: auto; white-space: nowrap; padding: 1rem;">
+            <span style="color: #cccccc;">pipe(</span><span style="color: #9cdcfe;">prompt</span>
+            <span style="color: #d4d4d4;">=</span><span style="color: #ce9178;">"girl"</span>
+            <span style="color: #cccccc;">,&nbsp;</span><span style="color: #9cdcfe;">width</span>
+            <span style="color: #d4d4d4;">=</span><span style="color: #b5cea8;">512</span>
+            <span style="color: #cccccc;">,&nbsp;</span><span style="color: #9cdcfe;">height</span>
+            <span style="color: #d4d4d4;">=</span><span style="color: #b5cea8;">512</span>
+            <span style="color: #cccccc;">).images[</span><span style="color: #b5cea8;">0</span>
+            <span style="color: #cccccc;">].save(</span><span style="color: #569cd6;">f</span>
+            <span style="color: #ce9178;">"./janerated.png"</span><span style="color: #cccccc;">)</span>
+        </div>
+
         <p>3行目ではpipe変数に入っている関数を実行します。</p>
         <p>第一引数に、どんな画像を生成してほしいかをAIに指示するための<a href="./explainWord/prompt.html">プロンプト</a>を指定しています。</p>
         <p>今回は女の子の画像を生成してほしかったので、第一引数に"girl"という文字列を渡しています。</p>

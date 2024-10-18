@@ -12,11 +12,6 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="css/style.css">
-
-    <!-- highlight.js関連 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-    <link rel="stylesheet" href="css/hilight.css">
-    <script src="js/highlight.min.js"></script>
 </head>
 
 <body>
@@ -35,29 +30,68 @@
         <h2>画像名にタイムスタンプを使う</h2>
         <p>画像を生成し、画像名にタイムスタンプを使って保存するコードは以下の通りです。</p>
 
-        <pre>
-            <code>
-from diffusers import StableDiffusionPipeline
-pipe = StableDiffusionPipeline.from_single_file("./AnythingXL_v50.safetensors")
-prompt = "(masterpiece:1.3,best quality:1.3,ultra-detailed:1.3),girl"
-negative_prompt = "bad anatomy,low quality,normal quality,ugly,lowers,worst quality,ugly,jpeg artifacts,error"
-
-# 画像の生成と保存
-image = pipe(
-    prompt,
-    width=512,
-    height=512,
-    negative_prompt=negative_prompt,
-    guidance_scale=6,
-    num_inference_steps=20,
-).images[0]
-
-#タイムスタンプを画像名に付ける
-import datetime
-timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-image.save(f"./outputImages/{timestamp}.png")
-            </code>
-        </pre>
+        <div
+            style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px; width: fit-content; overflow: auto; white-space: nowrap; margin: 1rem; padding: 1rem;">
+            <div><span style="color: #c586c0;">from</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">diffusers</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">import</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">StableDiffusionPipeline</span></div>
+            <div><span style="color: #9cdcfe;">pipe</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">StableDiffusionPipeline</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">from_single_file</span><span style="color: #cccccc;">(</span><span
+                    style="color: #ce9178;">"./AnythingXL_v50.safetensors"</span><span style="color: #cccccc;">)</span>
+            </div>
+            <div><span style="color: #9cdcfe;">prompt</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #ce9178;">"(masterpiece:1.3,best&nbsp;quality:1.3,ultra-detailed:1.3),girl"</span>
+            </div>
+            <div><span style="color: #9cdcfe;">negative_prompt</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #ce9178;">"bad&nbsp;anatomy,low&nbsp;quality,normal&nbsp;quality,ugly,lowers,worst&nbsp;quality,ugly,jpeg&nbsp;artifacts,error"</span>
+            </div>
+            <div><br></div>
+            <div><span style="color: #6a9955;">#&nbsp;画像の生成と保存</span></div>
+            <div><span style="color: #9cdcfe;">image</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">pipe</span><span style="color: #cccccc;">(</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">prompt</span><span style="color: #cccccc;">,</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">width</span><span style="color: #d4d4d4;">=</span><span
+                    style="color: #b5cea8;">512</span><span style="color: #cccccc;">,</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">height</span><span style="color: #d4d4d4;">=</span><span
+                    style="color: #b5cea8;">512</span><span style="color: #cccccc;">,</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">negative_prompt</span><span style="color: #d4d4d4;">=</span><span
+                    style="color: #9cdcfe;">negative_prompt</span><span style="color: #cccccc;">,</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">guidance_scale</span><span style="color: #d4d4d4;">=</span><span
+                    style="color: #b5cea8;">6</span><span style="color: #cccccc;">,</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">num_inference_steps</span><span style="color: #d4d4d4;">=</span><span
+                    style="color: #b5cea8;">20</span><span style="color: #cccccc;">,</span></div>
+            <div><span style="color: #cccccc;">).images[</span><span style="color: #b5cea8;">0</span><span
+                    style="color: #cccccc;">]</span></div>
+            <div><br></div>
+            <div><span style="color: #6a9955;">#タイムスタンプを画像名に付ける</span></div>
+            <div><span style="color: #c586c0;">import</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">datetime</span></div>
+            <div><span style="color: #9cdcfe;">timestamp</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">datetime</span><span style="color: #cccccc;">.</span><span
+                    style="color: #4ec9b0;">datetime</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">now</span><span style="color: #cccccc;">().</span><span
+                    style="color: #dcdcaa;">strftime</span><span style="color: #cccccc;">(</span><span
+                    style="color: #ce9178;">"%Y%m</span><span style="color: #569cd6;">%d</span><span
+                    style="color: #ce9178;">%H%M%S"</span><span style="color: #cccccc;">)</span></div>
+            <div><span style="color: #9cdcfe;">image</span><span style="color: #cccccc;">.save(</span><span
+                    style="color: #569cd6;">f</span><span style="color: #ce9178;">"./outputImages/</span><span
+                    style="color: #569cd6;">{</span><span style="color: #9cdcfe;">timestamp</span><span
+                    style="color: #569cd6;">}</span><span style="color: #ce9178;">.png"</span><span
+                    style="color: #cccccc;">)</span></div>
+        </div>
 
         <p>画像名にタイムスタンプを使うメリットは、作成した画像のファイル名が被らないので、生成の度にファイル名を操作する手間を省けることです。</p>
 
@@ -68,30 +102,78 @@ image.save(f"./outputImages/{timestamp}.png")
 
 
         <h2>for文を使って長時間放置</h2>
-        <pre>
-            <code>
-from diffusers import StableDiffusionPipeline
-pipe = StableDiffusionPipeline.from_single_file("./AnythingXL_v50.safetensors")
-prompt = "(masterpiece:1.3,best quality:1.3,ultra-detailed:1.3),girl"
-negative_prompt = "bad anatomy,low quality,normal quality,ugly,lowers,worst quality,ugly,jpeg artifacts,error"
-
-# 何度も画像の生成と保存
-for i in range(10000):
-    image = pipe(
-        prompt,
-        width=512,
-        height=512,
-        negative_prompt=negative_prompt,
-        guidance_scale=6,
-        num_inference_steps=20,
-    ).images[0]
-
-    #タイムスタンプを画像名に付ける
-    import datetime
-    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-    image.save(f"./outputImages/{timestamp}.png")
-            </code>
-        </pre>
+        <div
+            style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px;  margin: 1rem; padding: 1rem; width: fit-content; overflow: auto; white-space: nowrap;">
+            <div><span style="color: #c586c0;">from</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">diffusers</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">import</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">StableDiffusionPipeline</span></div>
+            <div><span style="color: #9cdcfe;">pipe</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">StableDiffusionPipeline</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">from_single_file</span><span style="color: #cccccc;">(</span><span
+                    style="color: #ce9178;">"./AnythingXL_v50.safetensors"</span><span style="color: #cccccc;">)</span>
+            </div>
+            <div><span style="color: #9cdcfe;">prompt</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #ce9178;">"(masterpiece:1.3,best&nbsp;quality:1.3,ultra-detailed:1.3),girl"</span>
+            </div>
+            <div><span style="color: #9cdcfe;">negative_prompt</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #ce9178;">"bad&nbsp;anatomy,low&nbsp;quality,normal&nbsp;quality,ugly,lowers,worst&nbsp;quality,ugly,jpeg&nbsp;artifacts,error"</span>
+            </div>
+            <div><br></div>
+            <div><span style="color: #6a9955;">#&nbsp;何度も画像の生成と保存</span></div>
+            <div><span style="color: #c586c0;">for</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">i</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">in</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">range</span><span style="color: #cccccc;">(</span><span
+                    style="color: #b5cea8;">10000</span><span style="color: #cccccc;">):</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">image</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">pipe</span><span style="color: #cccccc;">(</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">prompt</span><span style="color: #cccccc;">,</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">width</span><span style="color: #d4d4d4;">=</span><span
+                    style="color: #b5cea8;">512</span><span style="color: #cccccc;">,</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">height</span><span style="color: #d4d4d4;">=</span><span
+                    style="color: #b5cea8;">512</span><span style="color: #cccccc;">,</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">negative_prompt</span><span style="color: #d4d4d4;">=</span><span
+                    style="color: #9cdcfe;">negative_prompt</span><span style="color: #cccccc;">,</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">guidance_scale</span><span style="color: #d4d4d4;">=</span><span
+                    style="color: #b5cea8;">6</span><span style="color: #cccccc;">,</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">num_inference_steps</span><span style="color: #d4d4d4;">=</span><span
+                    style="color: #b5cea8;">20</span><span style="color: #cccccc;">,</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;).images[</span><span
+                    style="color: #b5cea8;">0</span><span style="color: #cccccc;">]</span></div>
+            <div><br></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #6a9955;">#タイムスタンプを画像名に付ける</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">import</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">datetime</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">timestamp</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">datetime</span><span style="color: #cccccc;">.</span><span
+                    style="color: #4ec9b0;">datetime</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">now</span><span style="color: #cccccc;">().</span><span
+                    style="color: #dcdcaa;">strftime</span><span style="color: #cccccc;">(</span><span
+                    style="color: #ce9178;">"%Y%m</span><span style="color: #569cd6;">%d</span><span
+                    style="color: #ce9178;">%H%M%S"</span><span style="color: #cccccc;">)</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">image</span><span style="color: #cccccc;">.save(</span><span
+                    style="color: #569cd6;">f</span><span style="color: #ce9178;">"./outputImages/</span><span
+                    style="color: #569cd6;">{</span><span style="color: #9cdcfe;">timestamp</span><span
+                    style="color: #569cd6;">}</span><span style="color: #ce9178;">.png"</span><span
+                    style="color: #cccccc;">)</span></div>
+        </div>
 
 
         <p>このように、for文で何度も画像生成すれば長時間放置できるので、生成ガチャがしやすいです。</p>
@@ -99,11 +181,13 @@ for i in range(10000):
         <h2>完了したらベル音で通知</h2>
         <p>画像を生成したらベル音を鳴らして通知すると分かりやすいです。</p>
         <p>pythonでベル音を鳴らすコードは以下の通りです。</p>
-        <pre>
-            <code>
-print("\007")
-            </code>
-        </pre>
+
+        <div
+            style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px; margin: 1rem; padding: 1rem; width: fit-content; overflow: auto; white-space: nowrap;">
+            <div><span style="color: #dcdcaa;">print</span><span style="color: #cccccc;">(</span><span
+                    style="color: #ce9178;">"</span><span style="color: #d7ba7d;">\007</span><span
+                    style="color: #ce9178;">"</span><span style="color: #cccccc;">)</span></div>
+        </div>
 
         <p>これでベル音が鳴ります。</p>
         <p>実はベル音は文字コードに割り当てられてるんですね。</p>
@@ -115,7 +199,7 @@ print("\007")
         <p>ではまた！</p>
 
         <h2>次の記事</h2>
-        <a href="generateImgHowTo6.html">作成中</a>
+        <a href="generateImgHowTo6.html">[AI画像生成ノウハウ6]画像生成AIでゲームのアニメーションを作る方法</a>
     </main>
 
 

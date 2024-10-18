@@ -1,5 +1,5 @@
 main {
-    width: 90vw;
+    width: 100vw;
     margin: auto;
     border-left: #000 solid 1px;
     border-right: #000 solid 1px;
@@ -73,11 +73,12 @@ img {
 .code{
     background-color: #000;
     color: #fff;
-    padding: 1rem;
 }
 
 img {
     padding: 1rem;
+    width: auto;
+    height:  70vh;
 }
 
 .indent3 {

@@ -10,14 +10,15 @@
     <style>
         #headerElm {
             font-size: 16px;
-            height: 10rem;
-            gap: 2rem;
             color: #fff;
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             padding: 1rem;
             background-color: #000;
             width: 100vw;
+            height: fit-content;
+            padding: 1rem
         }
         
         #headerElm a {
@@ -30,18 +31,19 @@
         }
         
         #headerLogo {
-            height: 100%;
+            height: 8rem;
             width: auto
         }
         
         #headerNavElm {
             font-size: 2rem;
             display: flex;
-            // flex-wrap: wrap;
+            flex-wrap: wrap;
+
             gap: 1rem;
         }
         
-        #headerNavElm>* {
+        #headerNavElm > * {
             margin-left: 2rem;
         }
         

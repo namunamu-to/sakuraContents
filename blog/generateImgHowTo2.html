@@ -12,9 +12,6 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="css/style.css">
-    <!-- highlight.js関連 -->
-    <link rel="stylesheet" href="css/hilight.css">
-    <script src="js/highlight.min.js"></script>
 </head>
 
 <body>
@@ -290,12 +287,19 @@
         <p>以下はpythonのduffusersでのスケジューラの変え方です</p>
         <p>pythonのdiffusersでスケジューラを変えるには、以下のコードをモデルを読み込んでから生成するまでの間に書けばOKです。</p>
 
-        <pre>
-            <code>
-from diffusers import EulerDiscreteScheduler
-pipe.scheduler = EulerDiscreteScheduler.from_config(pipe.scheduler.config)
-            </code>
-        </pre>
+        
+        <div
+            style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px; margin: auto; width: fit-content; overflow: auto; white-space: nowrap; padding:1rem;">
+            <div><span style="color: #c586c0;">from</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">diffusers</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">import</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">EulerDiscreteScheduler</span></div>
+            <div><span style="color: #cccccc;">pipe.scheduler&nbsp;</span><span style="color: #d4d4d4;">=</span><span
+                    style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4ec9b0;">EulerDiscreteScheduler</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">from_config</span><span
+                    style="color: #cccccc;">(pipe.scheduler.config)</span></div>
+        </div>
 
 
         <h2>何度も生成する</h2>
@@ -339,8 +343,6 @@ pipe.scheduler = EulerDiscreteScheduler.from_config(pipe.scheduler.config)
     </div>
 
     <script src="../js/footer.js"></script>
-
-    <script>hljs.highlightAll();</script>
 </body>
 
 </html>
