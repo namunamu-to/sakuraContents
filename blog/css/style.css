@@ -1,12 +1,11 @@
 main {
-    width: 100vw;
     margin: auto;
-    padding: 0 0.5rem;
+    padding: 0 1rem;
+    letter-spacing: 3px;
 }
 
 h1, h2, h3 {
     padding: 1.5rem;
-    width: 100%;
     overflow-wrap: break-word;
 }
 
@@ -52,20 +51,22 @@ p {
     border: #000 solid 2px;
 }
 
-.code{
-    background-color: #000;
-    color: #fff;
-}
-
 img {
     width: min(90vw, 90vh);
     height:  auto;
-    text-align: center;
+    margin: auto;
 }
 
 
-.border {
+/* .border {
     border: #000 solid 2px;
     margin: 1rem 0;
     padding: 1rem;
+} */
+
+.code {
+    background-color: #000;
+    color: #fff;
+    padding: 1rem;
+    overflow: auto;
 }

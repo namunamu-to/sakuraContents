@@ -10,14 +10,6 @@
                 </a>
             </div>
         </div>
-
-        <style>
-            .contentsListWrap {
-                width: 80%;
-                margin: 2rem auto;
-                padding: 2rem;
-            }
-        </style>
     `;
 
     document.body.innerHTML += addHtml;

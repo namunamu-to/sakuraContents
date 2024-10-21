@@ -1,51 +1,11 @@
 (function () {
     let addHtml = ` 
-    <nav id="headerElm">
+    <header id="headerElm" class="flex">
         <img id="headerLogo" src="https://galleon.yachiyo.tech/ROGO.png" alt="ロゴ">
-
-        <span id="headerNavElm"></span>
-    </nav>    
+        <span id="headerNavElm" class="flex"></span>
+    </header>
     
-
     <style>
-        // styleがなぜか効いてないかもだから要修正
-        #headerElm {
-            font-size: 16px;
-            color: #fff;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            background-color: #000;
-            width: auto;
-            height: fit-content;
-            gap: 1rem;
-        }
-        
-        #headerElm a {
-            text-decoration: none;
-            color: #fff;
-        }
-        
-        #headerElm a:hover {
-            opacity: 0.5;
-        }
-        
-        #headerLogo {
-            height: 8rem;
-            width: auto;
-            margin: 1rem;
-        }
-        
-        #headerNavElm {
-            font-size: 2rem;
-            display: flex;
-            flex-wrap: wrap;
-        }
-        
-        .navNowPage {
-            border-bottom: solid 3px #a9dff3;
-            font-weight: bold;
-        }
     
     </style>
     `;

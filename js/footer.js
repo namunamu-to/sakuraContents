@@ -7,12 +7,6 @@
         </footer>
 
         <style>
-        #footerElm {
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-            font-size: 2rem;
-        }
     </style>
     `;
 
