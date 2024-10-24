@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[unity3D]超シンプルなコードでTPSのキャラ移動操作を実装する方法</title>
+    <title>[unity3D]TPSカメラの方向を基に移動操作する超シンプルなコード例を紹介！！</title>
     <link rel="stylesheet" href="../../../css/style.css">
     <link rel="stylesheet" href="../../css/style.css">
 </head>
@@ -20,16 +20,16 @@
     </div>
 
     <main>
-        <h1>[unity3D]超シンプルなコードでTPSのキャラ移動操作を実装する方法</h1>
+        <h1>[unity3D]TPSカメラの方向を基に移動操作する超シンプルなコード例を紹介！！</h1>
 
         <!-- 前書き -->
         <p>TPSのキャラ移動操作をプログラミングする時、もっとシンプルに分かりやすく書けないかなと思い、色々試行錯誤してみました</p>
         <p>その経験を皆さんと共有できれば思い、この記事を書くことにしました</p>
         <p>ちなみに、使用しているUnityのバージョンは「2022.3.24f1」です</p>
 
-        <h2>結論</h2>
+        <h2>コード例</h2>
         <div
-            style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px; margin: auto; width: 100%; overflow: auto; white-space: nowrap;">
+            style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px; margin: auto; padding: 1rem; overflow: auto; white-space: nowrap;">
             <div><span style="color: #569cd6;">using</span><span style="color: #cccccc;">&nbsp;</span><span
                     style="color: #4ec9b0;">UnityEngine</span><span style="color: #cccccc;">;</span></div>
             <div><br></div>
@@ -216,7 +216,28 @@
                     style="color: #6a9955;">//右</span></div>
             <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></div>
             <div><span style="color: #cccccc;">}</span></div>
+
         </div>
+        
+        <p>以上のコードを記述した「PlayerController.cs」ファイルを作り、操作したいキャラに追加すると以下のようになります</p>
+        <img src="data/1.gif">
+
+        <h2>解説</h2>
+        <h3>Update関数</h3>
+        <p>1. 押されたキーを取得</p>
+        <p>2. 押されたキーに応じて、run関数の引数にわたす値を変える</p>
+        <p>以上がUpdate関数でやっていることです</p>
+        
+        
+        <h3>Run関数</h3>
+        <p>コメントに書いてある通り</p>
+        <p>1. カメラ向きの角度取得</p>
+        <p>2. カメラの向きを基準に、プレイヤーの向きを引数angle分回転</p>
+        <p>3. プレイヤーの向いてる方向に引数moveAmmountだけ移動</p>
+        <p>という処理が書いてあります</p>
+        
+        <p>以上がRun関数でやっていることです</p>
+
 
         <h2>まとめ</h2>
         <p>いかがだったでしょうか？</p>

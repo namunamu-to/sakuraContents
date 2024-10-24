@@ -49,6 +49,10 @@
                 <a class="contentBlock contentTitle" href="blog/unity3dHowto/part1/index.html">
                     [unity3D]Cinemachineを使い、TPSカメラの作成を楽にする方法
                 </a>
+
+                <a class="contentBlock contentTitle" href="blog/unity3dHowto/part2/index.html">
+                    [unity3D]TPSカメラの方向を基に移動操作する超シンプルなコード例を紹介！！
+                </a>
             </div>
         </div>
 
