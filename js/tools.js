@@ -11,7 +11,7 @@
 
 
                 <a class="contentBlock contentTitle" href="https://galleon.yachiyo.tech/tableSimulator" target="_blank">
-                    <span>「テーブルシミュレーター」トレカ、ボードゲーム、自由に遊べる！</span>
+                    <span>「自由に配置して遊べるテーブルシミュレーター」トレカ、ボードゲーム...etc対応</span>
                 </a>
             </div>
         </div>
