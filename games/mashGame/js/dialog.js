@@ -25,6 +25,6 @@ function dialog(innerHTML = "") {
         return;
     }
 
-    showDialogElm.style.display = "block";    
+    showDialogElm.style.display = "block";
     showDialogElm.innerHTML = innerHTML;
 }

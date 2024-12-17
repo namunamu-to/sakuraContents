@@ -8,6 +8,11 @@
                 <a class="contentBlock contentTitle" href="tool/sarroundEachLine.html" target="_blank">
                     <span>文字列を一行ごとに好きな文字で囲うツール</span>
                 </a>
+
+
+                <a class="contentBlock contentTitle" href="https://galleon.yachiyo.tech/tableSimulator" target="_blank">
+                    <span>「テーブルシミュレーター」トレカ、ボードゲーム、自由に遊べる！</span>
+                </a>
             </div>
         </div>
     `;
