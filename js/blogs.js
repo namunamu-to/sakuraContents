@@ -33,6 +33,10 @@
                     [AI画像生成ノウハウ6]画像生成AIでゲームのアニメーションを作る方法
                 </a>
 
+                <a class="contentBlock contentTitle" href="blog/generateImgHowTo7/index.html">
+                    [AI画像生成ノウハウ7]人物を映さずに生成する方法
+                </a>
+
                 <a class="contentBlock contentTitle" href="blog/serverKnowHow1.html">
                     [サーバーノウハウ1]nginxでHTMLを公開するまでの手順と前提知識
                 </a>
