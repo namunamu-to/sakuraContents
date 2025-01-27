@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta name="description" content="JavaScriptでGETリクエストを行う簡潔な関数の作り方を解説。簡単に実装できるコード例とポイントをご紹介します。">
+    <meta http-equiv="Content-Language" content="ja">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[JavaScript]GETリクエスト行う簡潔な関数の作り方</title>
+    <meta name="description" content="AI画像生成で人物を映さないプロンプトの作成方法を解説。背景や物体だけを生成したいときに役立つコツをご紹介します。">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <script src="../../js/header.js"></script>
+
+    <div class="ad">
+        <script
+            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+        <script type="text/javascript"
+            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div>
+
+    <main>
+        <h1>[JavaScript]GETリクエスト行う簡潔な関数の作り方</h1>
+        <p>getリクエストって書くのが面倒ですよね</p>
+        <p>かといって関数化してもasyncで複雑な書き方をしなくてはいけないので、関数化が地味に苦戦しました。</p>
+        <p>似たような経験をしている人がいるかもしれないので、短くて読みやすい簡単なgetリクエストの関数を紹介します</p>
+
+        <h2>結論コード</h2>
+        <p>結論コードは以下のとおりです</p>
+        <div class="code"
+            style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px; margin: auto;  overflow: auto; white-space: nowrap;">
+            <div><span style="color: #569cd6;">async</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #569cd6;">function</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #dcdcaa;">fetchData</span><span style="color: #cccccc;">(</span><span
+                    style="color: #9cdcfe;">url</span><span style="color: #cccccc;">)&nbsp;{</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">const</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4fc1ff;">response</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">await</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #dcdcaa;">fetch</span><span style="color: #cccccc;">(</span><span
+                    style="color: #9cdcfe;">url</span><span style="color: #cccccc;">);</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">const</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4fc1ff;">text</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">await</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4fc1ff;">response</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">text</span><span style="color: #cccccc;">();&nbsp;</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">return</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4fc1ff;">text</span><span style="color: #cccccc;">;</span></div>
+            <div><span style="color: #cccccc;">}</span></div>
+        </div>
+
+        <p>asyncは避け避けれませんが、コード自体が簡潔なのでだいぶ使いやすいと思います。</p>
+        <p>リクエストが返ってくるまで処理を止めたい場合はawaitをくっつけるだけですし、非同期でやりたい場合はawaitを付けないで関数を呼び出すだけです。</p>
+        <p>以外とこういうシンプルなコードって探すの難しいんですよね。</p>
+        <p>ですので今回、このコードを紹介させていただきました。</p>
+
+        <h2>おまけ</h2>
+        <p>ちなみに、下記のように書き換えればしっかりエラーにも対応できます</p>
+        <div class="code"
+            style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px; margin: auto; overflow: auto; white-space: nowrap;">
+            <div><span style="color: #569cd6;">async</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #569cd6;">function</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #dcdcaa;">fetchData</span><span style="color: #cccccc;">(</span><span
+                    style="color: #9cdcfe;">url</span><span style="color: #cccccc;">)&nbsp;{</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">try</span><span style="color: #cccccc;">&nbsp;{</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">const</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4fc1ff;">response</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">await</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #dcdcaa;">fetch</span><span style="color: #cccccc;">(</span><span
+                    style="color: #9cdcfe;">url</span><span style="color: #cccccc;">);</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">if</span><span style="color: #cccccc;">&nbsp;(</span><span
+                    style="color: #d4d4d4;">!</span><span style="color: #4fc1ff;">response</span><span
+                    style="color: #cccccc;">.</span><span style="color: #4fc1ff;">ok</span><span
+                    style="color: #cccccc;">)&nbsp;</span><span style="color: #c586c0;">throw</span><span
+                    style="color: #cccccc;">&nbsp;</span><span style="color: #569cd6;">new</span><span
+                    style="color: #cccccc;">&nbsp;</span><span style="color: #4ec9b0;">Error</span><span
+                    style="color: #cccccc;">(</span><span style="color: #ce9178;">"error&nbsp;:&nbsp;"</span><span
+                    style="color: #cccccc;">&nbsp;</span><span style="color: #d4d4d4;">+</span><span
+                    style="color: #cccccc;">&nbsp;</span><span style="color: #4fc1ff;">response</span><span
+                    style="color: #cccccc;">.</span><span style="color: #4fc1ff;">status</span><span
+                    style="color: #cccccc;">);</span></div>
+            <div><br></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #569cd6;">const</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4fc1ff;">text</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #d4d4d4;">=</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #c586c0;">await</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4fc1ff;">response</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">text</span><span style="color: #cccccc;">();</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">return</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #4fc1ff;">text</span><span style="color: #cccccc;">;</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;</span><span
+                    style="color: #c586c0;">catch</span><span style="color: #cccccc;">&nbsp;(</span><span
+                    style="color: #9cdcfe;">error</span><span style="color: #cccccc;">)&nbsp;{</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #9cdcfe;">console</span><span style="color: #cccccc;">.</span><span
+                    style="color: #dcdcaa;">error</span><span style="color: #cccccc;">(</span><span
+                    style="color: #ce9178;">"error&nbsp;:&nbsp;"</span><span style="color: #cccccc;">,&nbsp;</span><span
+                    style="color: #9cdcfe;">error</span><span style="color: #cccccc;">);</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="color: #c586c0;">throw</span><span style="color: #cccccc;">&nbsp;</span><span
+                    style="color: #9cdcfe;">error</span><span style="color: #cccccc;">;</span></div>
+            <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></div>
+            <div><span style="color: #cccccc;">}</span></div>
+            <div><br></div>
+        </div>
+
+        <p>簡単なwebアプリなどの場合はエラーが返ってくることはほぼないので、ここまでしっかりエラーに対応せずとも冒頭の結論コードで十分だと思います</p>
+        <p>ですので冒頭の結論コードを基に、皆さんの作りたいものに合わせてお好みで弄るといいと思います</p>
+
+
+        <h2>まとめ</h2>
+        <p>いかがだったでしょうか</p>
+        <p>皆さんのプログラミングが楽になれば幸いです</p>
+        <p>ではまた！</p>
+    </main>
+
+
+
+    <div class="ad">
+        <script
+            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+        <script type="text/javascript"
+            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+    </div>
+
+    <script src="../../js/footer.js"></script>
+</body>
+
+</html>

@@ -57,6 +57,10 @@
                 <a class="contentBlock contentTitle" href="blog/unity3dHowto/part2/index.html">
                     [unity3D]TPSカメラの方向を基に移動操作する超シンプルなコード例を紹介！！
                 </a>
+
+                <a class="contentBlock contentTitle" href="blog/jsMakeGetReqFunc/index.html">
+                    [JavaScript]GETリクエスト行う簡潔な関数の作り方
+                </a>
             </div>
         </div>
 
