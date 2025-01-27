@@ -1,3 +1,7 @@
+body {
+    color: #494949;
+}
+
 main {
     margin: auto;
     padding: 0 1rem;
@@ -14,6 +18,7 @@ h1 {
     border-top: solid 3px #364e96;
     border-bottom: solid 3px #364e96;
     background-color: #dbebf8;
+    color: #494949;
 }
 
 h2 {
@@ -26,7 +31,7 @@ h2 {
 }
 
 h3 {
-    color: #505050;
+    color: #494949;
     display: block;
     background: #dbebf8;
     border-radius: 25px;
@@ -40,6 +45,7 @@ h3:before {
 
 p {
     word-break: break-all;
+    color : #494949;
 }
 
 .prompt{
