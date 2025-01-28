@@ -61,6 +61,10 @@
                 <a class="contentBlock contentTitle" href="blog/jsMakeGetReqFunc/index.html">
                     [JavaScript]GETリクエスト行う簡潔な関数の作り方
                 </a>
+
+                <a class="contentBlock contentTitle" href="blog/jsReconnectSocket/index.html">
+                    [JavaScript]WebSocketの接続が切れたら再接続するシンプルな方法
+                </a>
             </div>
         </div>
 

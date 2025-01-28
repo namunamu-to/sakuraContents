@@ -2,40 +2,165 @@
 <html lang="ja">
 
 <head>
-    <meta name="description" content="JavaScriptでGETリクエストを行う簡潔な関数の作り方を解説。簡単に実装できるコード例とポイントをご紹介します。">
-    <meta http-equiv="Content-Language" content="ja">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[JavaScript]js WebSocket 接続切れたら再接続する方法</title>
-    <meta name="description" content="">
-    <link rel="stylesheet" href="../../css/style.css">
-    <link rel="stylesheet" href="../css/style.css">
+        <meta name="description" content="">
+        <meta http-equiv="Content-Language" content="ja">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>[JavaScript]WebSocketの接続が切れたら再接続するシンプルな方法</title>
+        <meta name="description" content="">
+        <link rel="stylesheet" href="../../css/style.css">
+        <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
-    <script src="../../js/header.js"></script>
+        <script src="../../js/header.js"></script>
 
-    <div class="ad">
-        <script
-            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
-        <script type="text/javascript"
-            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
-    </div>
+        <div class="ad">
+                <script
+                        type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+                <script type="text/javascript"
+                        src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+        </div>
 
-    <main>
+        <main>
+                <p>webソケットを使っていると環境によってはすぐにセッションが切れることがあります。</p>
+                <p>ネットにはよくサーバーソフトのタイムアウトの時間を設定したり、サーバー自体の処理のタイムアウトを設定すれば大丈夫と書いてあります。</p>
+                <p>しかしレンタルサーバーや、サーバーの設定を弄りたくない場合はこの手段が使えません</p>
+                <p>今回紹介するのは、そんな時でも使えるフロント側の通信プログラ厶の例を紹介したいと思います。</p>
 
-    </main>
+                <h2>結論コード</h2>
+
+
+                <div class="code"
+                        style="color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, 'Courier New', monospace; font-weight: normal; font-size: 14px; line-height: 19px; margin: auto; overflow: auto; white-space: nowrap;">
+                        <div><span style="color: #569cd6;">let</span><span style="color: #cccccc;">&nbsp;</span><span
+                                        style="color: #9cdcfe;">wss</span><span style="color: #cccccc;">;</span></div>
+                        <div><br></div>
+                        <div><span style="color: #569cd6;">function</span><span
+                                        style="color: #cccccc;">&nbsp;</span><span
+                                        style="color: #dcdcaa;">startConnect</span><span
+                                        style="color: #cccccc;">()&nbsp;{</span></div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                        style="color: #9cdcfe;">wss</span><span
+                                        style="color: #cccccc;">&nbsp;</span><span style="color: #d4d4d4;">=</span><span
+                                        style="color: #cccccc;">&nbsp;</span><span
+                                        style="color: #569cd6;">new</span><span
+                                        style="color: #cccccc;">&nbsp;</span><span
+                                        style="color: #4ec9b0;">WebSocket</span><span
+                                        style="color: #cccccc;">(</span><span
+                                        style="color: #ce9178;">"https://galleon.yachiyo.tech/tableSimulator"</span><span
+                                        style="color: #cccccc;">);</span></div>
+                        <div><br></div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                        style="color: #6a9955;">//サーバーに接続したときの処理</span></div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                        style="color: #9cdcfe;">wss</span><span style="color: #cccccc;">.</span><span
+                                        style="color: #dcdcaa;">onopen</span><span
+                                        style="color: #cccccc;">&nbsp;</span><span style="color: #d4d4d4;">=</span><span
+                                        style="color: #cccccc;">&nbsp;(</span><span
+                                        style="color: #9cdcfe;">soc</span><span
+                                        style="color: #cccccc;">)&nbsp;</span><span
+                                        style="color: #569cd6;">=&gt;</span><span style="color: #cccccc;">&nbsp;{</span>
+                        </div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                        style="color: #9cdcfe;">console</span><span
+                                        style="color: #cccccc;">.</span><span style="color: #dcdcaa;">log</span><span
+                                        style="color: #cccccc;">(</span><span style="color: #ce9178;">"接続開始"</span><span
+                                        style="color: #cccccc;">);</span></div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                        style="color: #9cdcfe;">wss</span><span style="color: #cccccc;">.</span><span
+                                        style="color: #dcdcaa;">send</span><span style="color: #cccccc;">(</span><span
+                                        style="color: #ce9178;">"Hello!!"</span><span style="color: #cccccc;">);</span>
+                        </div>
+                        <div><br></div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;};</span></div>
+                        <div><br></div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                        style="color: #6a9955;">//サーバーからメッセージが来た時の処理</span></div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                        style="color: #9cdcfe;">wss</span><span style="color: #cccccc;">.</span><span
+                                        style="color: #dcdcaa;">onmessage</span><span
+                                        style="color: #cccccc;">&nbsp;</span><span style="color: #d4d4d4;">=</span><span
+                                        style="color: #cccccc;">&nbsp;(</span><span
+                                        style="color: #9cdcfe;">msg</span><span
+                                        style="color: #cccccc;">)&nbsp;</span><span
+                                        style="color: #569cd6;">=&gt;</span><span style="color: #cccccc;">&nbsp;{</span>
+                        </div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                        style="color: #9cdcfe;">console</span><span
+                                        style="color: #cccccc;">.</span><span style="color: #dcdcaa;">log</span><span
+                                        style="color: #cccccc;">(</span><span style="color: #9cdcfe;">msg</span><span
+                                        style="color: #cccccc;">.</span><span style="color: #4fc1ff;">data</span><span
+                                        style="color: #cccccc;">)</span></div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;};</span></div>
+                        <div><br></div>
+                        <div><br></div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                        style="color: #6a9955;">//接続が切れた時の処理</span></div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                        style="color: #9cdcfe;">wss</span><span style="color: #cccccc;">.</span><span
+                                        style="color: #dcdcaa;">onclose</span><span
+                                        style="color: #cccccc;">&nbsp;</span><span style="color: #d4d4d4;">=</span><span
+                                        style="color: #cccccc;">&nbsp;()&nbsp;</span><span
+                                        style="color: #569cd6;">=&gt;</span><span style="color: #cccccc;">&nbsp;{</span>
+                        </div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                        style="color: #9cdcfe;">console</span><span
+                                        style="color: #cccccc;">.</span><span style="color: #dcdcaa;">log</span><span
+                                        style="color: #cccccc;">(</span><span style="color: #ce9178;">"接続切れ"</span><span
+                                        style="color: #cccccc;">)</span></div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                        style="color: #dcdcaa;">startConnect</span><span
+                                        style="color: #cccccc;">();</span></div>
+                        <div><span style="color: #cccccc;">&nbsp;&nbsp;&nbsp;&nbsp;};</span></div>
+                        <div><span style="color: #cccccc;">}</span></div>
+                        <div><br></div>
+                        <div><br></div>
+                        <div><span style="color: #dcdcaa;">startConnect</span><span style="color: #cccccc;">();</span>
+                        </div>
+                        <div><span style="color: #dcdcaa;">alert</span><span style="color: #cccccc;">(</span><span
+                                        style="color: #ce9178;">"ルームに参加しました"</span><span
+                                        style="color: #cccccc;">);</span></div>
+                </div>
+
+                <p>httpsでソケット通信を行うwssを使っていますが、ただのwsでも可能です</p>
+
+                <h2>解説</h2>
+                <p>まずはソケット接続を行うstartConnect関数を定義します</p>
+                <p>ポイントは、closeハンドラも関数内で定義し、closeハンドラでstartConnectを呼び出すことです</p>
+                <p>これにより、接続が切れる度にstartConnectが実行され、再帰関数みたいな形で自動で再接続を行えるようになります</p>
+                <p>普通の再帰関数はメモリを多く消費してしまうというデメリットがありますが、例のコードはwss変数を上書きしているので再帰関数特有のデメリットはありません</p>
+
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                
+                <p>「セッションが切れるけど大丈夫？」</p>
+                <p>と思うかもしれませんが、初回通信時にuidなどの適当な認証情報をクライアントとサーバーで持っておけば、2回目以降の通信でサーバーが「同じ人が入ってきた」と判断できるので、格ゲーの対戦などにも使えます
+                </p>
+                
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                
+                <p>対戦ゲームやwebアプリなどでコマンドをサーバーとやり取りする際は、onmessageハンドラ内で「もし受け取ったメッセージがooだったらooする」みたいな形でif文などを使えば、やりたいことが実現できると思います
+                </p>
+                <p>私はいつもそうしてます</p>
+
+                <h2>まとめ</h2>
+                <p>いかがだったでしょうか？</p>
+                <p>この記事が皆さんのコーディングの手助けになれば幸いです</p>
+                <p>ではまた！</p>
+        </main>
 
 
 
-    <div class="ad">
-        <script
-            type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
-        <script type="text/javascript"
-            src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
-    </div>
+        <div class="ad">
+                <script
+                        type="text/javascript">rakuten_design = "slide"; rakuten_affiliateId = "2a999ef6.111edc6b.2a999ef7.f7a84582"; rakuten_items = "ctsmatch"; rakuten_genreId = "0"; rakuten_size = "336x280"; rakuten_target = "_blank"; rakuten_theme = "gray"; rakuten_border = "off"; rakuten_auto_mode = "on"; rakuten_genre_title = "off"; rakuten_recommend = "on"; rakuten_ts = "1713770955273";</script>
+                <script type="text/javascript"
+                        src="https://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget.js?20230106"></script>
+        </div>
 
-    <script src="../../js/footer.js"></script>
+        <script src="../../js/footer.js"></script>
 </body>
 
 </html>
