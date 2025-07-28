@@ -70,6 +70,14 @@
                 </a>
             </div>
 
+            <a class="contentBlock" href="games/animal_island/index.html" target="_blank">
+                    <img class="contentIcon" src="./games/animal_island/icon.png">
+                    <div class="contentText">
+                        <p class="contentTitle">動物島</p>
+                        <p class="contentSummary">ウォーリーを探せみたいに目当ての動物を探そう！</p>
+                    </div>
+                </a>
+            </div>
         </div>
     `;
 
