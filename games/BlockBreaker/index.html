@@ -2,6 +2,10 @@
 <html lang="jp">
 
 <head>
+    <!-- Google Adsense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3616162311811272"
+    crossorigin="anonymous"></script>
+
     <meta charset="UTF-8">
 
     <title>ブロック崩し</title>
@@ -25,9 +29,20 @@
     <audio id="wallHitSound" src="./SE/Wall.mp3"></audio>
     <audio id="GameClear" src="./SE/GameC.mp3"></audio>
     <audio id="GameOver" src="./SE/GameO.mp3"></audio>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GH5YYMWV7D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GH5YYMWV7D');
+    </script>
 </head>
 
 <body>
+
     <div id="game-screen">
 
         <canvas id="blocks-canvas"></canvas>

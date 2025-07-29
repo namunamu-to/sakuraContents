@@ -2,6 +2,10 @@
 <html lang="ja">
 
 <head>
+    <!-- Google Adsense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3616162311811272"
+        crossorigin="anonymous"></script>
+
     <meta charset="utf-8">
     <title>game engine</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -49,7 +53,7 @@
         async function init() {
             // Sprite用の画像は最初に読んでおくことにする
             await ImageLoader.LoadJSImage("Futaba", jsMebae);
-            
+
             gSMan = new SpriteManager(document.getElementById("canvas").getContext("2d"));
             // sprBgはスプライトがなく、Physicsで画面をクリアするだけ
             // var sprBg = new Sprite("BG", null, null, 0, 0, 0);
@@ -57,12 +61,12 @@
             // gSMan.append(sprBg);
 
             // BGはただ表示するだけなのでSpriteクラスを使わない
-            await gSMan.SetBG("BG","bokuti_resize.png");
+            await gSMan.SetBG("BG", "bokuti_resize.png");
 
             // タイルマップを使った背景表示はSpriteクラスでTileを含んだJSONが必要となる
-            
+
             await gSMan.enablePerticle("Perticle", "perticle.png", 10, 40);
-            await gSMan.enableMouseCursor("MouseCursor","MouseCursor.png");
+            await gSMan.enableMouseCursor("MouseCursor", "MouseCursor.png");
 
             gSMan.run();
 
@@ -70,9 +74,19 @@
         }
     </script>
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GH5YYMWV7D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GH5YYMWV7D');
+    </script>
 </head>
 
 <body onload="init();">
+
     <center>
         <h2>ゲームエンジンの例</h2>
         <canvas id="canvas" width="1280" height="680" />

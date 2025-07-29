@@ -7,6 +7,20 @@
     <title>[AI画像生成ノウハウ6]画像生成AIでゲームのアニメーションを作る方法</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Adsense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3616162311811272"
+        crossorigin="anonymous"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GH5YYMWV7D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GH5YYMWV7D');
+    </script>
 </head>
 
 <body>
@@ -24,7 +38,7 @@
 
         <p>ゲームのアニメーションを作るために絵を書くのは大変ですよね</p>
         <p>そこで、画像生成AIにゲーム画像のアニメーション作りを手伝ってもらう方法を解説していきます</p>
-        
+
         <h2>注意点</h2>
         <p>まず前提として、画像生成AIは途上なので作れるアニメーションはかなり限られていますし、任せられる作業工程も限定的です</p>
         <p>私が色々試した中で上手くAIができたのは、人型の歩くアニメーションだけです</p>
@@ -32,14 +46,14 @@
         <p>しかし、歩くアニメーション作成やキャラデザ構想の時短にはなるので、解説していきたいと思います</p>
         <p>ちなみに今回は、RPGやローグライクなどのキャラが歩くアニメーションの作成を例に解説していきます</p>
 
-        
+
         <p>アニメーション制作手順</p>
         <ol>
             <li>歩いてるシーンが写るまで生成ガチャ</li>
             <li>編集</li>
             <li>アニメーション切り替え</li>
         </ol>
-    
+
         <h2>歩いてるシーンが写るまで生成ガチャ</h2>
         <p>歩くというのは、右足と左足を交互に前に出すことです</p>
         <p>よって、まずは右足か左足を出して歩いてる画像をどちらか1枚を出力します</p>
@@ -48,12 +62,12 @@
         <p class="code">
             girl,walking,character sheet,front,full body,simple background
         </p>
-        
+
         <p>ネガティブプロンプトは今回使っていませんが、使うモデルやツールによって適切なプロンプトは変わるので、適宜変えましょう</p>
         <p>生成ガチャの結果、私は以下の画像が気に入ったので選びました</p>
         <img src="img/makeGameImgEx2.png" alt="生成ガチャの結果、選んだ画像">
-        
-        
+
+
         <h2>編集</h2>
         <p>次は画像編集で、アニメーション画像を作ります</p>
         <p>まずは余計なノイズを取り除きましょう</p>
@@ -63,7 +77,7 @@
 
         <h3>編集前</h3>
         <img src="img/makeGameImgEx2.png" alt="生成ガチャの結果、選んだ画像">
-        
+
         <h3>編集後</h3>
         <h4>画像1</h4>
         <img src="img/self0.png" alt="編集結果1">
@@ -81,7 +95,7 @@
         <p>見てもらったら分かる通り、今回作成したアニメーションを操作キャラに反映しています</p>
         <p>フレームは0.5秒ごとに切り替えています</p>
         <p>もしもっと滑らかにアニメーションさせたい時は、画像編集でフレームを追加で作ればいいだけです</p>
-           
+
 
         <h2>まとめ</h2>
         <p>いかがだったでしょうか？</p>
