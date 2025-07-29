@@ -48,7 +48,7 @@
                 <a class="contentBlock" href="games/azInputGame/index.html" target="_blank">
                     <img class="contentIcon" src="./games/azInputGame/img/icon.png">
                     <div class="contentText">
-                        <p class="contentTitle">連打ンピック</p>
+                        <p class="contentTitle">azゲーム</p>
                         <p class="contentSummary">世界中の奴らとタイピング速度を競おう！</p>
                     </div>
                 </a>
@@ -76,7 +76,7 @@
                         <p class="contentSummary">ウォーリーを探せみたいに目当ての動物を探そう！</p>
                     </div>
                 </a>
-                
+
             </div>
         </div>
     `;
