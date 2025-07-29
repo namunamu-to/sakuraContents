@@ -10,8 +10,9 @@
 
     <!-- Google Adsense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3616162311811272"
-    crossorigin="anonymous"></script>
-    
+        crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-3616162311811272">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GH5YYMWV7D"></script>
     <script>
@@ -48,7 +49,7 @@
         <h2>snapdでcertbotをインストール</h2>
         <p>snapdでcertbotをインストールするコマンドは以下の通りです。</p>
         <p class="code">sudo snap install --classic certbot</p>
-        
+
         <p>正しくインストールされていれば、以下のコマンドでバージョンが表示されるはずです。</p>
         <p class="code">certbot --version</p>
 
@@ -124,7 +125,8 @@
             * Donating to EFF: https://eff.org/donate-le<br>
             - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         </p>
-        <p>要約すると、「認証しました。/etc/letsencrypt/live/hoge@fuga.piyo/fullchain.pemに証明書を保存しました。秘密鍵は/etc/letsencrypt/live/hoge@fuga.piyo/privkey.pemに保存しました。これらのファイルは証明書を更新する時に、バックグラウンドで自動的に更新されるよう、スケジュールタスクを設定しました。https://hoge@fuga.piyoで認証したサイトにアクセスできます。」です。</p>
+        <p>要約すると、「認証しました。/etc/letsencrypt/live/hoge@fuga.piyo/fullchain.pemに証明書を保存しました。秘密鍵は/etc/letsencrypt/live/hoge@fuga.piyo/privkey.pemに保存しました。これらのファイルは証明書を更新する時に、バックグラウンドで自動的に更新されるよう、スケジュールタスクを設定しました。https://hoge@fuga.piyoで認証したサイトにアクセスできます。」です。
+        </p>
 
         <p>ちなみに、httpで接続してもhttpsにリダイレクトされるようになってました。</p>
         <p>便利ですね。</p>
