@@ -73,15 +73,15 @@
                     <img class="contentIcon" src="./games/animal_island/icon.png">
                     <div class="contentText">
                         <p class="contentTitle">動物島</p>
-                        <p class="contentSummary">ウォーリーを探せみたいに目当ての動物を探そう！</p>
+                        <p class="contentSummary">動物を探そう！</p>
                     </div>
                 </a>
 
-                <a class="contentBlock" href="games/animal_island/index.html" target="_blank">
-                    <img class="contentIcon" src="./games/animal_island/icon.png">
+                <a class="contentBlock" href="games/DropCollar/index.html" target="_blank">
+                    <img class="contentIcon" src="./games/DropCollar/icon.png">
                     <div class="contentText">
                         <p class="contentTitle">ドロップカラー</p>
-                        <p class="contentSummary">ウォーリーを探せみたいに目当ての動物を探そう！</p>
+                        <p class="contentSummary">同じ色のバブルを積み上げるゲーム</p>
                     </div>
                 </a>
 
