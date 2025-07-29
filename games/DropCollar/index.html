@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ドロップカラー</title>
+    <link rel="stylesheet" href="css.css">
+
+    <audio id="Up" src="./SE/Up.mp3"></audio>
+    <audio id="But" src="./SE/But.mp3"></audio>
+    <audio id="ClearSE" src="./SE/ClearSE.mp3"></audio>
+
+    <!-- Google Adsense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3616162311811272"
+    crossorigin="anonymous"></script>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GH5YYMWV7D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GH5YYMWV7D');
+    </script>
+</head>
+<body>
+
+    <div id="gameMessage" ></div>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        <div id="score">Score: 0</div>
+    <div id="timer">Time:60</div>
+    <script src="script.js"></script>
+    <div id="Readme">
+        <p>
+            画面上部から落ちてくるバブルと同じ色のバブルを積み上げていくゲーム<br>
+            左右の矢印キーでバブルを操作<br>
+            1分間でどれだけスコアを伸ばせるかな
+        </p>
+    </div>
+    <div id="Credit">
+        <p>効果音提供 無料効果音で遊ぼう！(https://taira-komori.jpn.org/)</p>
+    </div>
+</body>
+
+
+</html>

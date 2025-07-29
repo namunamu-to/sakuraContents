@@ -1,0 +1,52 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+#gameCanvas {
+    border: 2px solid black;
+    background-color: black;
+}
+#gameMessage{
+    text-align: center;
+    display: none;
+    position: absolute;
+    color: aliceblue;
+}
+
+#score{
+    position: absolute;
+    color: rgb(0, 81, 151);
+    bottom: 35%; /* ビューポートの下端からの距離を設定 */
+    left: 50%; /* 左端からの距離をブラウザの中央に合わせる */
+    transform: translateX(-50%); /* ブラウザの中央に配置 */
+    text-align: center;
+    font-weight: bold; /* 太字にする */
+}
+#timer{
+    color: rgb(0, 81, 151);
+    bottom: 30%; /* ビューポートの下端からの距離を設定 */
+    left: 50%; /* 左端からの距離をブラウザの中央に合わせる */
+    transform: translateX(-50%); /* ブラウザの中央に配置 */
+    position: absolute;
+    text-align: center;
+    font-weight: bold; /* 太字にする */
+}
+#Readme{
+     /* 下部からの距離を調整 */
+     bottom: 200px;
+    position: absolute; 
+    text-align: left;
+    /* width: 100%; */
+    
+}
+
+#Credit{
+    position: absolute; 
+    bottom: 50px;
+    left: 50%; /* ブラウザの中央に移動 */
+    transform: translateX(-50%); /* ブラウザの中央に配置 */
+    text-align: center;
+}
