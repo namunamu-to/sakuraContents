@@ -17,6 +17,7 @@ body {
     padding: 1rem;
 }
 
+
 .contentListHeadding {
     border-bottom: solid 5px #a9dff3;
     width: fit-content;
@@ -71,31 +72,12 @@ body {
     }
 }
 
-/* 480px以下に適用されるCSS（スマホ用） */
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 480px) {
     .gameContentsList {
-        display: block;
+        grid-template-columns: repeat(1, 1fr);
     }
-
-    .gameContentsList .contentBlock {
-        width: 100%;
-        display: flex;
-        border-radius: 30px;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .gameContentsList .contentBlock img {
-        height: 6rem;
-        width: auto;
-    }
-
-    .gameContentsList .contentBlock .contentText {
-        width: 100%;
-        padding-left: 2rem;
-    }
-
 }
+
 
 .gameContentsList .contentBlock:hover {
     z-index: 1000;
@@ -114,7 +96,7 @@ body {
 }
 
 .contentTitle {
-    text-align: center;
+    /* text-align: center; */
     margin: 1rem auto, 0, auto;
     margin-bottom: 0;
     font-size: 1.5rem;
