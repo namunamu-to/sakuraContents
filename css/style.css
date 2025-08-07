@@ -81,8 +81,7 @@ body {
 
 .gameContentsList .contentBlock:hover {
     z-index: 1000;
-    width: 120%;
-    margin: auto;
+    width: 102%;
 }
 
 .blogContentsList .contentBlock:hover {
@@ -96,7 +95,6 @@ body {
 }
 
 .contentTitle {
-    /* text-align: center; */
     margin: 1rem auto, 0, auto;
     margin-bottom: 0;
     font-size: 1.5rem;
