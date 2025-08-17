@@ -57,6 +57,7 @@
         "games.html": "ゲーム",
         "tools.html": "ツール",
         "blogs.html": "ブログ",
+        "会社概要/トップページ.html": "会社概要",
     }
 
     let nowFile = window.location.href.split("/").pop();
