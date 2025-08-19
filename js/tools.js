@@ -10,7 +10,7 @@
                 </a>
 
 
-                <a class="contentBlock contentTitle" href="https://galleon.yachiyo.tech/tableSimulator" target="_blank">
+                <a class="contentBlock contentTitle" href="/tableSimulator" target="_blank">
                     <span>「自由に配置して遊べるテーブルシミュレーター」トレカ、ボードゲーム...etc対応</span>
                 </a>
             </div>

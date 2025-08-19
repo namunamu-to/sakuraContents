@@ -1,7 +1,7 @@
 (function () {
     let addHtml = ` 
     <header id="headerElm" class="header-flex">
-        <img id="headerLogo" src="https://galleon.yachiyo.tech/ROGO.png" alt="ロゴ">
+        <img id="headerLogo" src="/ROGO.png" alt="ロゴ">
         <span id="headerNavElm" class="header-flex"></span>
     </header>
     
@@ -53,16 +53,16 @@
     document.body.innerHTML += addHtml;
 
     let files = {
-        "index.html": "HOME",
+        "works.html": "HOME",
         "games.html": "ゲーム",
         "tools.html": "ツール",
         "blogs.html": "ブログ",
-        "works/トップページ.html": "会社概要",
+        "index.html": "会社概要",
     }
 
     let nowFile = window.location.href.split("/").pop();
     for (let key of Object.keys(files)){
         const nowPageClass = nowFile == key ? "navNowPage" : "";
-        headerNavElm.innerHTML += `<span><a class="${nowPageClass}" href="${"https://galleon.yachiyo.tech/" + key}">${files[key]}</a></span>`;
+        headerNavElm.innerHTML += `<span><a class="${nowPageClass}" href="${"/" + key}">${files[key]}</a></span>`;
     }
 }())

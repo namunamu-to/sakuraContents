@@ -28,7 +28,7 @@ function createRoom() {
     toggleHostUI(true);
 
     // サーバーに/create-roomエンドポイントにPOSTリクエストを送信
-    fetch('https://galleon.yachiyo.tech/Bingo/create-room', { method: 'POST' })
+    fetch('/Bingo/create-room', { method: 'POST' })
     .then(handleResponse)
     .then(data => {
         if (data.password) {
@@ -49,7 +49,7 @@ async function joinRoom() {
         return;
     }
     try {
-        const response = await fetch('https://galleon.yachiyo.tech/Bingo/join-room', {
+        const response = await fetch('/Bingo/join-room', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: guestName, password })
@@ -74,7 +74,7 @@ async function joinRoom() {
 function handleSetIntervalBtnClick() {
      rowmt.style.display = 'block';
     // 新しいゲームの開始をサーバーに要求し、ビンゴカードをレンダリングする
-    fetch('https://galleon.yachiyo.tech/Bingo/new-game')
+    fetch('/Bingo/new-game')
         .then(response => response.json())
         .then(data => renderBingoCard(data))
         .catch(handleError);
@@ -83,7 +83,7 @@ function handleSetIntervalBtnClick() {
 function BingoNumber() {
     const password = roomPasswordInput.value.trim();
 
-    fetch(`https://galleon.yachiyo.tech/Bingo/get-number?password=${encodeURIComponent(password)}`)
+    fetch(`/Bingo/get-number?password=${encodeURIComponent(password)}`)
         .then(handleResponse)
         .then(data => {
             if (data && Array.isArray(data.numbers)) {
@@ -104,7 +104,7 @@ function BingoNumber() {
 }
     
  function pollNumbers(password) {
-    fetch(`https://galleon.yachiyo.tech/Bingo/get-guest-numbers?password=${encodeURIComponent(password)}`)
+    fetch(`/Bingo/get-guest-numbers?password=${encodeURIComponent(password)}`)
         .then(handleResponse)
         .then(data => {
             if (data.numbers) {
@@ -238,7 +238,7 @@ function markCell(cellElement) {
 
 // ビンゴをチェックする関数
 function checkBingo() {
-    fetch('https://galleon.yachiyo.tech/Bingo/check-bingo', {
+    fetch('/Bingo/check-bingo', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ marked: window.marked })
