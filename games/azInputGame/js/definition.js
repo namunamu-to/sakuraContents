@@ -1,4 +1,4 @@
-let ws = new WebSocket("wss://galleon.yachiyo.tech/commonGameServer/azInputGame");
+let ws = new WebSocket("wss://yachiyo.tech/commonGameServer/azInputGame");
 let pausing = true;
 let highScore = 0;
 let azList = "abcdefghijklmnopqrstuvwxyz";
