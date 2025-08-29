@@ -79,12 +79,7 @@ body {
 }
 
 
-.gameContentsList .contentBlock:hover {
-    z-index: 1000;
-    width: 102%;
-}
-
-.blogContentsList .contentBlock:hover {
+.contentBlock:hover {
     opacity: 0.4;
 }
 
