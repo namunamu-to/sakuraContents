@@ -43,7 +43,7 @@
             "heroImgText": "",
             "heroImg": "lab_header.png"
         },
-        
+
     }
 
     nowFile = nowFile in files ? nowFile : "another"
@@ -51,9 +51,13 @@
 
     document.body.innerHTML += ` 
         <header id="header">
+            <div id="burgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <nav>
-                <ul id="headerNavElm">
-                </ul>
+                <ul id="headerNavElm"></ul>
             </nav>
         </header>
 
@@ -67,45 +71,46 @@
                 top: 0;
                 left: 0;
                 width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
                 background: rgba();
                 z-index: 500;
+                padding: 1rem;
+                height: 2rem;
             }
 
             #header.scrolled {
                 background-color: #212121;
             }
                 
-            #header nav {
-                padding: 1rem;
+            #header nav{
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                margin: 0;
+                padding-right: 2rem; 
             }
                 
             #header nav ul {
-                list-style: none;
-                margin: 0;
-                padding: 0;
                 display: flex;
+                list-style: none;
+                padding: 0;
+                margin: 0;
             }
-                
-
             /* 初期リンクの色 */
-            #header nav ul li a {
+            #header nav a {
                 color: ${prop["initFontColor"]};
                 text-decoration: none;
-                padding: 10px 15px;
-                
+                padding: 10px 10px;
             }
 
             /* スクロール後の色 */
-            #header.scrolled nav ul li a {
+            #header.scrolled nav a {
                 color: #fff;
             }
 
-            #header.scrolled nav ul li a.nowPage {
+            #header.scrolled nav a.nowPage {
                 color: #7db6b1;
             }
+
 
             .heroImg {
                 width: 100%;
@@ -146,27 +151,97 @@
                 color: #fff;
             }
 
+            /* --- ハンバーガーメニュー --- */
+            #burgerMenu {
+                display: none; /* PCでは非表示 */
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                width: 30px;
+                height: 22px;
+                cursor: pointer;
+                z-index: 1001;
+            }
 
-            @media only screen and (max-width: 479px) {
+            #burgerMenu span {
+                display: block;
+                position: absolute;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background-color: #fff;
+                transition: all 0.3s ease-in-out;
+            }
+
+            #burgerMenu span:nth-of-type(1) { top: 0; }
+            #burgerMenu span:nth-of-type(2) { top: 9px; }
+            #burgerMenu span:nth-of-type(3) { bottom: 0; }
+
+            /* メニューオープン時のアイコン変化 */
+            #header.active #burgerMenu span:nth-of-type(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            #header.active #burgerMenu span:nth-of-type(2) {
+                opacity: 0;
+            }
+            #header.active #burgerMenu span:nth-of-type(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+
+            @media only screen and (max-width: 768px) {
                 .heroImg {
                     height: 250px;
                 }
-            }
 
+                .heroImg .heroText {
+                    font-size: 2rem;
+                }
+
+                #burgerMenu {
+                    display: block; /* スマホで表示 */
+                }
+
+                
+
+                #header nav {
+                    display: none; /* デフォルトでナビゲーションを非表示 */
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: fit-content;
+                    height: 100vh;
+                    background-color: #000;
+                    z-index: 1000;
+                }
+                    
+                #header.active nav {
+                    display: flex; /* activeクラスが付いたら表示 */
+                    align-items: flex-start; /* 垂直上揃え */
+                    padding-top: 5rem;
+
+                }
+
+                #header.active nav ul {
+                    flex-direction: column;
+                }
+
+                #header.active nav ul li {
+                    margin: 1rem 0;
+                }
+            }
         </style>
     `;
 
 
+    const headerNavElm = document.getElementById('headerNavElm');
     for (let key of Object.keys(files)) {
-        if(key == "another") continue;
+        if (key == "another") continue;
 
         const nowPageClass = nowFile == key ? "nowPage" : "";
         headerNavElm.innerHTML += `
-            <li><a class="${nowPageClass}" href="/${key}">${files[key]["title"]}</a></li>                
+            <li><a class="${nowPageClass}" href="/${key}">${files[key]["title"]}</a></li>
         `;
     }
-
-    document.body.innerHTML += ``;
 
 
     window.addEventListener('scroll', function () {
@@ -176,5 +251,15 @@
         } else {
             header.classList.remove('scrolled');
         }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const burgerMenu = document.getElementById('burgerMenu');
+        const header = document.getElementById('header');
+        burgerMenu.addEventListener('click', function () {
+            console.log("a");
+            
+            header.classList.toggle('active');
+        });
     });
 }())
