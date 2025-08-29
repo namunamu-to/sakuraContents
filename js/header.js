@@ -1,12 +1,48 @@
 (function () {
-    let addHtml = ` 
+    let nowFile = window.location.href.split("/").pop();
+    let files = {
+        "index.html": {
+            "title": "会社概要",
+            "initFontColor": "#fff",
+            "heroImgText": "株式会社八千代技研"
+
+        },
+        "unilink.html": {
+            "title": "UniLinkの紹介",
+            "initFontColor": "#fff",
+            "heroImgText": "UniLink"
+        },
+        "appIntro.html": {
+            "title": "アプリの紹介",
+            "initFontColor": "#fff",
+            "heroImgText": ""
+        },
+        "aboutYachiyo.html": {
+            "title": "八千代技研について",
+            "initFontColor": "#fff",
+            "heroImgText": ""
+        },
+        "humanResourceRecruit.html": {
+            "title": "人材募集",
+            "initFontColor": "#fff",
+            "heroImgText": "人材募集"
+        },
+        "lab.html": {
+            "title": "ラボ",
+            "initFontColor": "#fff",
+            "heroImgText": ""
+        },
+    }
+    const prop = files[nowFile]
+
+    document.body.innerHTML += ` 
         <header id="header">
             <nav>
                 <ul id="headerNavElm">
                 </ul>
-            </nav>
-        </header>
-        
+                </nav>
+                </header>
+                
         <style>
             #header {
                 position: fixed;
@@ -43,10 +79,10 @@
 
             /* 初期リンクの色 */
                 #header nav ul li a {
-                color: rgba(0, 0, 0, 0.5);
+                color: ${prop["initFontColor"]};
                 text-decoration: none;
                 padding: 10px 15px;
-                transition: color 0.5s ease;
+                
             }
 
             /* スクロール後の色 */
@@ -60,26 +96,17 @@
         </style>
     `;
 
-    document.body.innerHTML += addHtml;
 
-    let files = {
-        "index.html": "会社概要",
-        "unilink.html": "UniLinkの紹介",
-        "appIntro.html": "アプリの紹介",
-        "aboutYachiyo.html": "八千代技研について",
-        "humanResourceRecruit.html": "人材募集",
-        "lab.html": "ラボ",
-    }
-
-    let nowFile = window.location.href.split("/").pop();
-    console.log(nowFile);
+    // document.body.innerHTML += addHtml;
 
     for (let key of Object.keys(files)) {
         const nowPageClass = nowFile == key ? "nowPage" : "";
         headerNavElm.innerHTML += `
-            <li><a class="${nowPageClass}" href="${"./" + key}">${files[key]}</a></li>                
+            <li><a class="${nowPageClass}" href="${"./" + key}">${files[key]["title"]}</a></li>                
         `;
     }
+
+    document.body.innerHTML += ``;
 
 
     window.addEventListener('scroll', function () {
