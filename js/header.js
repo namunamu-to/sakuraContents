@@ -133,7 +133,7 @@
                 height: 100%;
 
                 /* 背景画像とフィルターのスタイルをここに移動 */
-                background-image: url(./img/${prop["heroImg"]});
+                background-image: url(/img/${prop["heroImg"]});
                 background-size: cover;
                 background-position: center center;
                 filter: brightness(30%);
@@ -162,7 +162,7 @@
 
         const nowPageClass = nowFile == key ? "nowPage" : "";
         headerNavElm.innerHTML += `
-            <li><a class="${nowPageClass}" href="${"./" + key}">${files[key]["title"]}</a></li>                
+            <li><a class="${nowPageClass}" href="/${key}">${files[key]["title"]}</a></li>                
         `;
     }
 
