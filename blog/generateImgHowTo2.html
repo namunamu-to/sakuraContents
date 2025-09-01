@@ -52,10 +52,10 @@
         <p>ネガティブプロンプト = デフォルト</p>
 
         <p>
-            <img src="img/jenerated1.png">
-            <img src="img/jenerated2.png">
-            <img src="img/jenerated3.png">
-            <img src="img/jenerated4.png">
+            <img src="img/jenerated1.png" style="width: 17rem; height: 17rem;">
+            <img src="img/jenerated2.png" style="width: 17rem; height: 17rem;">
+            <img src="img/jenerated3.png" style="width: 17rem; height: 17rem;">
+            <img src="img/jenerated4.png" style="width: 17rem; height: 17rem;">
         </p>
 
         <h3>今回紹介することを意識した場合</h3>
@@ -69,10 +69,10 @@
         </p>
 
         <p>
-            <img src="img/jenerated5.png">
-            <img src="img/jenerated6.png">
-            <img src="img/jenerated7.png">
-            <img src="img/jenerated8.png">
+            <img src="img/jenerated5.png" style="width: 17rem; height: 17rem;">
+            <img src="img/jenerated6.png" style="width: 17rem; height: 17rem;">
+            <img src="img/jenerated7.png" style="width: 17rem; height: 17rem;">
+            <img src="img/jenerated8.png" style="width: 17rem; height: 17rem;">
         </p>
 
 
@@ -134,13 +134,13 @@
         <h3>鉄板プロンプトを取り入れた時</h3>
         <p>プロンプト = (masterpiece:1.3,best quality:1.3,ultra-detailed:1.3),girl</p>
         <p>ネガティブプロンプト = デフォルト</p>
-        <img src="./img/jenerated9.png">
+        <img src="./img/jenerated9.png" style="width: 17rem; height: 17rem;">
 
 
         <h3>鉄板プロンプトを取り入れてない時</h3>
         <p>プロンプト = girl</p>
         <p>ネガティブプロンプト = デフォルト</p>
-        <img src="img/jenerated3.png">
+        <img src="img/jenerated3.png" style="width: 17rem; height: 17rem;">
 
         <p>全くちがいますよね！？</p>
         <p>そうなんです!</p>
@@ -185,13 +185,13 @@
         <p>プロンプト = girl</p>
         <p>ネガティブプロンプト = bad anatomy,low quality,normal quality,ugly,lowers,worst quality,ugly,jpeg artifacts,error
         </p>
-        <p><img src="./img/jenerated12.png"></p>
+        <p><img src="./img/jenerated12.png" style="width: 17rem; height: 17rem;"></p>
 
 
         <h3>ネガティブプロンプト無し</h3>
         <p>プロンプト = girl</p>
         <p>ネガティブプロンプト = デフォルト</p>
-        <p><img src="./img/jenerated3.png"></p>
+        <p><img src="./img/jenerated3.png" style="width: 17rem; height: 17rem;"></p>
 
 
 
@@ -200,7 +200,7 @@
         <p>画像生成って実は絵を描いているわけではないんです。</p>
         <p>以下のようなノイズだらけの画像から、ノイズを引き算して絵を作っているんです。</p>
         <p>サンドアートに近いですね。</p>
-        <img src="./img/random_rgb.png">
+        <img src="./img/random_rgb.png" style="width: 17rem; height: 17rem;">
         <p>なぜこのようなやり方をしているかは正直私も分かりません。</p>
         <p>AIの仕組みについて学ぼうと思っているので、理由が分かり次第、記事を書いていこうかと思います。</p>
 
@@ -209,24 +209,39 @@
         <p>プロンプト = girl</p>
         <p>ネガティブプロンプト = デフォルト</p>
 
-        <h3>サンプリングステップ数1</h3>
-        <img src="img/jenerated13.png">
+        <h3>生成した画像</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
 
-        <h3>サンプリングステップ数10</h3>
-        <img src="img/jenerated14.png">
+            <span>
+                <div>ステップ数1</div>
+                <img src="img/jenerated13.png" style="width: 17rem; height: 17rem;">
+            </span>
 
-        <h3>サンプリングステップ数20</h3>
-        <img src="img/jenerated15.png">
+            <span>
+                <div>ステップ数10</div>
+                <img src="img/jenerated14.png" style="width: 17rem; height: 17rem;">
+            </span>
 
-        <h3>サンプリングステップ数30</h3>
-        <img src="img/jenerated16.png">
+            <span>
+                <div>ステップ数20</div>
+                <img src="img/jenerated15.png" style="width: 17rem; height: 17rem;">
+            </span>
 
-        <h3>サンプリングステップ数40</h3>
-        <img src="img/jenerated17.png">
+            <span>
+                <div>ステップ数30</div>
+                <img src="img/jenerated16.png" style="width: 17rem; height: 17rem;">
+            </span>
 
-        <h3>サンプリングステップ数50</h3>
-        <img src="img/jenerated18.png">
+            <span>
+                <div>ステップ数40</div>
+                <img src="img/jenerated17.png" style="width: 17rem; height: 17rem;">
 
+            </span>
+            <span>
+                <div>ステップ数50</div>
+                <img src="img/jenerated18.png" style="width: 17rem; height: 17rem;">
+            </span>
+        </div>
 
 
         <h2>CFGスケール(ガイダンススケール)を弄る</h2>
@@ -312,7 +327,7 @@
         <p>ではまた！</p>
 
         <h2>次の記事</h2>
-        <a href="generateImgHowTo3.html">[AI画像生成ノウハウ3]AI画像生成の速度を上げる方法</a>
+        <p><a href="generateImgHowTo3.html">[AI画像生成ノウハウ3]AI画像生成の速度を上げる方法</a></p>
     </main>
 
 
