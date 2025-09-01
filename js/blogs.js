@@ -29,12 +29,9 @@
                     [AI画像生成ノウハウ5]diffusersで画像生成する際に使えるテクニック
                 </a>
 
-                <a class="contentBlock contentTitle" href="blog/generateImgHowTo6.html">
-                    [AI画像生成ノウハウ6]画像生成AIでゲームのアニメーションを作る方法
-                </a>
 
                 <a class="contentBlock contentTitle" href="blog/generateImgHowTo7/index.html">
-                    [AI画像生成ノウハウ7]人物を映さずに生成する方法
+                    [AI画像生成ノウハウ6]人物を映さずに生成する方法
                 </a>
 
                 <a class="contentBlock contentTitle" href="blog/serverKnowHow1.html">
