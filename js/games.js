@@ -33,7 +33,7 @@
                     <img class="contentIcon" src="/games/dungeonGame/img/icon.png">
                     <div class="contentText">
                         <p class="contentTitle">ローグライクゲーム</p>
-                        <p class="contentSummary">無限ダンジョン！</p>
+                        <p class="contentSummary">無限ダンジョン！どこまで進めるかな？</p>
                     </div>
                 </a>
 
@@ -57,7 +57,7 @@
                     <img class="contentIcon" src="/games/othello/img/icon.png">
                     <div class="contentText">
                         <p class="contentTitle">オセロ</p>
-                        <p class="contentSummary">フレンドや世界中の人と気軽に対戦！</p>
+                        <p class="contentSummary">暇つぶしでシンプルなオセロを気軽に</p>
                     </div>
                 </a>
 
@@ -89,7 +89,7 @@
                     <img class="contentIcon" src="/games/Bingo/icon.png">
                     <div class="contentText">
                         <p class="contentTitle">ビンゴ</p>
-                        <p class="contentSummary">ビンゴ!!</p>
+                        <p class="contentSummary">オンラインで知り合いと気軽にビンゴ!!</p>
                     </div>
                 </a>
 
