@@ -242,8 +242,6 @@
         if (key == "another") continue;
         
         const nowPageClass = parentDir == "yachiyo.tech" &&  nowFile == key ? "nowPage" : "";
-        console.log(nowFile,key);
-        console.log(nowFile == key);
         headerNavElm.innerHTML += `
             <li><a class="${nowPageClass}" href="/${key}">${files[key]["title"]}</a></li>
         `;
