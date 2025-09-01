@@ -60,12 +60,12 @@
                     style="color: #cccccc;">)</span></div>
         </div>
 
-        <p>上記のコードを実行して実際に生成された画像は以下の通りです</p>
-        <div class="flex">
-            <img src="./img/jenerated1.png">
-            <img src="./img/jenerated2.png">
-            <img src="./img/jenerated3.png">
-            <img src="./img/jenerated4.png">
+        <p>上記のコードを実行し、試しに4つ画像を生成してみました。</p>
+        <div>
+            <img src="./img/jenerated1.png" style="width: 17rem; height: 17rem;">
+            <img src="./img/jenerated2.png" style="width: 17rem; height: 17rem;">
+            <img src="./img/jenerated3.png" style="width: 17rem; height: 17rem;">
+            <img src="./img/jenerated4.png" style="width: 17rem; height: 17rem;">
         </div>
 
 
@@ -81,9 +81,9 @@
                     style="color: #4ec9b0;">StableDiffusionPipeline</span></div>
         </div>
 
-        <p>1行目の意味は、「<a href="explainWord/diffusers.html">diffusers</a>という<a
-                href="./explainWord/pythonLibrary.html">ライブラリ</a>の中にある、StableDiffusionPipelineというファイルを読み込む」です</p>
+        <p>1行目の意味は、「diffusers」というライブラリの中にある、StableDiffusionPipelineというファイルを読み込む」です</p>
         <p>diffusersライブラリをインストールしないと1行目が実行できないのでご注意ください。</p>
+        <p>「diffusers」とは、AIに画像させる機能が入ったものです。</p>
 
         <h3>2行目</h3>
         <div
@@ -97,12 +97,12 @@
                     style="color: #cccccc;">)</span></div>
         </div>
 
-        <p>2行目ではfrom_single_file関数を使って<a href="./explainWord/jenerateImgModel.html">画像生成モデル</a>を読み込んでいます。</p>
-        <p>第一引数で<a href="">画像生成モデル</a>のファイルパスを指定して読み込み、戻り値をpipe変数に代入しています。</p>
+        <p>2行目ではfrom_single_file関数を使って画像生成モデルを読み込んでいます。</p>
+        <p>第一引数で画像生成モデルのファイルパスを指定して読み込み、戻り値をpipe変数に代入しています。</p>
         <p>この時、pipe変数には実際に画像生成を行うための関数が入っています。</p>
         <p>第二引数と第三引数では、生成する画像の横幅と高さを指定しています。</p>
         <p>生成する画像が大きいほど、生成に時間がかかるのでお気を付けください。</p>
-        <p>ですので画像生成には程良い大きさをしていしてあげる必要があります。</p>
+        <p>ですので画像生成には程良い大きさを指定してあげる必要があります。</p>
         <p>おすすめは、横幅512、高さ512。</p>
         <p>もしくは横幅512、高さ768がおすすめです。</p>
         <p>今回使用した画像生成モデルは、以下のリンクからダウンロードできます。</p>
@@ -124,11 +124,11 @@
         </div>
 
         <p>3行目ではpipe変数に入っている関数を実行します。</p>
-        <p>第一引数に、どんな画像を生成してほしいかをAIに指示するための<a href="./explainWord/prompt.html">プロンプト</a>を指定しています。</p>
+        <p>第一引数に、どんな画像を生成してほしいかをAIに指示するためのプロンプトを指定しています。</p>
         <p>今回は女の子の画像を生成してほしかったので、第一引数に"girl"という文字列を渡しています。</p>
         <p>もっと細かく命令したいなら、第一引数を弄ってあげれば大丈夫です。</p>
         <p>例えば立っている猫耳女の子の画像が欲しいなら、"girl,cat,stand"などという風に単語をカンマ区切りで並べた文字列を渡すとそれっぽい画像が出来ます。</p>
-        <p>後は自分が望む良い画像が出るまで<a href="./explainWord/generateGacha.html">生成ガチャ</a>を回すだけです。</p>
+        <p>後は自分が望む良い画像が出るまで生成ガチャを回すだけです。</p>
 
         <h2>まとめ</h2>
         <p>いかがだったでしょうか？。</p>
