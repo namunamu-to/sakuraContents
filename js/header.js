@@ -1,5 +1,9 @@
 (function () {
-    let nowFile = window.location.href.split("/").pop();
+    let root =  window.location.href.split("/"); 
+    let nowFile = root.pop();
+    let parentDir = root.pop();
+    
+    
     let files = {
         "index.html": {
             "title": "会社概要",
@@ -43,30 +47,30 @@
             "heroImgText": "",
             "heroImg": "lab_header.png"
         },
-
+        
     }
-
+    
     nowFile = nowFile in files ? nowFile : "another"
     const prop = files[nowFile]
-
+    
     document.body.innerHTML += ` 
-        <header id="header">
-            <div id="burgerMenu">
-                <span></span>
-                <span></span>
-                <span></span>
+    <header id="header">
+    <div id="burgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
             </div>
             <nav>
-                <ul id="headerNavElm"></ul>
+            <ul id="headerNavElm"></ul>
             </nav>
         </header>
-
+        
         <div class="heroImg">
-          <div class="heroText">${prop["heroImgText"]}</div>
+        <div class="heroText">${prop["heroImgText"]}</div>
         </div>
-            
+        
         <style>
-            #header {
+        #header {
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -79,46 +83,46 @@
 
             #header.scrolled {
                 background-color: #212121;
-            }
+                }
                 
-            #header nav{
+                #header nav{
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
                 margin: 0;
                 padding-right: 2rem; 
-            }
+                }
                 
-            #header nav ul {
+                #header nav ul {
                 display: flex;
                 list-style: none;
                 padding: 0;
                 margin: 0;
-            }
-            /* 初期リンクの色 */
+                }
+                /* 初期リンクの色 */
             #header nav a {
                 color: ${prop["initFontColor"]};
                 text-decoration: none;
                 padding: 10px 10px;
-            }
-
-            /* スクロール後の色 */
+                }
+                
+                /* スクロール後の色 */
             #header.scrolled nav a {
                 color: #fff;
             }
-
+            
             #header.scrolled nav a.nowPage {
                 color: #7db6b1;
             }
 
-
+                
             .heroImg {
                 width: 100%;
                 height: 340px;
-
+                
                 /* 擬似要素を配置するために必要 */
                 position: relative;
-
+                
                 /* 擬似要素がはみ出さないように */
                 overflow: hidden;
 
@@ -127,7 +131,7 @@
                 justify-content: center;
                 align-items: center;
             }
-
+            
             .heroImg::before {
                 /* 擬似要素にはcontentプロパティが必須 */
                 content: '';
@@ -136,7 +140,7 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-
+                
                 /* 背景画像とフィルターのスタイルをここに移動 */
                 background-image: url(/img/${prop["heroImg"]});
                 background-size: cover;
@@ -162,7 +166,7 @@
                 cursor: pointer;
                 z-index: 1001;
             }
-
+            
             #burgerMenu span {
                 display: block;
                 position: absolute;
@@ -176,14 +180,14 @@
             #burgerMenu span:nth-of-type(1) { top: 0; }
             #burgerMenu span:nth-of-type(2) { top: 9px; }
             #burgerMenu span:nth-of-type(3) { bottom: 0; }
-
+            
             /* メニューオープン時のアイコン変化 */
             #header.active #burgerMenu span:nth-of-type(1) {
                 transform: translateY(9px) rotate(45deg);
             }
             #header.active #burgerMenu span:nth-of-type(2) {
                 opacity: 0;
-            }
+                }
             #header.active #burgerMenu span:nth-of-type(3) {
                 transform: translateY(-9px) rotate(-45deg);
             }
@@ -192,17 +196,17 @@
                 .heroImg {
                     height: 250px;
                 }
-
+                
                 .heroImg .heroText {
                     font-size: 2rem;
-                }
+                    }
 
                 #burgerMenu {
                     display: block; /* スマホで表示 */
-                }
+                    }
 
-                
-
+                    
+                    
                 #header nav {
                     display: none; /* デフォルトでナビゲーションを非表示 */
                     position: fixed;
@@ -213,13 +217,13 @@
                     background-color: #000;
                     z-index: 1000;
                 }
-                    
+                
                 #header.active nav {
                     display: flex; /* activeクラスが付いたら表示 */
                     align-items: flex-start; /* 垂直上揃え */
                     padding-top: 5rem;
-
-                }
+                    
+                    }
 
                 #header.active nav ul {
                     flex-direction: column;
@@ -230,14 +234,16 @@
                 }
             }
         </style>
-    `;
+        `;
 
 
     const headerNavElm = document.getElementById('headerNavElm');
     for (let key of Object.keys(files)) {
         if (key == "another") continue;
-
-        const nowPageClass = nowFile == key ? "nowPage" : "";
+        
+        const nowPageClass = parentDir == "yachiyo.tech" &&  nowFile == key ? "nowPage" : "";
+        console.log(nowFile,key);
+        console.log(nowFile == key);
         headerNavElm.innerHTML += `
             <li><a class="${nowPageClass}" href="/${key}">${files[key]["title"]}</a></li>
         `;
