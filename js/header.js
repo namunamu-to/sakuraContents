@@ -70,12 +70,11 @@
         </div>
         
         <style>
-        #header {
+            #header {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
-                background: rgba();
                 z-index: 500;
                 padding: 1rem;
                 height: 2rem;
@@ -83,7 +82,7 @@
 
             #header.scrolled {
                 background-color: #212121;
-                }
+            }
                 
                 #header nav{
                 display: flex;

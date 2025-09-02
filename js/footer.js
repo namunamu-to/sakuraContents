@@ -1,9 +1,9 @@
 (function() {
     document.body.innerHTML += ` 
-        <footer></footer>
+        <footer id="footer"></footer>
 
         <style>
-            footer {
+            #footer {
                 background-color: rgba(50, 50, 50, 1);
                 height: 4.5rem;
             }
