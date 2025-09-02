@@ -5,7 +5,7 @@
         <style>
             @media screen and (max-width: 768px) {
                 .cant-mobile-msg {
-                    display: block; /* スマホでは非表示 */
+                    display: block; /* スマホでは表示 */
                 }
     }
         </style>
