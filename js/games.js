@@ -21,13 +21,7 @@
                     </div>
                 </a>
 
-                <a class="contentBlock" href="games/WaterGame/index.html" target="_blank">
-                    <img class="contentIcon" src="/games/WaterGame/img/bg_natural_ocean.jpg">
-                    <div class="contentText">
-                        <p class="contentTitle">ウォーターゲーム</p>
-                        <p class="contentSummary">懐かしのおもちゃをデジタルで！</p>
-                    </div>
-                </a>
+
 
                 <a class="contentBlock" href="games/dungeonGame/index.html" target="_blank">
                     <img class="contentIcon" src="/games/dungeonGame/img/icon.png">
@@ -99,3 +93,11 @@
 
     document.body.innerHTML += addHtml;
 }())
+
+// <a class="contentBlock" href="games/WaterGame/index.html" target="_blank">
+//     <img class="contentIcon" src="/games/WaterGame/img/bg_natural_ocean.jpg">
+//     <div class="contentText">
+//         <p class="contentTitle">ウォーターゲーム</p>
+//         <p class="contentSummary">懐かしのおもちゃをデジタルで！</p>
+//     </div>
+// </a>
