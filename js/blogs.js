@@ -30,7 +30,7 @@
                 </a>
 
 
-                <a class="contentBlock contentTitle" href="blog/generateImgHowTo7/index.html">
+                <a class="contentBlock contentTitle" href="blog/generateImgHowTo6/index.html">
                     [AI画像生成ノウハウ6]人物を映さずに生成する方法
                 </a>
 
