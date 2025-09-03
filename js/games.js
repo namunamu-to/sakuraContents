@@ -26,7 +26,7 @@
                 <a class="contentBlock" href="games/dungeonGame/index.html" target="_blank">
                     <img class="contentIcon" src="/games/dungeonGame/img/icon.png">
                     <div class="contentText">
-                        <p class="contentTitle">ローグライクゲーム</p>
+                        <p class="contentTitle">ローグライクゲーム(PC推奨)</p>
                         <p class="contentSummary">無限ダンジョン！どこまで進めるかな？</p>
                     </div>
                 </a>
@@ -34,7 +34,7 @@
                 <a class="contentBlock" href="games/mashGame/index.html" target="_blank">
                     <img class="contentIcon" src="/games/mashGame/img/icon.png">
                     <div class="contentText">
-                        <p class="contentTitle">連打ンピック</p>
+                        <p class="contentTitle">連打ンピック(PC推奨)</p>
                         <p class="contentSummary">世界中の奴らと連打力で競い合え！</p>
                     </div>
                 </a>
@@ -42,7 +42,7 @@
                 <a class="contentBlock" href="games/azInputGame/index.html" target="_blank">
                     <img class="contentIcon" src="/games/azInputGame/img/icon.png">
                     <div class="contentText">
-                        <p class="contentTitle">azゲーム</p>
+                        <p class="contentTitle">azゲーム(キーボード必須)</p>
                         <p class="contentSummary">世界中の奴らとタイピング速度を競おう！</p>
                     </div>
                 </a>
@@ -74,7 +74,7 @@
                 <a class="contentBlock" href="games/DropCollar/index.html" target="_blank">
                     <img class="contentIcon" src="/games/DropCollar/icon.png">
                     <div class="contentText">
-                        <p class="contentTitle">ドロップカラー</p>
+                        <p class="contentTitle">ドロップカラー(PC推奨)</p>
                         <p class="contentSummary">同じ色のバブルを積み上げるゲーム</p>
                     </div>
                 </a>
