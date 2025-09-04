@@ -239,6 +239,17 @@ function deployStairs() {
 
 function refresh() {
     if (pausing) return;
+    
+    //キャンバスサイズ調整
+    const canvasSize = Math.min(window.innerHeight, window.innerWidth)  * 0.98;
+    canvasElm.width = canvasSize;
+    canvasElm.height = canvasSize;
+
+    
+
+    updateTileSize();
+
+    
     ctx.clearRect(0, 0, canvasElm.width, canvasElm.height);
     drawArround();
     drawStatus();
@@ -267,10 +278,6 @@ function makeChar(kind, x, y, maxHp, atk, dir, duration, isEnemy, frames = []) {
 }
 
 function main() {
-    //キャンバスサイズ調整
-    const canvasSize = window.innerHeight * 0.98;
-    canvasElm.width = canvasSize;
-    canvasElm.height = canvasSize;
     updateTileSize();
 
     selfChar = makeChar("self", 0, 0, 20, 2, "down", 500, false, [imgs.self0, imgs.self0]);
