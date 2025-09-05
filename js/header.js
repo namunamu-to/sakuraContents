@@ -9,44 +9,59 @@
             "title": "会社概要",
             "initFontColor": "#fff",
             "heroImgText": "株式会社八千代技研",
-            "heroImg": "top_header.jpg"
+            "heroImg": "top_header.jpg",
+            "href" : "/index.html"
         },
         "unilink.html": {
             "title": "UniLinkの紹介",
             "initFontColor": "#fff",
             "heroImgText": "UniLink",
-            "heroImg": "unilink_header.png"
+            "heroImg": "unilink_header.png",
+            "href" : "/unilink.html"
         },
         "appIntro.html": {
             "title": "アプリの紹介",
             "initFontColor": "#fff",
             "heroImgText": "",
-            "heroImg": "app_header.png"
+            "heroImg": "app_header.png",
+            "href" : "/appIntro.html"
         },
         "aboutYachiyo.html": {
             "title": "八千代技研について",
             "initFontColor": "#fff",
             "heroImgText": "",
-            "heroImg": "about_header.jpg"
+            "heroImg": "about_header.jpg",
+            "href" : "/aboutYachiyo.html"
         },
         "humanResourceRecruit.html": {
             "title": "人材募集",
             "initFontColor": "#fff",
             "heroImgText": "人材募集",
-            "heroImg": "human_resources_recruit_header.jpg"
+            "heroImg": "human_resources_recruit_header.jpg",
+            "href" : "/humanResourceRecruit.html"
         },
         "lab.html": {
             "title": "ラボ",
             "initFontColor": "#fff",
             "heroImgText": "社員の研究成果",
-            "heroImg": "lab_header.png"
+            "heroImg": "lab_header.png",
+            "href" : "/lab.html"
         },
         "another": {
             "title": "ラボ",
             "initFontColor": "#fff",
             "heroImgText": "",
-            "heroImg": "lab_header.png"
-        },
+            "heroImg": "lab_header.png",
+            "href" : "/index.html"
+        }
+        // ,
+        // "scratch_learn": {
+        //     "title": "Scratch講座",
+        //     "initFontColor": "#fff",
+        //     "heroImgText": "",
+        //     "heroImg": "lab_header.png",
+        //     "href" : "https://ics.media/entry/240808/"
+        // },
         
     }
     
@@ -242,7 +257,7 @@
         
         const nowPageClass = parentDir == "yachiyo.tech" &&  nowFile == key ? "nowPage" : "";
         headerNavElm.innerHTML += `
-            <li><a class="${nowPageClass}" href="/${key}">${files[key]["title"]}</a></li>
+            <li><a class="${nowPageClass}" href="${files[key]["href"]}">${files[key]["title"]}</a></li>
         `;
     }
 
