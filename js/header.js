@@ -255,7 +255,7 @@
     for (let key of Object.keys(files)) {
         if (key == "another") continue;
         
-        const nowPageClass = parentDir == "yachiyo.tech" &&  nowFile == key ? "nowPage" : "";
+        const nowPageClass = (parentDir == "yachiyo.tech" || parentDir == "www.yachiyo.tech") &&  nowFile == key ? "nowPage" : "";
         headerNavElm.innerHTML += `
             <li><a class="${nowPageClass}" href="${files[key]["href"]}">${files[key]["title"]}</a></li>
         `;
