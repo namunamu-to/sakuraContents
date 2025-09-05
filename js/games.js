@@ -1,14 +1,11 @@
 (function () {
-    document.body.innerHTML += `
+    let addHtml = `
         <!-- ゲーム一覧 -->
         <div class="contentsListWrap">
             <h1 class="contentListHeadding">Games</h1>
             <div class="contentList gameContentsList">
-            </div>
-        </div>
-                `;
+    `;
 
-    const gameListElm = document.querySelector('.gameContentsList');
     addGame("リアルタイム制将棋", "フレンドや世界中の人と気軽に対戦！", "games/ruleCollapseShogi/index.html", "/games/ruleCollapseShogi/img/icon.png");
     addGame("ブロック崩し", "君は何ブロック破壊できるかな？", "games/BlockBreaker/index.html", "/games/BlockBreaker/icon.png");
     addGame("ローグライクゲーム(PC推奨)", "無限ダンジョン！どこまで進めるかな？", "games/dungeonGame/index.html", "/games/dungeonGame/img/icon.png");
@@ -20,9 +17,9 @@
     addGame("ドロップカラー(PC推奨)", "同じ色のバブルを積み上げるゲーム", "games/DropCollar/index.html", "/games/DropCollar/icon.png");
     addGame("ビンゴ", "オンラインで知り合いと気軽にビンゴ!!", "/games/Bingo/index.html", "/games/Bingo/icon.png");
     // addGame("ウォーターゲーム", "懐かしのおもちゃをデジタルで！", "games/WaterGame/index.html", "/games/WaterGame/img/bg_natural_ocean.jpg")
-    
+
     function addGame(title, summary, contentsHref, iconSrc) {
-        gameListElm.innerHTML += `
+        addHtml += `
             <a class="contentBlock" href="${contentsHref}" target="_blank">
                 <img class="contentIcon" src="${iconSrc}">
                 <div class="contentText">
@@ -33,4 +30,5 @@
         `
     }
 
+    document.body.innerHTML += addHtml + `</div></div>`;
 }())
