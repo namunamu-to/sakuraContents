@@ -1,7 +1,5 @@
 (function () {
-    let root =  window.location.href.split("/"); 
-    let nowFile = root.pop();
-    let parentDir = root.pop();
+    let nowPath = window.location.pathname;
     
     
     let files = {
@@ -19,26 +17,26 @@
             "heroImg": "unilink_header.png",
             "href" : "/unilink.html"
         },
-        "appIntro.html": {
+        "appinfo.html": {
             "title": "アプリの紹介",
             "initFontColor": "#fff",
             "heroImgText": "",
             "heroImg": "app_header.png",
-            "href" : "/appIntro.html"
+            "href" : "/appinfo.html"
         },
-        "aboutYachiyo.html": {
+        "about.html": {
             "title": "八千代技研について",
             "initFontColor": "#fff",
             "heroImgText": "",
             "heroImg": "about_header.jpg",
-            "href" : "/aboutYachiyo.html"
+            "href" : "/about.html"
         },
-        "humanResourceRecruit.html": {
+        "recruit.html": {
             "title": "人材募集",
             "initFontColor": "#fff",
             "heroImgText": "人材募集",
-            "heroImg": "human_resources_recruit_header.jpg",
-            "href" : "/humanResourceRecruit.html"
+            "heroImg": "recruit_header.jpg",
+            "href" : "/recruit.html"
         },
         "lab.html": {
             "title": "ラボ",
@@ -46,6 +44,13 @@
             "heroImgText": "社員の研究成果",
             "heroImg": "lab_header.png",
             "href" : "/lab.html"
+        },
+        "contact.html": {
+            "title": "お問い合わせ",
+            "initFontColor": "#fff",
+            "heroImgText": "お問い合わせ",
+            "heroImg": "about_header.jpg",
+            "href" : "/contact.html"
         },
         "another": {
             "title": "ラボ",
@@ -65,8 +70,9 @@
         
     }
     
-    nowFile = nowFile in files ? nowFile : "another"
-    const prop = files[nowFile]
+    let nowFileKey = nowPath.substring(nowPath.lastIndexOf('/') + 1) || "index.html";
+    nowFileKey = nowFileKey in files ? nowFileKey : "another";
+    const prop = files[nowFileKey];
     
     document.body.innerHTML += ` 
     <header id="header">
@@ -255,7 +261,7 @@
     for (let key of Object.keys(files)) {
         if (key == "another") continue;
         
-        const nowPageClass = (parentDir == "yachiyo.tech" || parentDir == "www.yachiyo.tech") &&  nowFile == key ? "nowPage" : "";
+        const nowPageClass = nowFileKey == key ? "nowPage" : "";
         headerNavElm.innerHTML += `
             <li><a class="${nowPageClass}" href="${files[key]["href"]}">${files[key]["title"]}</a></li>
         `;
@@ -275,8 +281,6 @@
         const burgerMenu = document.getElementById('burgerMenu');
         const header = document.getElementById('header');
         burgerMenu.addEventListener('click', function () {
-            console.log("a");
-            
             header.classList.toggle('active');
         });
     });
