@@ -19,6 +19,16 @@
                 gap: 2rem; /* リンク間のスペース */
                 height: 100%;
             }
+                
+            .footer-links a {
+                color: #fff;
+                text-decoration: none;
+                transition: color 0.3s ease; /* 色の変化を滑らかにする */
+            }
+
+            .footer-links a:hover {
+                color: #7e70fe; /* ホバー時の色 */
+            }
         </style>
     `;
 
