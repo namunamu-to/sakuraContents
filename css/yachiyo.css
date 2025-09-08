@@ -19,16 +19,18 @@ section {
     display: grid;
     /* 画面幅に応じて列数を自動調整 */
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem; /* タイル間の余白 */
+    gap: 2rem;
+    /* タイル間の余白 */
 }
 
 .tile-item {
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-decoration: none;
     color: inherit;
-    overflow: hidden; /* 角丸を画像に適用 */
+    overflow: hidden;
+    /* 角丸を画像に適用 */
     display: flex;
     flex-direction: column;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -36,18 +38,21 @@ section {
 
 .tile-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .tile-item img {
     width: 100%;
-    aspect-ratio: 1 / 1; /* 画像を正方形に */
-    object-fit: cover; /* アスペクト比を維持してトリミング */
+    aspect-ratio: 1 / 1;
+    /* 画像を正方形に */
+    object-fit: cover;
+    /* アスペクト比を維持してトリミング */
 }
 
 .tile-text {
     padding: 1rem;
-    flex-grow: 1; /* 残りの高さを埋める */
+    flex-grow: 1;
+    /* 残りの高さを埋める */
 }
 
 .tile-text h3 {
@@ -59,7 +64,8 @@ section {
 .list-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem; /* リスト間の余白 */
+    gap: 1rem;
+    /* リスト間の余白 */
 }
 
 .list-item {
@@ -74,7 +80,7 @@ section {
 
 .list-item:hover {
     background-color: #f9f9f9;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .list-item h3 {
