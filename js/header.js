@@ -58,16 +58,7 @@
             "heroImgText": "",
             "heroImg": "lab_header.png",
             "href" : "/index.html"
-        }
-        // ,
-        // "scratch_learn": {
-        //     "title": "Scratch講座",
-        //     "initFontColor": "#fff",
-        //     "heroImgText": "",
-        //     "heroImg": "lab_header.png",
-        //     "href" : "https://ics.media/entry/240808/"
-        // },
-        
+        }        
     }
     
     let nowFileKey = nowPath.substring(nowPath.lastIndexOf('/') + 1) || "index.html";
