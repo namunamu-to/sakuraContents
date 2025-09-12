@@ -22,17 +22,21 @@
   </main>
 
   <script>
-    const countdownElement = document.getElementById('countdown');
-    let seconds = 5;
+    document.addEventListener('DOMContentLoaded', () => {
+      const countdownElement = document.getElementById('countdown');
+      let seconds = parseInt(countdownElement.textContent, 10);
 
-    const interval = setInterval(() => {
-      seconds--;
-      countdownElement.textContent = seconds;
-      if (seconds <= 0) {
-        clearInterval(interval);
-        window.location.href = 'https://www.yachiyo.tech/index.html';
-      }
-    }, 1000);
+      const countdown = () => {
+        if (seconds <= 0) {
+          window.location.href = 'https://www.yachiyo.tech/index.html';
+          return;
+        }
+        seconds--;
+        countdownElement.textContent = seconds;
+      };
+
+      setInterval(countdown, 1000);
+    });
   </script>
   <script src="/js/footer.js"></script>
 </body>
