@@ -45,6 +45,13 @@
             "heroImg": "lab_header.png",
             "href" : "/lab.html"
         },
+        "scratchLearn": {
+            "title": "子供向けScratch講座",
+            "initFontColor": "#fff",
+            "heroImgText": "",
+            "heroImg": "",
+            "href" : "https://github.com/ayanoy333/scratchForKids/blob/master/readme.md"
+        },
         "contact.html": {
             "title": "お問い合わせ",
             "initFontColor": "#fff",
