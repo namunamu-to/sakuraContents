@@ -6,7 +6,7 @@ const files = {
     "about.html": { title: "八千代技研について", heroImgText: "", heroImg: "about_header.jpg", href: "/about.html" },
     "recruit.html": { title: "人材募集", heroImgText: "人材募集", heroImg: "recruit_header.jpg", href: "/recruit.html" },
     "lab.html": { title: "ラボ", heroImgText: "社員の研究成果", heroImg: "lab_header.png", href: "/lab.html" },
-    "scratchLearn": { title: "子供向けScratch講座", heroImgText: "", heroImg: "", href: "https://github.com/ayanoy333/scratchForKids/blob/master/readme.md" },
+    "learnContents": { title: "学習コンテンツ", heroImgText: "", heroImg: "", href: "/learnContents.html" },
     "contact.html": { title: "お問い合わせ", heroImgText: "お問い合わせ", heroImg: "about_header.jpg", href: "/contact.html" },
     "another": { title: "ラボ", heroImgText: "", heroImg: "lab_header.png", href: "/index.html" }
 };
