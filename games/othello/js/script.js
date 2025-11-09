@@ -68,11 +68,12 @@ function checkGameEnd() {
     }
 
     if (whiteNum + blackNum == board.length ** 2) {
-        if (whiteNum == blackNum) confirm("引き分け");
-        else if (whiteNum < blackNum) confirm(`黒が${blackNum}。白が${whiteNum}。\n$黒の勝利`);
-        else if (whiteNum > blackNum) confirm(`黒が${blackNum}。白が${whiteNum}。\n$白の勝利`);
+        let victoryColor = blackNum > whiteNum  ? "黒" : "白"
+        let resultMsg = `黒が${blackNum}。白が${whiteNum}。\n${victoryColor}の勝利`;
+        
+        if (whiteNum == blackNum) resultMsg = "引き分け";
 
-        if (confirm("もう一度プレイしますか？")) {
+        if (confirm(resultMsg + "\nもう一度プレイしますか？")) {
             gameStart();
         }
     }
