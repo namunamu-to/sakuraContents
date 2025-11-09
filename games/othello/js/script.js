@@ -8,33 +8,33 @@ let baseY = 0;
 let nextIsBlack = true;
 let blackPlayer = "player";
 let whitePlayer = "cpu";
-let nextPlayer = blackPlayer;
+let nowTurnPlayer = blackPlayer;
+let pathInfo = { blackPlayer: false, whitePlayer: false };
+
 
 function cpuAction() {
-    let canPuts = [];
+    let canPuts = getCanPuts();
 
-    for (let y = 0; y < sideTileNum; y++) {
-        for (let x = 0; x < sideTileNum; x++) {
-            if (checkCanPut(x, y)) {
-                canPuts.push([x, y]);
-            }
-        }
-    }
+
 
     if (canPuts.length > 0) {
         let canReverseStones = findStoneCanReverse(nextIsBlack, canPuts[0][0], canPuts[0][1]);
         reverseStones(canReverseStones);
         putStone(nextIsBlack, canPuts[0][0], canPuts[0][1]);
-    }
+    } 
 
     nextTurn();
 }
 
 function nextTurn() {
+    pathInfo[nowTurnPlayer] = getCanPuts().length == 0;
     nextIsBlack = !nextIsBlack;
-    if (nextIsBlack) nextPlayer = blackPlayer;
-    else nextPlayer = whitePlayer;
+    if (nextIsBlack) nowTurnPlayer = blackPlayer;
+    else nowTurnPlayer = whitePlayer;
+    pathInfo[nowTurnPlayer] = getCanPuts().length == 0;
+    checkGameEnd();
 
+    if (nowTurnPlayer == "cpu") cpuAction();
 }
 
 function gameStart() {
@@ -46,6 +46,8 @@ function gameStart() {
     baseX = 0;
     baseY = 0;
     nextIsBlack = true;
+    pathInfo = { "blackPlayer": false, "whitePlayer": false };
+
 
     putStone(true, 3, 3);
     putStone(true, 4, 4);
@@ -58,6 +60,8 @@ gameStart();
 function checkGameEnd() {
     let blackNum = 0;
     let whiteNum = 0;
+    let isGameEnd = false;
+
 
     for (let yLine of board) {
         for (let tile of yLine) {
@@ -67,15 +71,24 @@ function checkGameEnd() {
         }
     }
 
+    if (pathInfo["blackPlayer"] && pathInfo["whitePlayer"]) {
+        isGameEnd = true;
+    }
+
+
     if (whiteNum + blackNum == board.length ** 2) {
-        let victoryColor = blackNum > whiteNum  ? "黒" : "白"
+        isGameEnd = true;
+    }
+
+    if (isGameEnd) {
+        let victoryColor = blackNum > whiteNum ? "黒" : "白"
         let resultMsg = `黒が${blackNum}。白が${whiteNum}。\n${victoryColor}の勝利`;
-        
+
         if (whiteNum == blackNum) resultMsg = "引き分け";
 
-        if (confirm(resultMsg + "\nもう一度プレイしますか？")) {
-            gameStart();
-        }
+        alert(resultMsg + "\nもう一度プレイします");
+        window.location.reload();
+
     }
 
 }
@@ -88,6 +101,20 @@ function putStone(isBlack, x, y) {
     };
 
     board[y][x] = stone;
+}
+
+function getCanPuts() {
+    let canPuts = [];
+
+    for (let y = 0; y < sideTileNum; y++) {
+        for (let x = 0; x < sideTileNum; x++) {
+            if (checkCanPut(x, y)) {
+                canPuts.push([x, y]);
+            }
+        }
+    }
+
+    return canPuts;
 }
 
 function reverseStones(canReverses) {
@@ -182,15 +209,11 @@ updates["stone"] = function () {
             let posY = baseY + tileSize * stone.y;
             if (stone.isBlack) drawImg("img/黒石.png", posX, posY, tileSize, tileSize);
             else drawImg("img/白石.png", posX, posY, tileSize, tileSize);
-        }
+        }   
     }
-
-    checkGameEnd();
 }
 
 updates["turnPlayer"] = function () {
     if (nextIsBlack) fillText("black", "黒の番", 0, 0);
     else fillText("black", "白の番", 0, 0);
-
-    if (nextPlayer == "cpu") cpuAction();
 }

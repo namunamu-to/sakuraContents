@@ -1,5 +1,5 @@
 canvasElm.addEventListener("click", (e)=>{
-    if(nextPlayer != "player") return;
+    if(nowTurnPlayer != "player") return;
 
     let posX = e.clientX;
     let posY = e.clientY;
@@ -8,6 +8,14 @@ canvasElm.addEventListener("click", (e)=>{
     posY -= baseY;
     const x = parseInt(posX / tileSize);
     const y = parseInt(posY / tileSize);
+
+    if(getCanPuts().length == 0) {
+        pathInfo[nowTurnPlayer] = true;
+        nextTurn();
+        return;
+    }else{
+        pathInfo[nowTurnPlayer] = false;
+    }
 
     if(!checkCanPut(x, y)) return;
 
