@@ -15,6 +15,13 @@
       background: #f8f8f8;
     }
 
+    #allContainer {
+      width: 80%;
+      max-width: 1080px;
+      margin: 16px;
+      box-sizing: border-box;
+    }
+
     #controls {
       width: 100%;
       max-width: 1024px;
@@ -36,8 +43,8 @@
 
     #canvasContainer {
       position: relative;
+      margin: 16px 0;
       width: 100%;
-      max-width: 600px;
       height: auto;
       background: #ddd;
     }
@@ -46,6 +53,10 @@
       touch-action: none;
       border: 1px solid #888;
       background: #eee;
+      max-width: 100%;
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     button {
@@ -71,47 +82,65 @@
       border-radius: 4px;
       font-size: 14px;
     }
+
+    /* Responsive tweaks for small screens */
+    @media (max-width: 600px) {
+      #allContainer {
+        width: 95%;
+        margin: 8px;
+      }
+      #controls {
+        padding: 10px;
+      }
+      .button-like-link {
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <div id="allContainer">
 
-  <div id="controls">
-    <ul>
-      <li>背景画像の読み込み：
-        <input type="file" id="backgroundInput" accept="image/*">
-      </li>
-      <li>マーカー画像の読み込み：
-        <input type="file" id="markerInput" accept="image/*">
-      </li>
-      <li>
-        クリップ領域初期化：
-        <button id="initRectBtn">クリップ領域を初期化する</button>
-      </li>
-      <li>
-        進捗スライダー：
-        <div style="display:inline-block; width:60%; vertical-align:middle;">
-          <input type="range" id="progressSlider" min="0" max="100" step="0.1" value="0">
-          <span id="progressLabel">0%</span>
-        </div>
-      </li>
-      <li>
-        <button id="exportBtn">DAT出力</button>
-        <input type="file" id="importFile" accept=".dat" style="display:none;">
-        <button id="importBtn">DAT読み込み</button>
-      </li>
-      <li>
-        <a href="reference.html" target="_blank" class="button-like-link">組み込み方の参考ページ</a>
-      </li>
-    </ul>
-    <div>ライセンスについて</div>
-    <div>このツールは MIT ライセンスで公開されています。自由に改変・再配布が可能です。</div>
-    <div>githubリンク</div>
-    <div><a href="https://github.com/ChaosReadman/anyPathProgress" target="_blank">https://github.com/ChaosReadman/anyPathProgress</a></div>
-  </div>
+    <div id="controls">
+      <ul>
+        <li>背景画像の読み込み：
+          <input type="file" id="backgroundInput" accept="image/*">
+        </li>
+        <li>マーカー画像の読み込み：
+          <input type="file" id="markerInput" accept="image/*">
+        </li>
+        <li>
+          クリップ領域初期化：
+          <button id="initRectBtn">クリップ領域を初期化する</button>
+        </li>
+        <li>
+          進捗スライダー：
+          <div style="display:inline-block; width:60%; vertical-align:middle;">
+            <input type="range" id="progressSlider" min="0" max="100" step="0.1" value="0">
+            <span id="progressLabel">0%</span>
+          </div>
+        </li>
+        <li>
+          <button id="exportBtn">DAT出力</button>
+          <input type="file" id="importFile" accept=".dat" style="display:none;">
+          <button id="importBtn">DAT読み込み</button>
+        </li>
+        <li>
+          <a href="reference.html" target="_blank" class="button-like-link">組み込み方の参考ページ</a>
+        </li>
+      </ul>
+      <div>ライセンスについて</div>
+      <div>このツールは MIT ライセンスで公開されています。自由に改変・再配布が可能です。</div>
+      <div>githubリンク</div>
+      <div><a href="https://github.com/ChaosReadman/anyPathProgress"
+          target="_blank">https://github.com/ChaosReadman/anyPathProgress</a></div>
+    </div>
 
-  <div id="canvasContainer">
-    <canvas id="myCanvas" width="512" height="512"></canvas>
+    <div id="canvasContainer">
+      <canvas id="myCanvas" width="512" height="512"></canvas>
+    </div>
   </div>
 
   <script>
@@ -121,7 +150,7 @@
     let markerImage = null;
     let markerPath = [];
     let isDrawing = false;  // パスの描画中フラグ
-    let isResizing=false;   // クリップリサイズ中フラグ
+    let isResizing = false;   // クリップリサイズ中フラグ
     let progress = 0;
     // クリップ
     let clipRect = { x: 0, y: 0, width: 0, height: 0 };
@@ -135,10 +164,12 @@
     canvas.addEventListener('touchstart', startDraw);
     canvas.addEventListener('mousemove', draw);
     canvas.addEventListener('touchmove', draw);
-    canvas.addEventListener('mouseup', () => {isDrawing = false; isResizing = false;});
-    canvas.addEventListener('mouseleave', () => {isDrawing = false; isResizing = false;});
-    canvas.addEventListener('touchend', () => {isDrawing = false; isResizing = false;});
-    canvas.addEventListener('touchcancel', () => {isDrawing = false; isResizing = false;});
+    canvas.addEventListener('mouseup', () => { isDrawing = false; isResizing = false; });
+    canvas.addEventListener('mouseleave', () => { isDrawing = false; isResizing = false; });
+    canvas.addEventListener('touchend', () => { isDrawing = false; isResizing = false; });
+    canvas.addEventListener('touchcancel', () => { isDrawing = false; isResizing = false; });
+    canvas.addEventListener('mousemove', resizeDraw);
+    canvas.addEventListener('touchmove', resizeDraw);
 
     // ==== 起動時に default.dat を読み込む ====
     window.addEventListener('load', async () => {
@@ -225,34 +256,30 @@
     function startDraw(e) {
       const pos = getPos(e);
 
-        // クリップリサイズ判定
-        handles = [
-          { x: clipRect.x, y: clipRect.y, type: 'topLeft' },
-          { x: clipRect.x + clipRect.width, y: clipRect.y, type: 'topRight' },
-          { x: clipRect.x, y: clipRect.y + clipRect.height, type: 'bottomLeft' },
-          { x: clipRect.x + clipRect.width, y: clipRect.y + clipRect.height, type: 'bottomRight' }
-        ];
-        for (let h of handles) {
-          if (Math.abs(pos.x - h.x) <= handleSize && Math.abs(pos.y - h.y) <= handleSize) {
-            isResizing = true;
-            activeHandle = h;
-            startX = pos.x;
-            startY = pos.y;
-            dx = 0;
-            dy = 0;
-            canvas.addEventListener('mousemove', resizeDraw);
-            canvas.addEventListener('touchmove', resizeDraw);
-            canvas.addEventListener('mouseup', endResize);
-            canvas.addEventListener('touchend', endResize);
-            return;
-          }
+      // クリップリサイズ判定
+      handles = [
+        { x: clipRect.x, y: clipRect.y, type: 'topLeft' },
+        { x: clipRect.x + clipRect.width, y: clipRect.y, type: 'topRight' },
+        { x: clipRect.x, y: clipRect.y + clipRect.height, type: 'bottomLeft' },
+        { x: clipRect.x + clipRect.width, y: clipRect.y + clipRect.height, type: 'bottomRight' }
+      ];
+      for (let h of handles) {
+        if (Math.abs(pos.x - h.x) <= handleSize && Math.abs(pos.y - h.y) <= handleSize) {
+          isResizing = true;
+          activeHandle = h;
+          startX = pos.x;
+          startY = pos.y;
+          dx = 0;
+          dy = 0;
+          return;
         }
-        if (!isResizing) {
-          isDrawing = true;
-          markerPath = []; // 新規描画時にパスをクリア
-          progress = 0;
-          document.getElementById('progressSlider').value = 0;
-          markerPath.push(pos);
+      }
+      if (!isResizing) {
+        isDrawing = true;
+        markerPath = []; // 新規描画時にパスをクリア
+        progress = 0;
+        document.getElementById('progressSlider').value = 0;
+        markerPath.push(pos);
       }
     }
 
@@ -366,7 +393,7 @@
         }
       }
     }
-    
+
     // ==== クリップ領域初期化 ====
     document.getElementById('initRectBtn').addEventListener('click', () => {
       if (backgroundImage) {
