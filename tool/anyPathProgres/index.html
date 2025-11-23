@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progress Path Editor</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      font-family: sans-serif;
+      background: #f8f8f8;
+    }
+
+    #controls {
+      width: 100%;
+      max-width: 1024px;
+      background: #fff;
+      padding: 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
+
+    #controls ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #controls li {
+      margin: 8px 0;
+    }
+
+    #canvasContainer {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      background: #ddd;
+    }
+
+    canvas {
+      touch-action: none;
+      border: 1px solid #888;
+      background: #eee;
+    }
+
+    button {
+      padding: 6px 10px;
+      font-size: 14px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
+    #progressLabel {
+      font-size: 14px;
+      margin-left: 8px;
+    }
+
+    .button-like-link {
+      display: inline-block;
+      padding: 6px 12px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="controls">
+    <ul>
+      <li>背景画像の読み込み：
+        <input type="file" id="backgroundInput" accept="image/*">
+      </li>
+      <li>マーカー画像の読み込み：
+        <input type="file" id="markerInput" accept="image/*">
+      </li>
+      <li>
+        クリップ領域初期化：
+        <button id="initRectBtn">クリップ領域を初期化する</button>
+      </li>
+      <li>
+        進捗スライダー：
+        <div style="display:inline-block; width:60%; vertical-align:middle;">
+          <input type="range" id="progressSlider" min="0" max="100" step="0.1" value="0">
+          <span id="progressLabel">0%</span>
+        </div>
+      </li>
+      <li>
+        <button id="exportBtn">DAT出力</button>
+        <input type="file" id="importFile" accept=".dat" style="display:none;">
+        <button id="importBtn">DAT読み込み</button>
+      </li>
+      <li>
+        <a href="reference.html" target="_blank" class="button-like-link">組み込み方の参考ページ</a>
+      </li>
+    </ul>
+  </div>
+
+  <div id="canvasContainer">
+    <canvas id="myCanvas" width="512" height="512"></canvas>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+    let backgroundImage = null;
+    let markerImage = null;
+    let markerPath = [];
+    let isDrawing = false;  // パスの描画中フラグ
+    let isResizing=false;   // クリップリサイズ中フラグ
+    let progress = 0;
+    // クリップ
+    let clipRect = { x: 0, y: 0, width: 0, height: 0 };
+    var handleSize = 10;
+    var handles = [{ x: clipRect.x, y: clipRect.y }, { x: clipRect.x + clipRect.width, y: clipRect.y }, { x: clipRect.x, y: clipRect.y + clipRect.height }, { x: clipRect.x + clipRect.width, y: clipRect.y + clipRect.height }];
+    let activeHandle = null;
+    let startX = 0;
+    let startY = 0;
+
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('touchstart', startDraw);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('mouseup', () => {isDrawing = false; isResizing = false;});
+    canvas.addEventListener('mouseleave', () => {isDrawing = false; isResizing = false;});
+    canvas.addEventListener('touchend', () => {isDrawing = false; isResizing = false;});
+    canvas.addEventListener('touchcancel', () => {isDrawing = false; isResizing = false;});
+
+    // ==== 起動時に default.dat を読み込む ====
+    window.addEventListener('load', async () => {
+      try {
+        const res = await fetch('default.dat');
+        if (!res.ok) throw new Error("No default.dat");
+        const data = await res.json();
+
+        markerPath = data.path || [];
+        backgroundImage = await loadImage(data.background);
+        clipRect = data.clipRect || { x: 0, y: 0, width: backgroundImage ? backgroundImage.width : 0, height: backgroundImage ? backgroundImage.height : 0 };
+        if (!data.clipRect) {
+          clipRect.x = 0;
+          clipRect.y = 0;
+          clipRect.width = backgroundImage.width;
+          clipRect.height = backgroundImage.height;
+        }
+        markerImage = await loadImage(data.marker);
+        document.getElementById("myCanvas").width = backgroundImage.width;
+        document.getElementById("myCanvas").height = backgroundImage.height;
+
+        redraw();
+        console.log("✅ default.dat 読み込み完了");
+      } catch {
+        console.warn("⚠ default.dat が見つかりません。空の状態で起動します。");
+        redraw();
+      }
+    });
+
+    // ==== 汎用関数 ====
+    function fileToDataURL(file) {
+      return new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function loadImage(src) {
+      return new Promise(resolve => {
+        if (!src) { resolve(null); return; }
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => resolve(null);
+        img.src = src;
+      });
+    }
+
+    // ==== 背景・マーカー読み込み ====
+    document.getElementById('backgroundInput').addEventListener('change', async e => {
+      const file = e.target.files[0];
+      if (file) {
+        const dataURL = await fileToDataURL(file);
+        const img = await loadImage(dataURL);
+        backgroundImage = img;
+        backgroundImage._dataURL = dataURL;
+        redraw();
+      }
+    });
+
+    document.getElementById('markerInput').addEventListener('change', async e => {
+      const file = e.target.files[0];
+      if (file) {
+        const dataURL = await fileToDataURL(file);
+        const img = await loadImage(dataURL);
+        markerImage = img;
+        markerImage._dataURL = dataURL;
+        redraw();
+      }
+    });
+
+    // ==== マウス座標取得 ====
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: (clientX - rect.left) * (canvas.width / rect.width),
+        y: (clientY - rect.top) * (canvas.height / rect.height)
+      };
+    }
+
+    // ==== 経路描画 ====
+    function startDraw(e) {
+      const pos = getPos(e);
+
+        // クリップリサイズ判定
+        handles = [
+          { x: clipRect.x, y: clipRect.y, type: 'topLeft' },
+          { x: clipRect.x + clipRect.width, y: clipRect.y, type: 'topRight' },
+          { x: clipRect.x, y: clipRect.y + clipRect.height, type: 'bottomLeft' },
+          { x: clipRect.x + clipRect.width, y: clipRect.y + clipRect.height, type: 'bottomRight' }
+        ];
+        for (let h of handles) {
+          if (Math.abs(pos.x - h.x) <= handleSize && Math.abs(pos.y - h.y) <= handleSize) {
+            isResizing = true;
+            activeHandle = h;
+            startX = pos.x;
+            startY = pos.y;
+            dx = 0;
+            dy = 0;
+            canvas.addEventListener('mousemove', resizeDraw);
+            canvas.addEventListener('touchmove', resizeDraw);
+            canvas.addEventListener('mouseup', endResize);
+            canvas.addEventListener('touchend', endResize);
+            return;
+          }
+        }
+        if (!isResizing) {
+          isDrawing = true;
+          markerPath = []; // 新規描画時にパスをクリア
+          progress = 0;
+          document.getElementById('progressSlider').value = 0;
+          markerPath.push(pos);
+      }
+    }
+
+    function resizeDraw(e) {
+      if (isResizing) {
+        switch (activeHandle.type) {
+          case 'topLeft':
+            dx = getPos(e).x - startX;
+            dy = getPos(e).y - startY;
+            break;
+          case 'topRight':
+            dx = getPos(e).x - startX;
+            dy = getPos(e).y - startY;
+            break;
+          case 'bottomLeft':
+            dx = getPos(e).x - startX;
+            dy = getPos(e).y - startY;
+            break;
+          case 'bottomRight':
+            dx = getPos(e).x - startX;
+            dy = getPos(e).y - startY;
+            break;
+        }
+        startX = getPos(e).x;
+        startY = getPos(e).y;
+        redraw();
+      }
+    }
+
+    function draw(e) {
+      if (isDrawing) {
+        const pos = getPos(e);
+        markerPath.push(pos);
+      }
+
+      if (isResizing) {
+        switch (activeHandle.type) {
+          case 'topLeft':
+            clipRect.x += dx; clipRect.y += dy;
+            clipRect.width -= dx; clipRect.height -= dy;
+            break;
+          case 'topRight':
+            clipRect.y += dy;
+            clipRect.width += dx; clipRect.height -= dy;
+            break;
+          case 'bottomLeft':
+            clipRect.x += dx;
+            clipRect.width -= dx; clipRect.height += dy;
+            break;
+          case 'bottomRight':
+            clipRect.width += dx; clipRect.height += dy;
+            break;
+        }
+      }
+      redraw();
+    }
+
+
+    // ==== スライダー ====
+    document.getElementById('progressSlider').addEventListener('input', e => {
+      progress = parseFloat(e.target.value);
+      document.getElementById('progressLabel').textContent = `${progress.toFixed(1)}%`;
+      redraw();
+    });
+
+    // ==== 再描画 ====
+    function redraw() {
+      // クリア
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // 背景描画
+      if (backgroundImage) ctx.drawImage(backgroundImage, 0, 0);
+
+      // クリップ枠
+      ctx.strokeStyle = 'blue';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(clipRect.x, clipRect.y, clipRect.width, clipRect.height);
+      ctx.fillStyle = 'blue';
+      handles = [
+        { x: clipRect.x, y: clipRect.y },
+        { x: clipRect.x + clipRect.width, y: clipRect.y },
+        { x: clipRect.x, y: clipRect.y + clipRect.height },
+        { x: clipRect.x + clipRect.width, y: clipRect.y + clipRect.height }
+      ];
+      handles.forEach(h => ctx.fillRect(h.x - handleSize / 2, h.y - handleSize / 2, handleSize, handleSize));
+      // 経路描画
+      if (markerPath.length > 1) {
+        ctx.beginPath();
+        ctx.moveTo(markerPath[0].x, markerPath[0].y);
+        for (let i = 1; i < markerPath.length; i++) {
+          ctx.lineTo(markerPath[i].x, markerPath[i].y);
+        }
+        ctx.strokeStyle = 'red';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      }
+
+      // マーカー描画
+      if (markerPath.length > 0) {
+        const idx = Math.floor((progress / 100) * (markerPath.length - 1));
+        const p = markerPath[idx];
+        if (markerImage) {
+          const size = 35;
+          ctx.drawImage(markerImage, p.x - size / 2, p.y - size / 2, size, size);
+        } else {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 10, 0, Math.PI * 2);
+          ctx.fillStyle = 'yellow';
+          ctx.fill();
+          ctx.strokeStyle = 'orange';
+          ctx.stroke();
+        }
+      }
+    }
+    
+    // ==== クリップ領域初期化 ====
+    document.getElementById('initRectBtn').addEventListener('click', () => {
+      if (backgroundImage) {
+        clipRect.x = 0;
+        clipRect.y = 0;
+        clipRect.width = backgroundImage.width;
+        clipRect.height = backgroundImage.height;
+        redraw();
+      }
+    });
+
+    // ==== DAT出力（Base64埋め込み） ====
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      const data = {
+        background: backgroundImage ? (backgroundImage._dataURL || backgroundImage.src) : null,
+        marker: markerImage ? (markerImage._dataURL || markerImage.src) : null,
+        path: markerPath,
+        clipRect: clipRect
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = "default.dat";
+      a.click();
+    });
+
+    // ==== DAT読み込み ====
+    document.getElementById('importBtn').addEventListener('click', () => {
+      document.getElementById('importFile').click();
+    });
+
+    document.getElementById('importFile').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = async ev => {
+        const data = JSON.parse(ev.target.result);
+        markerPath = data.path || [];
+        backgroundImage = await loadImage(data.background);
+        markerImage = await loadImage(data.marker);
+        clipRect = data.clipRect || { x: 0, y: 0, width: backgroundImage ? backgroundImage.width : 0, height: backgroundImage ? backgroundImage.height : 0 };
+        redraw();
+      };
+      reader.readAsText(file);
+    });
+  </script>
+
+</body>
+
+</html>

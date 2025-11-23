@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>組み込み方の参考ページ</title>
+  <script src="progress-bar.js"></script>
+</head>
+<body style="background:#222; color:white; text-align:center;">
+  <h2>組み込み方の参考ページです</h2>
+
+  <progress-bar dat="default.dat" progress="0.0"></progress-bar>
+
+  <br>
+  <input type="range" min="0" max="1" step="0.01" value="0" id="slider">
+
+  <script>
+    const bar = document.querySelector('progress-bar');
+    const slider = document.getElementById('slider');
+    slider.addEventListener('input', () => {
+      bar.setAttribute('progress', slider.value);
+    });
+  </script>
+  <div style="margin-top:40px; font-size:14px; color:gray;">
+  本ページのソースを参考に、ご自分のサイトに組み込んでください。
+  <p>本ページのソースコード：<a href="reference.html" style="color:cyan;">reference.html</a></p>
+  <p>ProgressBar本体：<a href="progress-bar.js" style="color:cyan;">progress-bar.js</a></p>
+
+  簡単に説明しますと、以下のようにHTML内に&lt;progress-bar&gt;要素を追加し、dat属性でデータファイルを指定、progress属性で進捗率を0.0〜1.0の範囲で指定すればOKです。
+  例えば、以下のように記述します。
+  <textarea style="width:80%; height:80px; background:#333; color:#eee; padding:10px; border:none; border-radius:5px;" readonly>
+    &lt;progress-bar dat="default.dat" progress="0.0"&gt;&lt;/progress-bar&gt;
+  </textarea>
+  <p>
+    <a href="index.html" style="
+      display: inline-block;
+      padding: 6px 12px;
+      background-color: #444;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      border: 1px solid #666;">戻る</a>
+  </p>
+  </div>
+</body>
+</html>
