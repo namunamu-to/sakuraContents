@@ -68,6 +68,19 @@
 (cout output (cons 0 mylist))
 (cout output (length mylist))
 (cout output (append mylist (list 5 6)))
+
+(def TOWNS (list "LONDON" "READING" "OXFORD"))
+(cout output (car TOWNS))
+(cout output (cdr TOWNS))
+
+(def alpha (list (list (list "A" "B") "C") "D" ) )
+
+(cout output (car alpha))
+(cout output (car (car alpha)))
+(cout output (cdr alpha))
+(set a (cdr alpha))
+(cout output (car a))
+
 `;
         };
     </script>

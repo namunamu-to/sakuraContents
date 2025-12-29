@@ -274,7 +274,7 @@ function evaluate(ast, env) {
         } else if (op === 'cout') {
             const [outputId, expr] = args;
             const value = evaluate(expr, env);
-            document.getElementById(outputId).value += value + '\n';
+            document.getElementById(outputId).value += lispString(value) + '\n';
             return value;
         } else {
             // function call
@@ -306,6 +306,16 @@ function evaluate(ast, env) {
         }
     }
     throw new Error(`Unknown AST node: ${ast}`);
+}
+
+function lispString(obj) {
+    if (Array.isArray(obj)) {
+        return '(' + obj.map(lispString).join(' ') + ')';
+    } else if (typeof obj === 'string') {
+        return '"' + obj + '"';
+    } else {
+        return obj.toString();
+    }
 }
 
 function runLisp(src){
