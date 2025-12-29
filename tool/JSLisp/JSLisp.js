@@ -69,6 +69,20 @@ function tokenize(src){
             }
             continue;
         }
+        if(src[pos] === '"'){
+            let str = "";
+            pos++; // skip opening quote
+            while(pos < src.length && src[pos] !== '"'){
+                str += src[pos];
+                pos++;
+            }
+            if(pos >= src.length){
+                throw new Error("Unterminated string literal");
+            }
+            pos++; // skip closing quote
+            tokens.push({type: "STRING", value: str, pos});
+            continue;
+        }
         if(/[a-zA-Z_+*-]/.test(src[pos])){
             let idStr = "";
             while(pos < src.length && /[^()\s]/.test(src[pos])){
@@ -85,6 +99,15 @@ function tokenize(src){
 }
 
 function parseExpression(tokens, index) {
+    if (tokens[index].type === "NUMBER") {
+        return [parseInt(tokens[index].value), index + 1];
+    }
+    if (tokens[index].type === "STRING") {
+        return [{ type: 'string', value: tokens[index].value }, index + 1];
+    }
+    if (tokens[index].type === "IDENTIFIER" || tokens[index].type === "KEYWORD") {
+        return [tokens[index].value, index + 1];
+    }
     if (tokens[index].type === "LPAREN") {
         index++;
         const list = [];
@@ -110,6 +133,10 @@ function parseLisp(src){
     const asts = [];
     let index = 0;
     while (index < tokens.length) {
+        if (tokens[index].type === "RPAREN") {
+            index++;
+            continue;
+        }
         const [ast, newIndex] = parseExpression(tokens, index);
         asts.push(ast);
         index = newIndex;
@@ -121,6 +148,9 @@ function evaluate(ast, env) {
     if (typeof ast === 'number') {
         return ast;
     }
+    if (ast && typeof ast === 'object' && ast.type === 'string') {
+        return ast.value;
+    }
     if (typeof ast === 'string') {
         if (env[ast] !== undefined) {
             return env[ast];
@@ -129,7 +159,17 @@ function evaluate(ast, env) {
     }
     if (Array.isArray(ast)) {
         const [op, ...args] = ast;
-        if (op === 'def') {
+        if (typeof op !== 'string') {
+            // list of expressions
+            let result;
+            for (let expr of ast) {
+                result = evaluate(expr, env);
+                if (result && result.type === 'return') {
+                    return result.value;
+                }
+            }
+            return result;
+        } else if (op === 'def') {
             const [varName, val] = args;
             env[varName] = evaluate(val, env);
             return env[varName];
@@ -140,6 +180,49 @@ function evaluate(ast, env) {
         } else if (op === '+') {
             const [a, b] = args;
             return evaluate(a, env) + evaluate(b, env);
+        } else if (op === '-') {
+            const [a, b] = args;
+            return evaluate(a, env) - evaluate(b, env);
+        } else if (op === '*') {
+            const [a, b] = args;
+            return evaluate(a, env) * evaluate(b, env);
+        } else if (op === '/') {
+            const [a, b] = args;
+            return evaluate(a, env) / evaluate(b, env);
+        } else if (op === 'car') {
+            const [lst] = args;
+            const list = evaluate(lst, env);
+            if (Array.isArray(list)) {
+                return list[0];
+            }
+            throw new Error('car expects a list');
+        } else if (op === 'cdr') {
+            const [lst] = args;
+            const list = evaluate(lst, env);
+            if (Array.isArray(list)) {
+                return list.slice(1);
+            }
+            throw new Error('cdr expects a list');
+        } else if (op === 'cons') {
+            const [elem, lst] = args;
+            const element = evaluate(elem, env);
+            const list = evaluate(lst, env);
+            if (Array.isArray(list)) {
+                return [element, ...list];
+            }
+            throw new Error('cons expects a list as second argument');
+        } else if (op === 'list') {
+            return args.map(arg => evaluate(arg, env));
+        } else if (op === 'length') {
+            const [lst] = args;
+            const list = evaluate(lst, env);
+            if (Array.isArray(list)) {
+                return list.length;
+            }
+            throw new Error('length expects a list');
+        } else if (op === 'append') {
+            const lists = args.map(arg => evaluate(arg, env));
+            return lists.flat();
         } else if (op === '<') {
             const [a, b] = args;
             return evaluate(a, env) < evaluate(b, env);

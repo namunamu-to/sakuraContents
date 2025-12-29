@@ -14,12 +14,16 @@
     <script>
         onload = function() {
             document.getElementById('input').value = `
+
+(cout output "変数定義と出力")
 (def x 100) 
 (cout output x)
+(cout output "関数定義と呼び出し")
 (func add (a b) 
     (+ a b)
 )
 (cout output (add 10 20))
+(cout output "１～ｎまでの和")
 (func sum (n)
   (def s 0)
   (def i 1)
@@ -28,6 +32,7 @@
     (set i (+ i 1)))
   (return s))
 (cout output (sum 100))
+(cout output "a b 比較して小さいほう判定")
 (func min(a b)
   (if (< a b)
     (return a)
@@ -35,9 +40,30 @@
 (cout output (min 10 20))
 (cout output (min 30 20))
 (cout output (min x 50))
+(cout output "変数スコープ")
 (def a 0)
 (set a (min 10 20))
 (cout output a)
+
+(cout output "再帰ルーチン(フィボナッチ)")
+(func rec(a b n)
+  (if (> n 0)
+      (
+        (cout output a)
+        (rec (+ a b) a (- n 1))
+      )
+  )
+)
+
+(rec 0 1 15)
+
+(cout output "リスト操作")
+(def mylist (list 1 2 3 4))
+(cout output (car mylist))
+(cout output (cdr mylist))
+(cout output (cons 0 mylist))
+(cout output (length mylist))
+(cout output (append mylist (list 5 6)))
 `;
         };
     </script>
