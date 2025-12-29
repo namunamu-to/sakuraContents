@@ -32,6 +32,11 @@
     (set i (+ i 1)))
   (return s))
 (cout output (sum 100))
+(cout output "１～ｎまでの和（公式）")
+(func sum2 (n)
+  (return (/ (* n (+ n 1)) 2)))
+(cout output (sum2 100))
+
 (cout output "a b 比較して小さいほう判定")
 (func min(a b)
   (if (< a b)

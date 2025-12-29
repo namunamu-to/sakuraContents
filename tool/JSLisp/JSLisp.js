@@ -88,7 +88,7 @@ function tokenize(src){
             tokens.push({type: "STRING", value: str, pos});
             continue;
         }
-        if(/[a-zA-Z_+*-]/.test(src[pos])){
+        if(/[a-zA-Z_\/+*-]/.test(src[pos])){
             let idStr = "";
             while(pos < src.length && /[^()\s]/.test(src[pos])){
                 idStr += src[pos];
