@@ -16,6 +16,11 @@ function tokenize(src){
             pos++;
             continue;
         }
+        if(src[pos] === "'"){
+            tokens.push({type: "QUOTE", value: "'", pos});
+            pos++;
+            continue;
+        }
         if(/\s/.test(src[pos])){
             pos++;
             continue;
@@ -99,6 +104,10 @@ function tokenize(src){
 }
 
 function parseExpression(tokens, index) {
+    if (tokens[index].type === "QUOTE") {
+        const [expr, newIndex] = parseExpression(tokens, index + 1);
+        return [['quote', expr], newIndex];
+    }
     if (tokens[index].type === "NUMBER") {
         return [parseInt(tokens[index].value), index + 1];
     }
@@ -220,6 +229,13 @@ function evaluate(ast, env) {
                 return list.length;
             }
             throw new Error('length expects a list');
+        } else if (op === 'reverse') {
+            const [lst] = args;
+            const list = evaluate(lst, env);
+            if (Array.isArray(list)) {
+                return list.slice().reverse();
+            }
+            throw new Error('reverse expects a list');
         } else if (op === 'append') {
             const lists = args.map(arg => evaluate(arg, env));
             return lists.flat();
@@ -271,6 +287,9 @@ function evaluate(ast, env) {
         } else if (op === 'return') {
             const [val] = args;
             return { type: 'return', value: evaluate(val, env) };
+        } else if (op === 'quote') {
+            const [val] = args;
+            return val;
         } else if (op === 'cout') {
             const [outputId, expr] = args;
             const value = evaluate(expr, env);
@@ -311,8 +330,6 @@ function evaluate(ast, env) {
 function lispString(obj) {
     if (Array.isArray(obj)) {
         return '(' + obj.map(lispString).join(' ') + ')';
-    } else if (typeof obj === 'string') {
-        return '"' + obj + '"';
     } else {
         return obj.toString();
     }
@@ -321,5 +338,6 @@ function lispString(obj) {
 function runLisp(src){
     const ast = parseLisp(src);
     const env = {};
+    env['nil'] = [];
     ast.forEach(expr => evaluate(expr, env));
 }

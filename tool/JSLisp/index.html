@@ -15,7 +15,6 @@
     <script>
         onload = function() {
             document.getElementById('input').value = `
-
 (cout output "変数定義と出力")
 (def x 100) 
 (cout output x)
@@ -62,25 +61,28 @@
 (rec 0 1 15)
 
 (cout output "リスト操作")
-(def mylist (list 1 2 3 4))
+(def mylist '(1 2 3 4)) 
 (cout output (car mylist))
 (cout output (cdr mylist))
 (cout output (cons 0 mylist))
 (cout output (length mylist))
-(cout output (append mylist (list 5 6)))
+(cout output (append mylist '(5 6)))
 
-(def TOWNS (list "LONDON" "READING" "OXFORD"))
+(def TOWNS '(LONDON READING OXFORD))
 (cout output (car TOWNS))
 (cout output (cdr TOWNS))
 
-(def alpha (list (list (list "A" "B") "C") "D" ) )
+(def alpha '(((A B)C)D))
 
 (cout output (car alpha))
 (cout output (car (car alpha)))
 (cout output (cdr alpha))
 (set a (cdr alpha))
 (cout output (car a))
-
+(cout output "nilの扱い")
+(cout output (append '(AB) nil))
+(cout output "reverseのテスト")
+(cout output (reverse '(1 2 3)))
 `;
         };
     </script>
