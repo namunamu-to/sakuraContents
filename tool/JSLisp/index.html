@@ -7,17 +7,25 @@
 <body>
     <h1>LISP広場</h1>
     <p>一通りの機能を実装しましたが、何か不具合がございましたらお知らせください。</p>
-    <textarea id ="input" rows="40" cols="80"></textarea>
+    <textarea id ="input" rows="20" cols="40"></textarea>
     <input type="button" value="Run" onclick="document.getElementById('output').value = ''; runLisp(document.getElementById('input').value)"/>
     <br>
-    <textarea id ="output" rows="40" cols="80"></textarea>
+    <textarea id ="output" rows="20" cols="40"></textarea>
+    <canvas id="canvas1" width="512" height="512"></canvas>
     <script src="JSLisp.js"></script>
     <script>
         onload = function() {
             document.getElementById('input').value = `
 (cout output "変数定義と出力")
-(def x 100) 
+(def x -10.51) 
+(def y 9.8) 
 (cout output x)
+(cout output y)
+
+(cout output "論理演算")
+(cout output (and 1 0))
+(cout output (or 1 0))
+
 (cout output "関数定義と呼び出し")
 (func add (a b) 
     (+ a b)
@@ -88,6 +96,61 @@
 (cout output (append '(AB) nil))
 (cout output "reverseのテスト")
 (cout output (reverse '(1 2 3)))
+(cout output "Canvasへの描画")
+(fillRect canvas1 0 0 512 512 "#AAAAAA")
+
+(cout output "マンデルブロ集合の描画")
+(cout output "Mandelbrot start")
+
+(def width 300)
+(def height 300)
+(def maxIter 50)
+
+(def x 0)
+(def y 0)
+
+(def cx 0)
+(def cy 0)
+(def zx 0)
+(def zy 0)
+(def tx 0)
+(def ty 0)
+(def iter 0)
+
+(while (< y height)
+  (set x 0)
+  (while (< x width)
+
+    (set cx (+ -2 (* 3 (/ x width))))
+    (set cy (+ -1.5 (* 3 (/ y height))))
+
+    (set zx 0)
+    (set zy 0)
+    (set iter 0)
+
+    (while (and (< (+ (* zx zx) (* zy zy)) 4)
+                (< iter maxIter))
+
+      (set tx (- (* zx zx) (* zy zy)))
+      (set ty (+ (* 2 zx zy) cy))
+      (set zx (+ tx cx))
+      (set zy ty)
+
+      (set iter (+ iter 1))
+    )
+
+    (if (< iter maxIter)
+        (fillRect canvas1 x y 1 1 "#000")
+        (fillRect canvas1 x y 1 1 "#fff"))
+
+    (set x (+ x 1))
+  )
+  (set y (+ y 1))
+)
+
+(cout output "Mandelbrot end")
+
+)
 `;
         };
     </script>

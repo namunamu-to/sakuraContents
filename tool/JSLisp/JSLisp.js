@@ -25,13 +25,47 @@ function tokenize(src){
             pos++;
             continue;
         }
-        if(/[0-9]/.test(src[pos])){
+        if(src[pos] === ';'){
+            while(pos < src.length && src[pos] !== '\n'){
+                pos++;
+            }
+            continue;
+        }
+        // number literal: [+|-]?[0-9]+(\.[0-9]+)?
+        if (
+            /[0-9]/.test(src[pos]) ||
+            ((src[pos] === '+' || src[pos] === '-') &&
+            /[0-9]/.test(src[pos + 1]))
+        ) {
             let numStr = "";
-            while(pos < src.length && /[0-9]/.test(src[pos])){
+
+            // sign
+            if (src[pos] === '+' || src[pos] === '-') {
                 numStr += src[pos];
                 pos++;
             }
-            tokens.push({type: "NUMBER", value: numStr, pos});
+
+            // integer part (必須)
+            while (pos < src.length && /[0-9]/.test(src[pos])) {
+                numStr += src[pos];
+                pos++;
+            }
+
+            // fractional part (任意)
+            if (src[pos] === '.' && /[0-9]/.test(src[pos + 1])) {
+                numStr += '.';
+                pos++;
+                while (pos < src.length && /[0-9]/.test(src[pos])) {
+                    numStr += src[pos];
+                    pos++;
+                }
+            }
+
+            tokens.push({
+                type: "NUMBER",
+                value: numStr,
+                pos
+            });
             continue;
         }
         if(src[pos] === '<'){
@@ -109,7 +143,7 @@ function parseExpression(tokens, index) {
         return [['quote', expr], newIndex];
     }
     if (tokens[index].type === "NUMBER") {
-        return [parseInt(tokens[index].value), index + 1];
+        return [Number(tokens[index].value), index + 1];
     }
     if (tokens[index].type === "STRING") {
         return [{ type: 'string', value: tokens[index].value }, index + 1];
@@ -187,17 +221,17 @@ function evaluate(ast, env) {
             env[name] = { type: 'function', params, body };
             return env[name];
         } else if (op === '+') {
-            const [a, b] = args;
-            return evaluate(a, env) + evaluate(b, env);
+            return args.reduce((acc, v) => acc + evaluate(v, env), 0);
         } else if (op === '-') {
-            const [a, b] = args;
-            return evaluate(a, env) - evaluate(b, env);
+            if (args.length === 1) return -evaluate(args[0], env);
+            const [head, ...tail] = args;
+            return tail.reduce((acc, v) => acc - evaluate(v, env), evaluate(head, env));
         } else if (op === '*') {
-            const [a, b] = args;
-            return evaluate(a, env) * evaluate(b, env);
+            return args.reduce((acc, v) => acc * evaluate(v, env), 1);
         } else if (op === '/') {
-            const [a, b] = args;
-            return evaluate(a, env) / evaluate(b, env);
+            if (args.length === 1) return 1 / evaluate(args[0], env);
+            const [head, ...tail] = args;
+            return tail.reduce((acc, v) => acc / evaluate(v, env), evaluate(head, env));
         } else if (op === 'car') {
             const [lst] = args;
             const list = evaluate(lst, env);
@@ -260,6 +294,12 @@ function evaluate(ast, env) {
         } else if (op === '!') {
             const [a] = args;
             return ! evaluate(a, env);
+        } else if (op === 'and') {
+            const [a, b] = args;
+            return evaluate(a, env) && evaluate(b, env);
+        } else if (op === 'or') {
+            const [a, b] = args;
+            return evaluate(a, env) || evaluate(b, env);
         } else if (op === 'if') {
             const [condition, thenExpr, elseExpr] = args;
             if (evaluate(condition, env)) {
@@ -295,6 +335,20 @@ function evaluate(ast, env) {
             const value = evaluate(expr, env);
             document.getElementById(outputId).value += lispString(value) + '\n';
             return value;
+        } else if (op === 'fillRect') {
+            const [outputId, xExpr, yExpr, wExpr, hExpr, colorExpr] = args;
+
+            const x = evaluate(xExpr, env);
+            const y = evaluate(yExpr, env);
+            const w = evaluate(wExpr, env);
+            const h = evaluate(hExpr, env);
+            const color = colorExpr ? evaluate(colorExpr, env) : null;
+
+            const ctx = getCtx(outputId);
+            if (color) ctx.fillStyle = color;
+            ctx.fillRect(x, y, w, h);
+
+            return 0;
         } else {
             // function call
             const func = env[op];
@@ -333,6 +387,15 @@ function lispString(obj) {
     } else {
         return obj.toString();
     }
+}
+const canvases = {}
+
+function getCtx(outputID) {
+  if (!canvases[outputID]) {
+    const canvas = document.getElementById(outputID)
+    canvases[outputID] = canvas.getContext("2d")
+  }
+  return canvases[outputID]
 }
 
 function runLisp(src){
