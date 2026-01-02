@@ -187,7 +187,15 @@ function parseLisp(src){
     return asts;
 }
 
-function evaluate(ast, env) {
+let yieldCounter = 0;
+
+function* maybeYield() {
+    if (++yieldCounter % 5000 === 0) {
+        yield 'PAUSE';
+    }
+}
+
+function* evaluate(ast, env) {
     if (typeof ast === 'number') {
         return ast;
     }
@@ -206,7 +214,7 @@ function evaluate(ast, env) {
             // list of expressions
             let result;
             for (let expr of ast) {
-                result = evaluate(expr, env);
+                result = yield* evaluate(expr, env);
                 if (result && result.type === 'return') {
                     return result.value;
                 }
@@ -214,101 +222,114 @@ function evaluate(ast, env) {
             return result;
         } else if (op === 'def') {
             const [varName, val] = args;
-            env[varName] = evaluate(val, env);
+            env[varName] = yield* evaluate(val, env);
             return env[varName];
         } else if (op === 'func') {
             const [name, params, ...body] = args;
             env[name] = { type: 'function', params, body };
             return env[name];
         } else if (op === '+') {
-            return args.reduce((acc, v) => acc + evaluate(v, env), 0);
+            let sum = 0;
+            for (const arg of args) sum += (yield* evaluate(arg, env));
+            return sum;
         } else if (op === '-') {
-            if (args.length === 1) return -evaluate(args[0], env);
-            const [head, ...tail] = args;
-            return tail.reduce((acc, v) => acc - evaluate(v, env), evaluate(head, env));
+            if (args.length === 1) return -(yield* evaluate(args[0], env));
+            let result = yield* evaluate(args[0], env);
+            for (let i = 1; i < args.length; i++) result -= (yield* evaluate(args[i], env));
+            return result;
         } else if (op === '*') {
-            return args.reduce((acc, v) => acc * evaluate(v, env), 1);
+            let result = 1;
+            for (const arg of args) result *= (yield* evaluate(arg, env));
+            return result;
         } else if (op === '/') {
-            if (args.length === 1) return 1 / evaluate(args[0], env);
-            const [head, ...tail] = args;
-            return tail.reduce((acc, v) => acc / evaluate(v, env), evaluate(head, env));
+            if (args.length === 1) return 1 / (yield* evaluate(args[0], env));
+            let result = yield* evaluate(args[0], env);
+            for (let i = 1; i < args.length; i++) result /= (yield* evaluate(args[i], env));
+            return result;
         } else if (op === '%' || op === 'mod') {
             const [a, b] = args;
-            return evaluate(a, env) % evaluate(b, env);
+            return (yield* evaluate(a, env)) % (yield* evaluate(b, env));
         } else if (op === 'car') {
             const [lst] = args;
-            const list = evaluate(lst, env);
+            const list = yield* evaluate(lst, env);
             if (Array.isArray(list)) {
                 return list[0];
             }
             throw new Error('car expects a list');
         } else if (op === 'cdr') {
             const [lst] = args;
-            const list = evaluate(lst, env);
+            const list = yield* evaluate(lst, env);
             if (Array.isArray(list)) {
                 return list.slice(1);
             }
             throw new Error('cdr expects a list');
         } else if (op === 'cons') {
             const [elem, lst] = args;
-            const element = evaluate(elem, env);
-            const list = evaluate(lst, env);
+            const element = yield* evaluate(elem, env);
+            const list = yield* evaluate(lst, env);
             if (Array.isArray(list)) {
                 return [element, ...list];
             }
             throw new Error('cons expects a list as second argument');
         } else if (op === 'list') {
-            return args.map(arg => evaluate(arg, env));
+            const result = [];
+            for (const arg of args) result.push((yield* evaluate(arg, env)));
+            return result;
         } else if (op === 'length') {
             const [lst] = args;
-            const list = evaluate(lst, env);
+            const list = yield* evaluate(lst, env);
             if (Array.isArray(list)) {
                 return list.length;
             }
             throw new Error('length expects a list');
         } else if (op === 'reverse') {
             const [lst] = args;
-            const list = evaluate(lst, env);
+            const list = yield* evaluate(lst, env);
             if (Array.isArray(list)) {
                 return list.slice().reverse();
             }
             throw new Error('reverse expects a list');
         } else if (op === 'append') {
-            const lists = args.map(arg => evaluate(arg, env));
+            const lists = [];
+            for (const arg of args) lists.push((yield* evaluate(arg, env)));
             return lists.flat();
         } else if (op === '<') {
             const [a, b] = args;
-            return evaluate(a, env) < evaluate(b, env);
+            return (yield* evaluate(a, env)) < (yield* evaluate(b, env));
         } else if (op === '>') {
             const [a, b] = args;
-            return evaluate(a, env) > evaluate(b, env);
+            return (yield* evaluate(a, env)) > (yield* evaluate(b, env));
         } else if (op === '<=') {
             const [a, b] = args;
-            return evaluate(a, env) <= evaluate(b, env);
+            return (yield* evaluate(a, env)) <= (yield* evaluate(b, env));
         } else if (op === '>=') {
             const [a, b] = args;
-            return evaluate(a, env) >= evaluate(b, env);
+            return (yield* evaluate(a, env)) >= (yield* evaluate(b, env));
         } else if (op === '==') {
             const [a, b] = args;
-            return evaluate(a, env) == evaluate(b, env);
+            return (yield* evaluate(a, env)) == (yield* evaluate(b, env));
         } else if (op === '!=') {
             const [a, b] = args;
-            return evaluate(a, env) != evaluate(b, env);
+            return (yield* evaluate(a, env)) != (yield* evaluate(b, env));
         } else if (op === '!') {
             const [a] = args;
-            return ! evaluate(a, env);
+            return !(yield* evaluate(a, env));
         } else if (op === 'and') {
             const [a, b] = args;
-            return evaluate(a, env) && evaluate(b, env);
+            const valA = yield* evaluate(a, env);
+            if (!valA) return valA;
+            return yield* evaluate(b, env);
         } else if (op === 'or') {
             const [a, b] = args;
-            return evaluate(a, env) || evaluate(b, env);
+            const valA = yield* evaluate(a, env);
+            if (valA) return valA;
+            return yield* evaluate(b, env);
         } else if (op === 'if') {
             const [condition, thenExpr, elseExpr] = args;
-            if (evaluate(condition, env)) {
-                return evaluate(thenExpr, env);
+            if (yield* evaluate(condition, env)) {
+                return yield* evaluate(thenExpr, env);
             } else if (elseExpr) {
-                return evaluate(elseExpr, env);
+                return yield* evaluate(elseExpr, env);
             } else {
                 return undefined;
             }
@@ -317,19 +338,20 @@ function evaluate(ast, env) {
             if (env[varName] === undefined) {
                 throw new Error(`Undefined variable: ${varName}`);
             }
-            env[varName] = evaluate(val, env);
+            env[varName] = yield* evaluate(val, env);
             return env[varName];
         } else if (op === 'while') {
             const [condition, ...body] = args;
-            while (evaluate(condition, env)) {
+            while (yield* evaluate(condition, env)) {
                 for (let expr of body) {
-                    evaluate(expr, env);
+                    yield* evaluate(expr, env);
                 }
+                yield* maybeYield();
             }
             return undefined;
         } else if (op === 'switch') {
             const [valExpr, ...clauses] = args;
-            const val = evaluate(valExpr, env);
+            const val = yield* evaluate(valExpr, env);
             for (const clause of clauses) {
                 if (Array.isArray(clause) && clause.length > 0) {
                     const [type, ...rest] = clause;
@@ -348,14 +370,14 @@ function evaluate(ast, env) {
                         if (isMatch) {
                             let result;
                             for (let expr of body) {
-                                result = evaluate(expr, env);
+                                result = yield* evaluate(expr, env);
                             }
                             return result;
                         }
                     } else if (type === 'default') {
                         let result;
                         for (let expr of rest) {
-                            result = evaluate(expr, env);
+                            result = yield* evaluate(expr, env);
                         }
                         return result;
                     }
@@ -364,23 +386,23 @@ function evaluate(ast, env) {
             return undefined;
         } else if (op === 'return') {
             const [val] = args;
-            return { type: 'return', value: evaluate(val, env) };
+            return { type: 'return', value: yield* evaluate(val, env) };
         } else if (op === 'quote') {
             const [val] = args;
             return val;
         } else if (op === 'cout') {
             const [outputId, expr] = args;
-            const value = evaluate(expr, env);
+            const value = yield* evaluate(expr, env);
             document.getElementById(outputId).value += lispString(value) + '\n';
             return value;
         } else if (op === 'fillRect') {
             const [outputId, xExpr, yExpr, wExpr, hExpr, colorExpr] = args;
 
-            const x = evaluate(xExpr, env);
-            const y = evaluate(yExpr, env);
-            const w = evaluate(wExpr, env);
-            const h = evaluate(hExpr, env);
-            const color = colorExpr ? evaluate(colorExpr, env) : null;
+            const x = yield* evaluate(xExpr, env);
+            const y = yield* evaluate(yExpr, env);
+            const w = yield* evaluate(wExpr, env);
+            const h = yield* evaluate(hExpr, env);
+            const color = colorExpr ? yield* evaluate(colorExpr, env) : null;
 
             const ctx = getCtx(outputId);
             if (color) ctx.fillStyle = color;
@@ -393,22 +415,22 @@ function evaluate(ast, env) {
             if (func && func.type === 'function') {
                 const { params, body } = func;
                 const localEnv = { ...env };
-                params.forEach((param, i) => {
-                    localEnv[param] = evaluate(args[i], localEnv);
-                });
+                for (let i = 0; i < params.length; i++) {
+                    localEnv[params[i]] = yield* evaluate(args[i], env);
+                }
                 // evaluate body
                 let result;
                 if (Array.isArray(body) && body.length > 0 && Array.isArray(body[0])) {
                     // multiple expressions
                     for (let expr of body) {
-                        result = evaluate(expr, localEnv);
+                        result = yield* evaluate(expr, localEnv);
                         if (result && result.type === 'return') {
                             return result.value;
                         }
                     }
                 } else {
                     // single expression
-                    result = evaluate(body, localEnv);
+                    result = yield* evaluate(body, localEnv);
                 }
                 return result;
             } else {
@@ -436,9 +458,31 @@ function getCtx(outputID) {
   return canvases[outputID]
 }
 
+function* evaluateProgram(ast, env) {
+    for (const expr of ast) {
+        yield* evaluate(expr, env);
+    }
+}
+
 function runLisp(src){
     const ast = parseLisp(src);
     const env = {};
     env['nil'] = [];
-    ast.forEach(expr => evaluate(expr, env));
+    yieldCounter = 0;
+    
+    const iterator = evaluateProgram(ast, env);
+    
+    function step() {
+        const start = Date.now();
+        while (true) {
+            const { value, done } = iterator.next();
+            if (done) break;
+            if (value === 'PAUSE' || Date.now() - start > 100) {
+                requestAnimationFrame(step);
+                return;
+            }
+        }
+    }
+    
+    step();
 }
