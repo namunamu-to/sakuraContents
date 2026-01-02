@@ -122,7 +122,7 @@ function tokenize(src){
             tokens.push({type: "STRING", value: str, pos});
             continue;
         }
-        if(/[a-zA-Z_\/+*-]/.test(src[pos])){
+        if(/[a-zA-Z_\/+*%-]/.test(src[pos])){
             let idStr = "";
             while(pos < src.length && /[^()\s]/.test(src[pos])){
                 idStr += src[pos];
@@ -232,6 +232,9 @@ function evaluate(ast, env) {
             if (args.length === 1) return 1 / evaluate(args[0], env);
             const [head, ...tail] = args;
             return tail.reduce((acc, v) => acc / evaluate(v, env), evaluate(head, env));
+        } else if (op === '%' || op === 'mod') {
+            const [a, b] = args;
+            return evaluate(a, env) % evaluate(b, env);
         } else if (op === 'car') {
             const [lst] = args;
             const list = evaluate(lst, env);
@@ -321,6 +324,41 @@ function evaluate(ast, env) {
             while (evaluate(condition, env)) {
                 for (let expr of body) {
                     evaluate(expr, env);
+                }
+            }
+            return undefined;
+        } else if (op === 'switch') {
+            const [valExpr, ...clauses] = args;
+            const val = evaluate(valExpr, env);
+            for (const clause of clauses) {
+                if (Array.isArray(clause) && clause.length > 0) {
+                    const [type, ...rest] = clause;
+                    if (type === 'case') {
+                        const [key, ...body] = rest;
+                        let isMatch = false;
+                        // キーが識別子(文字列)や数値の場合は直接比較
+                        if (key === val) {
+                            isMatch = true;
+                        } 
+                        // キーが文字列リテラルオブジェクトの場合は値を取り出して比較
+                        else if (key && typeof key === 'object' && key.type === 'string' && key.value === val) {
+                            isMatch = true;
+                        }
+
+                        if (isMatch) {
+                            let result;
+                            for (let expr of body) {
+                                result = evaluate(expr, env);
+                            }
+                            return result;
+                        }
+                    } else if (type === 'default') {
+                        let result;
+                        for (let expr of rest) {
+                            result = evaluate(expr, env);
+                        }
+                        return result;
+                    }
                 }
             }
             return undefined;

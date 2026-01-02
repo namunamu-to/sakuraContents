@@ -102,8 +102,8 @@
 (cout output "マンデルブロ集合の描画")
 (cout output "Mandelbrot start")
 
-(def width 300)
-(def height 300)
+(def width 512)
+(def height 512)
 (def maxIter 50)
 
 (def x 0)
@@ -140,8 +140,17 @@
     )
 
     (if (< iter maxIter)
-        (fillRect canvas1 x y 1 1 "#000")
-        (fillRect canvas1 x y 1 1 "#fff"))
+        (switch (% iter 8)
+          (case 0 (fillRect canvas1 x y 1 1 "#F00"))
+          (case 1 (fillRect canvas1 x y 1 1 "#FF0"))
+          (case 2 (fillRect canvas1 x y 1 1 "#0F0"))
+          (case 3 (fillRect canvas1 x y 1 1 "#0FF"))
+          (case 4 (fillRect canvas1 x y 1 1 "#00F"))
+          (case 5 (fillRect canvas1 x y 1 1 "#F0F"))
+          (case 6 (fillRect canvas1 x y 1 1 "#F80"))
+          (default (fillRect canvas1 x y 1 1 "#FFF"))
+        )
+        (fillRect canvas1 x y 1 1 "#000"))
 
     (set x (+ x 1))
   )
@@ -150,7 +159,16 @@
 
 (cout output "Mandelbrot end")
 
+(cout output "switch文のテスト")
+(set a 'A)
+(switch a
+  (case A (cout output 1))
+  (case B (cout output 2))
+  (default (cout output 1))
 )
+
+
+
 `;
         };
     </script>
